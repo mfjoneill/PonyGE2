@@ -17,9 +17,11 @@ params = {
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "regression",
+        'PROBLEM': "moving_point",
         # "regression"
         # "string_match"
+        # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+
 
         # Select Regression Problem Suite
         'SUITE': "Vladislavleva4",
@@ -29,6 +31,22 @@ params = {
 
         # Specify String for StringMatch Problem
         'STRING_MATCH_TARGET': "ponyge_rocks",
+
+
+        # Flag to run dynamic environment loop which changes the target fitness function
+        'DYNAMIC_ENVIRONMENT': True,
+        # N.B.
+        # as well as writing the dynamic fitness function,
+        # the user must also specify the move_target function in fitness.move_target.py
+        # which is applied to 'DYNAMIC_ENVIRONMENT_TARGET'
+        # at a frequency of 'DYNAMIC_ENVIRONMENT_PERIOD'
+        # Specify initial target for moving_point Problem
+        # 'DYNAMIC_ENVIRONMENT_TARGET': (34.1234,52.6789,1.9876),
+        # 'DYNAMIC_ENVIRONMENT_TARGET': (100.0,100.0,100.0),
+        'DYNAMIC_ENVIRONMENT_TARGET': (0.0, 0.0, 0.0),
+        # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
+        'DYNAMIC_ENVIRONMENT_PERIOD': 50,
+
 
         # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
