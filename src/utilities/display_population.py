@@ -74,7 +74,7 @@ def display_3D_population(individuals,generation):
     plt.savefig(
         params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_' + str(hms) + '_' + str(generation) + '.pdf')
     plt.savefig(
-        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.jpg')
+        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
     plt.close()
 
 

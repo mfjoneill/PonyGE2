@@ -45,10 +45,13 @@ params = {
         # 'DYNAMIC_ENVIRONMENT_TARGET': (100.0,100.0,100.0),
         'DYNAMIC_ENVIRONMENT_TARGET': (0.0, 0.0, 0.0),
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
-        'DYNAMIC_ENVIRONMENT_PERIOD': 50,
+        'DYNAMIC_ENVIRONMENT_PERIOD': 1,
+        # set the move_target xyz delta's for the moving_points problem
+        'X_DELTA': 0.1000,
+        'Y_DELTA': 0.1000,
+        'Z_DELTA': 0.1000,
 
-
-        # Set max sizes of individuals
+    # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
         'CODON_SIZE': 100000,
         'GENOME_LENGTH': 500,
