@@ -11,7 +11,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 50,
+        'GENERATIONS': 2,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,

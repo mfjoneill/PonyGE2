@@ -40,6 +40,6 @@ if __name__ == "__main__":
     mane()
 
     # dump an ave_fitness plot for the run
-    from utilities import trackers, save_plot
+    from utilities import trackers, save_plots
     data = [i['ave_fitness'] for i in trackers.stats_list]
-    save_plot.save_plot_from_data(data, 'ave_fitness')
+    save_plots.save_plot_from_data(data, 'ave_fitness')
