@@ -50,6 +50,13 @@ params = {
         'X_DELTA': 1.1000,
         'Y_DELTA': 0.1000,
         'Z_DELTA': 0.1000,
+        # define the x,y,z axes range for display_population for moving_points problem
+        'MP_X_LIM_MAX': 10,
+        'MP_Y_LIM_MAX': 10,
+        'MP_Z_LIM_MAX': 10,
+        'MP_X_LIM_MIN': 0,
+        'MP_Y_LIM_MIN': 0,
+        'MP_Z_LIM_MIN': 0,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,

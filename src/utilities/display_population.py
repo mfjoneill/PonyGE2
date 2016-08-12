@@ -57,9 +57,9 @@ def display_3D_population(individuals,generation):
     ax1 = fig.add_subplot(111, projection='3d')
     ax1.set_autoscale_on(False)
     ax1.scatter(xs,ys,zs,c=c)
-    ax1.set_xlim(0,10)
-    ax1.set_ylim(0,10)
-    ax1.set_zlim(0,10)
+    ax1.set_xlim(params['MP_X_LIM_MIN'],params['MP_X_LIM_MAX'])
+    ax1.set_ylim(params['MP_Y_LIM_MIN'],params['MP_Y_LIM_MAX'])
+    ax1.set_zlim(params['MP_Z_LIM_MIN'],params['MP_Z_LIM_MAX'])
     ax1.set_ylabel('y', fontsize=14)
     ax1.set_xlabel('x', fontsize=14)
     ax1.set_zlabel('z', fontsize=14)
@@ -74,7 +74,7 @@ def display_3D_population(individuals,generation):
     plt.savefig(
         params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_' + str(hms) + '_' + str(generation) + '.pdf')
     plt.savefig(
-        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.jpg')
+        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
     plt.close()
 
 
