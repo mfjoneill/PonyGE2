@@ -47,7 +47,7 @@ params = {
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
         'DYNAMIC_ENVIRONMENT_PERIOD': 1,
         # set the move_target xyz delta's for the moving_points problem
-        'X_DELTA': 0.1000,
+        'X_DELTA': 1.1000,
         'Y_DELTA': 0.1000,
         'Z_DELTA': 0.1000,
 
