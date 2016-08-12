@@ -12,19 +12,15 @@ class MovingPoint:
         self.target = target
 
     def __call__(self, guess, target):
+        # (re)set target in case it has changed
         self.target = target
-        #print ("hey I'm in the MovingPoints() fitness function!")
-        #print ("the phenotype is: ", guess)
-        #print (type(guess))
+        # the phenotype x y z coordinates are contained in guess
+        # we need to parse out the strings and cast each to a float
         position_xyz = guess.split()
-        #print(position_xyz)
         position_xyz[0] = float(position_xyz[0])
         position_xyz[1] = float(position_xyz[1])
         position_xyz[2] = float(position_xyz[2])
-        #print ("position_xyz is: ", position_xyz)
-        #calculate the distance to the self.target to this guess at position_xyz
-        #print(self.target)
+        # calculate the distance to the self.target to this guess at position_xyz
+        # simple euclidean distance between n-dimensional points is employed
         fitness = distance.euclidean(position_xyz,self.target)
-        #print(fitness)
-        #print ("...phew I'm leaving the MovingPoints() fitness function :-)")
         return fitness
