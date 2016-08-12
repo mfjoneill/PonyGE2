@@ -21,9 +21,10 @@ params = {
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "moving_point_vision"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
 
 
-        # Select Regression Problem Suite
+    # Select Regression Problem Suite
         'SUITE': "Vladislavleva4",
         # "Dow"
         # "Keijzer6"
@@ -47,9 +48,9 @@ params = {
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
         'DYNAMIC_ENVIRONMENT_PERIOD': 1,
         # set the move_target xyz delta's for the moving_points problem
-        'X_DELTA': 50,
-        'Y_DELTA': 50,
-        'Z_DELTA': 50,
+        'X_DELTA': 50.0,
+        'Y_DELTA': 50.0,
+        'Z_DELTA': 50.0,
         # define the x,y,z axes range for display_population for moving_points problem
         'MP_X_LIM_MAX': 10000,
         'MP_Y_LIM_MAX': 10000,
@@ -57,6 +58,8 @@ params = {
         'MP_X_LIM_MIN': 0,
         'MP_Y_LIM_MIN': 0,
         'MP_Z_LIM_MIN': 0,
+        # "field of vision" for individuals in the population for moving_point_vision problem
+        'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -64,7 +67,8 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.grid_init",
+        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.grid_init",
         # "operators.initialisation.random_init"
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
