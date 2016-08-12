@@ -82,7 +82,6 @@ def search_dynamic_loop():
     # if 'PROBLEM' == "moving_point"
     # display the population & the target
     if params['PROBLEM'] == "moving_point":
-        #print ("yipee! it's the moving_point problem, let's display the popln...")
         display_population.display_3D_population(individuals,0)
 
     # Traditional GE
@@ -110,7 +109,6 @@ def search_dynamic_loop():
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
         if params['PROBLEM'] == "moving_point":
-            #print ("yipee! it's the moving_point problem, let's display the popln...")
             display_population.display_3D_population(individuals,generation)
 
     return individuals
