@@ -10,14 +10,14 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 500,
+        'POPULATION_SIZE': 125,
         'GENERATIONS': 99,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point",
+        'PROBLEM': "moving_point_vision",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -47,13 +47,13 @@ params = {
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
         'DYNAMIC_ENVIRONMENT_PERIOD': 1,
         # set the move_target xyz delta's for the moving_points problem
-        'X_DELTA': 1.1000,
-        'Y_DELTA': 0.1000,
-        'Z_DELTA': 0.1000,
+        'X_DELTA': 50,
+        'Y_DELTA': 50,
+        'Z_DELTA': 50,
         # define the x,y,z axes range for display_population for moving_points problem
-        'MP_X_LIM_MAX': 10,
-        'MP_Y_LIM_MAX': 10,
-        'MP_Z_LIM_MAX': 10,
+        'MP_X_LIM_MAX': 10000,
+        'MP_Y_LIM_MAX': 10000,
+        'MP_Z_LIM_MAX': 10000,
         'MP_X_LIM_MIN': 0,
         'MP_Y_LIM_MIN': 0,
         'MP_Z_LIM_MIN': 0,
@@ -64,7 +64,7 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
+        'INITIALISATION': "operators.initialisation.grid_init",
         # "operators.initialisation.random_init"
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,

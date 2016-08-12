@@ -70,7 +70,7 @@ def display_3D_population(individuals,generation):
 
     time1 =  datetime.now()
     hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
-    
+
     plt.savefig(
         params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_' + str(hms) + '_' + str(generation) + '.pdf')
     plt.savefig(

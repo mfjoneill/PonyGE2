@@ -2,7 +2,7 @@ from algorithm import step, evaluate_fitness
 from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
-from fitness.move_target import move_target
+from fitness.move_target import move_target, move_target_vision
 from utilities import display_population
 
 
@@ -81,7 +81,7 @@ def search_dynamic_loop():
 
     # if 'PROBLEM' == "moving_point"
     # display the population & the target
-    if params['PROBLEM'] == "moving_point":
+    if params['PROBLEM'] in ("moving_point", "moving_point_vision"):
         display_population.display_3D_population(individuals,0)
 
     # Traditional GE
@@ -91,7 +91,11 @@ def search_dynamic_loop():
         # Do we change the fitness environment?
         if generation%params['DYNAMIC_ENVIRONMENT_PERIOD'] == 0:
             print("----+CHANGE FITNESS TARGET+----")
-            move_target()
+            if params['PROBLEM'] == "moving_point":
+                move_target()
+            elif params['PROBLEM'] == "moving_point_vision":
+                move_target_vision()
+
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
             # Reset the population level statistics
@@ -108,7 +112,7 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] == "moving_point":
+        if params['PROBLEM'] in ("moving_point","moving_point_vision"):
             display_population.display_3D_population(individuals,generation)
 
     return individuals
