@@ -94,7 +94,7 @@ def search_dynamic_loop():
             if params['PROBLEM'] == "moving_point":
                 move_target()
             elif params['PROBLEM'] == "moving_point_vision":
-                move_target_vision()
+                move_target()
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
