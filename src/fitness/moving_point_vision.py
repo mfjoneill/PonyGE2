@@ -28,8 +28,11 @@ class MovingPointVision:
 
         # is the target within params['MPV_FIELD_OF_VISION'] of the max_euclidean distance?
         # if not, the individual cannot "see" the target and is provided with the worst possible fitness
-        if fitness > max_euclidean*params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
-            fitness = max_euclidean    # worst possible fitness
-        #print(fitness)
-        #print ("...phew I'm leaving the MovingPoints() fitness function :-)")
-        return fitness
+        if(params['MPV_VISION_ENABLED']):
+            if fitness > max_euclidean*params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
+                fitness = max_euclidean    # worst possible fitness
+                return fitness
+            else:
+                return fitness
+        else:
+            return fitness

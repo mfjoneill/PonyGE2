@@ -60,6 +60,7 @@ params = {
         'MP_Z_LIM_MIN': 0,
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
+        'MPV_VISION_ENABLED': True,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -67,8 +68,8 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
-        #'INITIALISATION': "operators.initialisation.grid_init",
+        #'INITIALISATION': "operators.initialisation.rhh",
+        'INITIALISATION': "operators.initialisation.grid_init",
         # "operators.initialisation.random_init"
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,

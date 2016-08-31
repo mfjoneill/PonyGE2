@@ -18,7 +18,7 @@ def move_target_vision_avoid():
        params['DYNAMIC_ENVIRONMENT_TARGET'] = (params['DYNAMIC_ENVIRONMENT_TARGET'][0]+params['X_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][1]+params['Y_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][2]+params['Z_DELTA'])
 
 
-def detect_surrounding(current_vector):
+#def detect_surrounding(current_vector):
     #for all the inds find the closet
     #if(range > safe)
         #do nothing
@@ -26,3 +26,4 @@ def detect_surrounding(current_vector):
     #else
         #get vector
         #return new_vector
+
