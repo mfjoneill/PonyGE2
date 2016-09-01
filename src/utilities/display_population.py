@@ -1,4 +1,5 @@
 from algorithm.parameters import params
+from scipy.spatial import distance
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -31,8 +32,25 @@ def display_3D_population(individuals,generation):
 
     # retrieve and append the populations x,y,z coordinates to xs, ys, zs
     #
+    max_euclidean = distance.euclidean((params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
+                                       (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
+
+    # colour code the target as red, and the population members as blue
+    #icolor = ['b']
+    #icolor = icolor * params['POPULATION_SIZE']
+    # print(icolor)
+
+    # print(c)
+    icolor = []
     for i in range(params['POPULATION_SIZE']):
         #print(individuals[i].phenotype)
+        if params['MPV_VISION_ENABLED']:
+            if individuals[i].fitness > max_euclidean * params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
+                icolor.append('b')
+            else:
+                icolor.append('g')
+        else:
+            icolor.append('b')
         next_xyz = individuals[i].phenotype.split()
         #print("next_xyz:",next_xyz)
         nextx, nexty, nextz = [], [], []
@@ -41,18 +59,14 @@ def display_3D_population(individuals,generation):
         nextz.append(float(next_xyz[2]))
         xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
 
+    c = ['r'] + icolor
+
     #nx, ny, nz = [23.0, 22.0], [15.0, 14.0], [2.0, 1.0]
     #xs, ys, zs = xs+nx, ys+ny, zs+nz
     #print("xs:",xs,"ys:",ys,"zs:",zs)
     #print("type of xs[0] is:",type(xs[0]), "type of xs is:",type(xs))
 
-    # colour code the target as red, and the population members as blue
-    icolor = ['b']
-    icolor = icolor * params['POPULATION_SIZE']
-    #print(icolor)
-    c = ['r'] + icolor
-    #print(c)
-    
+
     fig = plt.figure()
     ax1 = fig.add_subplot(111, projection='3d')
     ax1.set_autoscale_on(False)
