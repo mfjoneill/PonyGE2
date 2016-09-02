@@ -2,7 +2,7 @@ from algorithm import step, evaluate_fitness
 from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
-from fitness.move_target import move_target, move_target_vision
+from fitness.move_target import move_target, move_target_vision, move_target_vision_avoid
 from utilities import display_population
 
 
@@ -94,7 +94,7 @@ def search_dynamic_loop():
             if params['PROBLEM'] == "moving_point":
                 move_target()
             elif params['PROBLEM'] == "moving_point_vision":
-                move_target()
+                move_target_vision_avoid(individuals)
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
