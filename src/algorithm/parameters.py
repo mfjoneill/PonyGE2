@@ -67,6 +67,7 @@ params = {
                         [[10000], [10000], [0]],
                         [[10000], [10000], [10000]]],
 
+
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
         'MPV_VISION_ENABLED': True,
