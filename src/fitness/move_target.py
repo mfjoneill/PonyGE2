@@ -20,14 +20,9 @@ def move_target_vision():
 
 
 
-#Helper method for move_target_vision_avoid
-def new_target_point(current, dest, dist):
-    vect = [dest[0] - current[0], dest[1] - current[1], dest[1] - current[1]]
-    step = sqrt((vect[0] * vect[0]) + (vect[1] * vect[1]) + (vect[2] * vect[2])) / dist
-    temp_vect = [(1 / step) * vect[0], (1 / step) * vect[1], (1 / step) * vect[2]]
-    return [int(dest[0] + temp_vect[0]), int(dest[0] + temp_vect[0]), int(dest[0] + temp_vect[0])]
 
-def new_target_point_alt(current, dest, dist):
+
+def new_target_point(current, dest, dist):
     vect = [dest[0] - current[0], dest[1] - current[1], dest[2] - current[2]]
     step = sqrt((vect[0] * vect[0]) + (vect[1] * vect[1]) + (vect[2] * vect[2])) / dist
     temp_vect = [(1 / step) * vect[0], (1 / step) * vect[1], (1 / step) * vect[2]]
@@ -65,7 +60,7 @@ def move_target_vision_avoid(individuals):
                 catch = False
         print("Changing index to ", temp_index)
         params['MP_DESTINATION_INDEX'][0] = temp_index
-        temp_target = new_target_point_alt(params['DYNAMIC_ENVIRONMENT_TARGET'],
+        temp_target = new_target_point(params['DYNAMIC_ENVIRONMENT_TARGET'],
                                        params['MP_DESTINATION_POINTS'][
                                            params['MP_DESTINATION_INDEX'][0]],
                                        params['FLEE_DELTA'])
@@ -82,13 +77,13 @@ def move_target_vision_avoid(individuals):
                     catch = False
             print("Changing index to ", temp_index)
             params['MP_DESTINATION_INDEX'][0] = temp_index
-            temp_target = new_target_point_alt(params['DYNAMIC_ENVIRONMENT_TARGET'],
+            temp_target = new_target_point(params['DYNAMIC_ENVIRONMENT_TARGET'],
                                                 params['MP_DESTINATION_POINTS'][params['MP_DESTINATION_INDEX'][0]],
                                                 params['FLEE_DELTA'])
     else:
         #keep going
         print("Safe")
-        temp_target = new_target_point_alt(params['DYNAMIC_ENVIRONMENT_TARGET'],
+        temp_target = new_target_point(params['DYNAMIC_ENVIRONMENT_TARGET'],
                                                                 params['MP_DESTINATION_POINTS'][params['MP_DESTINATION_INDEX'][0]],
                                                                 params['DELTA'])
         if temp_target[0] > params['MP_X_LIM_MAX'] or temp_target[0] < params['MP_X_LIM_MIN'] \
@@ -104,7 +99,7 @@ def move_target_vision_avoid(individuals):
                     catch = False
             print("Changing index to ", temp_index)
             params['MP_DESTINATION_INDEX'][0] = temp_index
-            temp_target = new_target_point_alt(params['DYNAMIC_ENVIRONMENT_TARGET'],
+            temp_target = new_target_point(params['DYNAMIC_ENVIRONMENT_TARGET'],
                                             params['MP_DESTINATION_POINTS'][params['MP_DESTINATION_INDEX'][0]],
                                             params['DELTA'])
     params['DYNAMIC_ENVIRONMENT_TARGET'] = temp_target
