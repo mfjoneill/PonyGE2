@@ -51,6 +51,8 @@ params = {
         'X_DELTA': 50.0,
         'Y_DELTA': 50.0,
         'Z_DELTA': 50.0,
+        'DELTA': 50.0,
+        'FLEE_DELTA': 200.0,
         # define the x,y,z axes range for display_population for moving_points problem
         'MP_X_LIM_MAX': 10000,
         'MP_Y_LIM_MAX': 10000,
@@ -58,15 +60,15 @@ params = {
         'MP_X_LIM_MIN': 0,
         'MP_Y_LIM_MIN': 0,
         'MP_Z_LIM_MIN': 0,
-        'MP_DESTINATION_POINTS': [[[0],[0],[0]],
-                        [[0],[0],[10000]],
-                        [[0],[10000],[0]],
-                        [[0],[10000],[10000]],
-                        [[10000],[0],[0]],
-                        [[10000],[0],[10000]]
-                        [[10000], [10000], [0]],
-                        [[10000], [10000], [10000]]],
-
+        'MP_DESTINATION_POINTS': [(0,0,0),
+                                  (0,0,10000),
+                                  (0,10000,0),
+                                  (0,10000,10000),
+                                  (10000,0,0),
+                                  (10000,0,10000),
+                                  (10000, 10000, 0),
+                                  (10000, 10000, 10000)],
+        'MP_DESTINATION_INDEX': [7],
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
