@@ -91,22 +91,56 @@ def display_3D_population(individuals,generation):
         params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
     plt.close()
 
-    if(params['PLOTLY']):
+
+def display_3D_plotly_population(individuals,generation):
+    if (params['PLOTLY']):
         # generate PLOTLY dashboard/charts
         print("generate plot.ly charts....")
         import plotly
         from plotly.graph_objs import Scatter3d, Layout
-        trace = Scatter3d(x=xs,y=ys,z=zs,
+
+        # store the x,y,z coordinates of the target[0]
+        #
+        xyz = params['DYNAMIC_ENVIRONMENT_TARGET']
+        txs, tys, tzs = [], [], []
+        # print("xyz:", xyz)
+        txs.append(xyz[0])
+        tys.append(xyz[1])
+        tzs.append(xyz[2])
+
+        trace1 = Scatter3d(x=txs, y=tys, z=tzs,
                           mode='markers',
                           marker=dict(
-                                    #color='rgb(127, 127, 127)',
-                                    color=['red','blue'],
-                                    size=[4,8],
-                                    symbol='circle',
+                              # color='rgb(127, 127, 127)',
+                              color='red',
+                              size=8,
+                              symbol='circle',
                           ),
                           opacity=0.9
-       )
-        data = [trace]
-        plotly.offline.plot(data)
+                          )
 
+        # store the x,y,z coordinates of the individuals
+        #
+        xs, ys, zs = [], [], []
+        for i in range(params['POPULATION_SIZE']):
+            next_xyz = individuals[i].phenotype.split()
+            # print("next_xyz:",next_xyz)
+            nextx, nexty, nextz = [], [], []
+            nextx.append(float(next_xyz[0]))
+            nexty.append(float(next_xyz[1]))
+            nextz.append(float(next_xyz[2]))
+            xs, ys, zs = xs + nextx, ys + nexty, zs + nextz
+
+        trace2 = Scatter3d(x=xs, y=ys, z=zs,
+                          mode='markers',
+                          marker=dict(
+                              # color='rgb(127, 127, 127)',
+                              color='blue',
+                              size=4,
+                              symbol='circle',
+                          ),
+                          opacity=0.9
+                          )
+        data = [trace1,trace2]
+        plotly.offline.plot(data)
 

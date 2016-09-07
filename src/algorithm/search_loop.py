@@ -3,7 +3,7 @@ from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
 from fitness.move_target import move_target, move_target_vision_avoid, move_target_realworldmapping
-from utilities.display_population import display_3D_population
+from utilities.display_population import display_3D_population, display_3D_plotly_population
 
 
 def search_loop_wheel():
@@ -83,6 +83,7 @@ def search_dynamic_loop():
     # display the population & the target
     if params['PROBLEM'] in ("moving_point", "moving_point_vision"):
         display_3D_population(individuals,0)
+        display_3D_plotly_population(individuals, 0)
         # plot.ly dashboard
 
     # Traditional GE
@@ -115,5 +116,6 @@ def search_dynamic_loop():
         # display the population & the target
         if params['PROBLEM'] in ("moving_point","moving_point_realworld","new_problem_here"):
             display_3D_population(individuals,generation)
+            display_3D_plotly_population(individuals,generation)
 
     return individuals
