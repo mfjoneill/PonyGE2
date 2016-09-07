@@ -4,6 +4,8 @@ from algorithm.parameters import params
 from utilities.trackers import cache
 from fitness.move_target import move_target, move_target_vision_avoid, move_target_vision_avoid_alt
 from utilities.display_population import display_3D_population, display_3D_population_dual_target
+from fitness.move_target import move_target_realworldmapping
+
 
 
 def search_loop_wheel():
@@ -100,8 +102,7 @@ def search_dynamic_loop():
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET' , 'MP_DESTINATION_INDEX')
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET_ALT' , 'MP_DESTINATION_INDEX_ALT')
             elif params['PROBLEM'] == "moving_point_realworld":
-                print("")
-                #move_target_realworldmapping()
+                move_target_realworldmapping()
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
@@ -119,7 +120,7 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] in ("moving_point","new_problem_here"):
+        if params['PROBLEM'] in ("moving_point","moving_point_realworld","new_problem_here"):
             display_3D_population(individuals,generation)
         elif params['PROBLEM'] in ("moving_point_dual","new_problem_here"):
             display_3D_population_dual_target(individuals, generation)

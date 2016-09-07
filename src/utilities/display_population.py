@@ -91,6 +91,24 @@ def display_3D_population(individuals,generation):
         params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
     plt.close()
 
+    if(params['PLOTLY']):
+        # generate PLOTLY dashboard/charts
+        print("generate plot.ly charts....")
+        import plotly
+        from plotly.graph_objs import Scatter3d, Layout
+        trace = Scatter3d(x=xs,y=ys,z=zs,
+                          mode='markers',
+                          marker=dict(
+                                    #color='rgb(127, 127, 127)',
+                                    color=['red','blue'],
+                                    size=[4,8],
+                                    symbol='circle',
+                          ),
+                          opacity=0.9
+       )
+        data = [trace]
+        plotly.offline.plot(data)
+
 def display_3D_population_dual_target(individuals,generation):
     """
     Displays each individual in the moving_point population

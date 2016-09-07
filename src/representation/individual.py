@@ -76,6 +76,7 @@ class Individual(object):
             # The problem is regression, e.g. has training and test data
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype, dist)
         elif params['PROBLEM'] in ("moving_point", "moving_point_vision","moving_point_dual"):
+        elif params['PROBLEM'] in ("moving_point", "moving_point_vision","moving_point_realworld"):
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype, params['DYNAMIC_ENVIRONMENT_TARGET'])
         else:
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype)

@@ -10,14 +10,14 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 500,
-        'GENERATIONS': 1000,
+        'POPULATION_SIZE': 125,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_dual",
+        'PROBLEM': "moving_point_realworld",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -76,6 +76,9 @@ params = {
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
         'MPV_VISION_ENABLED': False,
+
+        # generate plot.ly charts/dashboard for dynamic problems
+        'PLOTLY': True,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
