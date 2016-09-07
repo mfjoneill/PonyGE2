@@ -6,6 +6,12 @@ from random import randint
 def move_target():
     params['DYNAMIC_ENVIRONMENT_TARGET'] = (params['DYNAMIC_ENVIRONMENT_TARGET'][0]+params['X_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][1]+params['Y_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][2]+params['Z_DELTA'])
 
+def move_target_realworldmapping():
+    REAL_WORLD_ENVIRONMENT = "stocks"
+    if(REAL_WORLD_ENVIRONMENT == "stocks"):
+        params['DYNAMIC_ENVIRONMENT_TARGET'] = (params['DYNAMIC_ENVIRONMENT_TARGET'][0]+params['X_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][1]+params['Y_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][2]+params['Z_DELTA'])
+    else:
+        print("Error, in the fitness function move_target_realworldmapping() the REAL_WORLD_ENVIRONMENT is not implmented!")
 
 def new_target_point(current, dest, dist):
     vect = [dest[0] - current[0], dest[1] - current[1], dest[2] - current[2]]

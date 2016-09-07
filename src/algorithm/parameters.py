@@ -11,16 +11,17 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 125,
-        'GENERATIONS': 9999,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point",
+        'PROBLEM': "moving_point_realworld",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "moving_point_realworld" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
 
 
     # Select Regression Problem Suite

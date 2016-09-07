@@ -3,7 +3,7 @@ from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
 from fitness.move_target import move_target, move_target_vision, move_target_vision_avoid
-from utilities import display_population
+from utilities.display_population import display_3D_population
 
 
 def search_loop_wheel():
@@ -82,7 +82,8 @@ def search_dynamic_loop():
     # if 'PROBLEM' == "moving_point"
     # display the population & the target
     if params['PROBLEM'] in ("moving_point", "moving_point_vision"):
-        display_population.display_3D_population(individuals,0)
+        display_3D_population(individuals,0)
+        # plot.ly dashboard
 
     # Traditional GE
     for generation in range(1, (params['GENERATIONS']+1)):
@@ -93,6 +94,8 @@ def search_dynamic_loop():
             print("----+CHANGE FITNESS TARGET+----")
             if params['PROBLEM'] == "moving_point":
                 move_target_vision_avoid(individuals)
+            elif params['PROBLEM'] == "moving_point_realworld":
+                move_target_realworldmapping()
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
