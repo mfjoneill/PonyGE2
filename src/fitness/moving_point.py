@@ -1,4 +1,5 @@
 from scipy.spatial import distance
+from algorithm.parameters import params
 
 class MovingPoint:
     """Fitness function for the moving point problem.
@@ -12,15 +13,26 @@ class MovingPoint:
         self.target = target
 
     def __call__(self, guess, target):
-        # (re)set target in case it has changed
         self.target = target
-        # the phenotype x y z coordinates are contained in guess
-        # we need to parse out the strings and cast each to a float
         position_xyz = guess.split()
         position_xyz[0] = float(position_xyz[0])
         position_xyz[1] = float(position_xyz[1])
         position_xyz[2] = float(position_xyz[2])
+
         # calculate the distance to the self.target to this guess at position_xyz
-        # simple euclidean distance between n-dimensional points is employed
         fitness = distance.euclidean(position_xyz,self.target)
-        return fitness
+
+        # calculate the max euclidean distance in this search space
+        max_euclidean = distance.euclidean((params['MP_X_LIM_MAX'],params['MP_Y_LIM_MAX'],params['MP_Z_LIM_MAX']),(params['MP_X_LIM_MIN'],params['MP_Y_LIM_MIN'],params['MP_Z_LIM_MIN']))
+        #print(max_euclidean)
+
+        # is the target within params['MPV_FIELD_OF_VISION'] of the max_euclidean distance?
+        # if not, the individual cannot "see" the target and is provided with the worst possible fitness
+        if(params['MPV_VISION_ENABLED']):
+            if fitness > max_euclidean*params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
+                fitness = max_euclidean    # worst possible fitness
+                return fitness
+            else:
+                return fitness
+        else:
+            return fitness

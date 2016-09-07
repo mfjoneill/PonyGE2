@@ -7,14 +7,6 @@ def move_target():
     params['DYNAMIC_ENVIRONMENT_TARGET'] = (params['DYNAMIC_ENVIRONMENT_TARGET'][0]+params['X_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][1]+params['Y_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][2]+params['Z_DELTA'])
 
 
-#def move_target_vision(best_distance):
-def move_target_vision():
-    if(10 < 2):
-        pass
-    else:
-       params['DYNAMIC_ENVIRONMENT_TARGET'] = (params['DYNAMIC_ENVIRONMENT_TARGET'][0]+params['X_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][1]+params['Y_DELTA'], params['DYNAMIC_ENVIRONMENT_TARGET'][2]+params['Z_DELTA'])
-
-
 def new_target_point(current, dest, dist):
     vect = [dest[0] - current[0], dest[1] - current[1], dest[2] - current[2]]
     step = sqrt((vect[0] * vect[0]) + (vect[1] * vect[1]) + (vect[2] * vect[2])) / dist

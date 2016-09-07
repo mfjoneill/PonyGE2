@@ -92,8 +92,6 @@ def search_dynamic_loop():
         if generation%params['DYNAMIC_ENVIRONMENT_PERIOD'] == 0:
             print("----+CHANGE FITNESS TARGET+----")
             if params['PROBLEM'] == "moving_point":
-                move_target()
-            elif params['PROBLEM'] == "moving_point_vision":
                 move_target_vision_avoid(individuals)
 
             # Re-evaluate the entire population with this new fitness target
@@ -112,7 +110,7 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] in ("moving_point","moving_point_vision"):
+        if params['PROBLEM'] in ("moving_point","new_problem_here"):
             display_population.display_3D_population(individuals,generation)
 
     return individuals

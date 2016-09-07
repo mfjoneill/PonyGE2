@@ -1,5 +1,4 @@
 from fitness.moving_point import MovingPoint
-from fitness.moving_point_vision import MovingPointVision
 from fitness.string_match import StringMatch
 from fitness.regression import Regression
 from utilities.error_metrics import inverse_f1_score
@@ -11,8 +10,6 @@ def set_fitness_params(problem, params):
     elif problem == "string_match":
         return "grammars/letter.bnf", params['STRING_MATCH_TARGET']
     elif problem == "moving_point":
-        return "grammars/movingpoint.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
-    elif problem == "moving_point_vision":
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     else:
         print("Error: Problem not specified correctly")
@@ -30,8 +27,6 @@ def set_fitness_function(problem, alternate=None):
         return StringMatch(alternate)
     elif problem == "moving_point":
         return MovingPoint(alternate)
-    elif problem == "moving_point_vision":
-        return MovingPointVision(alternate)
     elif problem == "new":
         print("new problem goes here")
         # parameters.FITNESS_FUNCTION = whatever
