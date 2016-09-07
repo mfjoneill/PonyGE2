@@ -117,4 +117,76 @@ def move_target_vision_avoid(individuals):
                                             params['DELTA'])
     params['DYNAMIC_ENVIRONMENT_TARGET'] = temp_target
 
+#def move_target_vision(best_distance):
+#need to tidy this up!!!!!
+def move_target_vision_avoid_alt(individuals,target,index):
+    safe_distance = distance.euclidean((params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
+                                   (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))* params['MPV_INDIVIDUAL_FIELD_OF_VISION']
+    #increase the target along the vector returned by dectect_surrounding
+    min_dist = 10000
+    closest_x = 0
+    closest_y = 0
+    closest_z = 0
+    for ind in individuals:
+        position_xyz = ind.phenotype.split()
+        position_xyz[0] = float(position_xyz[0])
+        position_xyz[1] = float(position_xyz[1])
+        position_xyz[2] = float(position_xyz[2])
 
+        if distance.euclidean(position_xyz,params[target]) < min_dist:
+            min_dist = distance.euclidean(position_xyz,params[target])
+            xyz = ind.phenotype.split()
+            closest_x = position_xyz[0]
+            closest_y = position_xyz[0]
+            closest_z = position_xyz[0]
+
+    if min_dist < safe_distance:
+        #Run away
+        print("Help")
+        old_index = params[index][0]
+        temp_index = params[index][0]
+        catch = True
+        while catch:
+            temp_index = randint(0, 7)
+            if temp_index == params[index][0]:
+                catch = True
+            else:
+                catch = False
+        print("Changing index to ", temp_index)
+        params[index][0] = temp_index
+        temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],
+                                       params['FLEE_DELTA'])
+        if temp_target[0] > params['MP_X_LIM_MAX'] or temp_target[0] < params['MP_X_LIM_MIN'] \
+                or temp_target[1] > params['MP_Y_LIM_MAX'] or temp_target[1] < params['MP_Y_LIM_MIN'] \
+                or temp_target[2] > params['MP_Z_LIM_MAX'] or temp_target[2] < params['MP_Z_LIM_MIN']:
+            temp_index = params[index][0]
+            catch = True
+            while catch:
+                temp_index = randint(0, 7)
+                if temp_index == params[index][0]:
+                    catch = True
+                else:
+                    catch = False
+            print("Changing index to ", temp_index)
+            params[index][0] = temp_index
+            temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],
+                                           params['FLEE_DELTA'])
+    else:
+        #keep going
+        print("Safe")
+        temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],params['DELTA'])
+        if temp_target[0] > params['MP_X_LIM_MAX'] or temp_target[0] < params['MP_X_LIM_MIN'] \
+                or temp_target[1] > params['MP_Y_LIM_MAX'] or temp_target[1] < params['MP_Y_LIM_MIN'] \
+                or temp_target[2] > params['MP_Z_LIM_MAX'] or temp_target[2] < params['MP_Z_LIM_MIN']:
+            temp_index = params[index][0]
+            catch = True
+            while catch:
+                temp_index = randint(0, 7)
+                if temp_index == params[index][0]:
+                    catch = True
+                else:
+                    catch = False
+            print("Changing index to ", temp_index)
+            params[index][0] = temp_index
+            temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],params['DELTA'])
+    params[target] = temp_target

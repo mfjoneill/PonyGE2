@@ -2,9 +2,8 @@ from algorithm import step, evaluate_fitness
 from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
-from fitness.move_target import move_target, move_target_vision_avoid, move_target_realworldmapping
-from utilities.display_population import display_3D_population, display_3D_plotly_population
-
+from fitness.move_target import move_target, move_target_vision_avoid, move_target_vision_avoid_alt, move_target_realworldmapping
+from utilities.display_population import display_3D_population, display_3D_population_dual_target, display_3D_plotly_population
 
 def search_loop_wheel():
     """Allows the user to select different main search functions."""
@@ -85,6 +84,8 @@ def search_dynamic_loop():
         display_3D_population(individuals,0)
         display_3D_plotly_population(individuals, 0)
         # plot.ly dashboard
+    elif params['PROBLEM'] in ("moving_point_dual", "new_problem_here"):
+        display_3D_population_dual_target(individuals, 0)
 
     # Traditional GE
     for generation in range(1, (params['GENERATIONS']+1)):
@@ -95,6 +96,9 @@ def search_dynamic_loop():
             print("----+CHANGE FITNESS TARGET+----")
             if params['PROBLEM'] == "moving_point":
                 move_target_vision_avoid(individuals)
+            elif params['PROBLEM'] == "moving_point_dual":
+                move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET' , 'MP_DESTINATION_INDEX')
+                move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET_ALT' , 'MP_DESTINATION_INDEX_ALT')
             elif params['PROBLEM'] == "moving_point_realworld":
                 move_target_realworldmapping()
 
@@ -116,6 +120,9 @@ def search_dynamic_loop():
         # display the population & the target
         if params['PROBLEM'] in ("moving_point","moving_point_realworld","new_problem_here"):
             display_3D_population(individuals,generation)
-            display_3D_plotly_population(individuals,generation)
+            display_3D_plotly_population(individuals, generation)
+        elif params['PROBLEM'] in ("moving_point_dual","new_problem_here"):
+            display_3D_population_dual_target(individuals, generation)
+
 
     return individuals
