@@ -11,7 +11,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 125,
-        'GENERATIONS': 10,
+        'GENERATIONS': 100,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -54,9 +54,12 @@ params = {
         'DELTA': 50.0,
         'FLEE_DELTA': 200.0,
         # define the x,y,z axes range for display_population for moving_points problem
-        'MP_X_LIM_MAX': 10000,
-        'MP_Y_LIM_MAX': 10000,
-        'MP_Z_LIM_MAX': 10000,
+        'MP_X_LIM_MAX': 30000,
+        'MP_Y_LIM_MAX': 30000,
+        'MP_Z_LIM_MAX': 30000,
+        #'MP_X_LIM_MAX': 10000,
+        #'MP_Y_LIM_MAX': 10000,
+        #'MP_Z_LIM_MAX': 10000,
         'MP_X_LIM_MIN': 0,
         'MP_Y_LIM_MIN': 0,
         'MP_Z_LIM_MIN': 0,
@@ -80,8 +83,8 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        #'INITIALISATION': "operators.initialisation.rhh",
-        'INITIALISATION': "operators.initialisation.grid_init",
+        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.grid_init",
         # "operators.initialisation.random_init"
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,

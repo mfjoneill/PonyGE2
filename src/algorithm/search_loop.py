@@ -113,7 +113,7 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] in ("moving_point","new_problem_here"):
-            display_population.display_3D_population(individuals,generation)
+        if params['PROBLEM'] in ("moving_point","moving_point_realworld","new_problem_here"):
+            display_3D_population(individuals,generation)
 
     return individuals

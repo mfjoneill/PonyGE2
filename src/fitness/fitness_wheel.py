@@ -12,7 +12,7 @@ def set_fitness_params(problem, params):
     elif problem == "moving_point":
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     elif problem == "moving_point_realworld":
-        return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
+        return "grammars/movingpoint_99999_99_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     else:
         print("Error: Problem not specified correctly")
         exit(2)
