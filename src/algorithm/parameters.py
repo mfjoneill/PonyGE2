@@ -11,7 +11,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 125,
-        'GENERATIONS': 100,
+        'GENERATIONS': 4,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -76,6 +76,9 @@ params = {
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
         'MPV_VISION_ENABLED': False,
+
+        # generate plot.ly charts/dashboard for dynamic problems
+        'PLOTLY': True,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
