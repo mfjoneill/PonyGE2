@@ -10,17 +10,18 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 125,
-        'GENERATIONS': 10,
+        'POPULATION_SIZE': 500,
+        'GENERATIONS': 1000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_realworld",
+        'PROBLEM': "moving_point_dual",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "moving_point_dual"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_realworld" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
 
 
@@ -44,7 +45,8 @@ params = {
         # Specify initial target for moving_point Problem
         # 'DYNAMIC_ENVIRONMENT_TARGET': (34.1234,52.6789,1.9876),
         # 'DYNAMIC_ENVIRONMENT_TARGET': (100.0,100.0,100.0),
-        'DYNAMIC_ENVIRONMENT_TARGET': (0.0, 0.0, 0.0),
+        'DYNAMIC_ENVIRONMENT_TARGET': (1.0, 1.0, 1.0),
+        'DYNAMIC_ENVIRONMENT_TARGET_ALT': (10000.0,10000.0,10000.0),
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
         'DYNAMIC_ENVIRONMENT_PERIOD': 1,
         # set the move_target xyz delta's for the moving_points problem
@@ -57,22 +59,23 @@ params = {
         'MP_X_LIM_MAX': 10000,
         'MP_Y_LIM_MAX': 10000,
         'MP_Z_LIM_MAX': 10000,
-        'MP_X_LIM_MIN': 0,
-        'MP_Y_LIM_MIN': 0,
-        'MP_Z_LIM_MIN': 0,
-        'MP_DESTINATION_POINTS': [(0,0,0),
-                                  (0,0,10000),
-                                  (0,10000,0),
-                                  (0,10000,10000),
-                                  (10000,0,0),
-                                  (10000,0,10000),
-                                  (10000, 10000, 0),
+        'MP_X_LIM_MIN': 1,
+        'MP_Y_LIM_MIN': 1,
+        'MP_Z_LIM_MIN': 1,
+        'MP_DESTINATION_POINTS': [(1,1,1),
+                                  (1,1,10000),
+                                  (1,10000,1),
+                                  (1,10000,10000),
+                                  (10000,1,1),
+                                  (10000,1,10000),
+                                  (10000, 10000, 1),
                                   (10000, 10000, 10000)],
         'MP_DESTINATION_INDEX': [7],
+        'MP_DESTINATION_INDEX_ALT': [0],
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
-        'MPV_VISION_ENABLED': True,
+        'MPV_VISION_ENABLED': False,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -80,9 +83,10 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        #'INITIALISATION': "operators.initialisation.rhh",
-        'INITIALISATION': "operators.initialisation.grid_init",
-        # "operators.initialisation.random_init"
+        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.grid_init",
+        #Grid needs a pop of 125
+        #"operators.initialisation.random_init"
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
@@ -118,7 +122,8 @@ params = {
         'REPLACEMENT': "operators.replacement.generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
-        'ELITE_SIZE': None,
+        #If elite size = none defaults to 1% of population
+        'ELITE_SIZE': 0,
 
         # DEBUGGING
         # Use this to turn on debugging mode. This mode doesn't write any files
