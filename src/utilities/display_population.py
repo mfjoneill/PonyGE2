@@ -146,7 +146,8 @@ def display_3D_plotly_population(individuals,generation):
         title = "Moving Point - Generation " + str(generation)
         layout = Layout(title=title)
         fig = Figure(data=data,layout=layout)
-        plotly.offline.plot(fig)
+        filename = "movingpointdisplay.html"
+        plotly.offline.plot(fig,filename=filename)
 
 
 def display_3D_population_dual_target(individuals,generation):
