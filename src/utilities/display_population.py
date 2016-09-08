@@ -97,9 +97,9 @@ def display_3D_plotly_population(individuals,generation):
         # generate PLOTLY dashboard/charts
         print("generate plot.ly charts....")
         import plotly
-        from plotly.graph_objs import Scatter3d, Layout
+        from plotly.graph_objs import Scatter3d, Layout, Figure
 
-        # store the x,y,z coordinates of the target[0]
+        # retrieve the x,y,z coordinates of the target[0]
         #
         xyz = params['DYNAMIC_ENVIRONMENT_TARGET']
         txs, tys, tzs = [], [], []
@@ -119,7 +119,7 @@ def display_3D_plotly_population(individuals,generation):
                           opacity=0.9
                           )
 
-        # store the x,y,z coordinates of the individuals
+        # retrieve the x,y,z coordinates of the individuals
         #
         xs, ys, zs = [], [], []
         for i in range(params['POPULATION_SIZE']):
@@ -142,7 +142,12 @@ def display_3D_plotly_population(individuals,generation):
                           opacity=0.9
                           )
         data = [trace1,trace2]
-        plotly.offline.plot(data)
+        #plotly.offline.plot(data)
+        title = "Moving Point - Generation " + str(generation)
+        layout = Layout(title=title)
+        fig = Figure(data=data,layout=layout)
+        plotly.offline.plot(fig)
+
 
 def display_3D_population_dual_target(individuals,generation):
     """
