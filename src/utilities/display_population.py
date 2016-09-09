@@ -116,7 +116,8 @@ def display_3D_plotly_population(individuals,generation):
                               size=8,
                               symbol='circle',
                           ),
-                          opacity=0.9
+                          opacity=0.9,
+                          name='Target'
                           )
 
         # retrieve the x,y,z coordinates of the individuals
@@ -139,12 +140,16 @@ def display_3D_plotly_population(individuals,generation):
                               size=4,
                               symbol='circle',
                           ),
-                          opacity=0.9
+                          opacity=0.9,
+                          name='Population'
                           )
         data = [trace1,trace2]
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
-        layout = Layout(title=title)
+        layout = Layout(title=title,
+                        xaxis=dict(range=[0,100000]),
+                        yaxis=dict(range=[0,100000])
+                        )
         fig = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
         plotly.offline.plot(fig,filename=filename)
