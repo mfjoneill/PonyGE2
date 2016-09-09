@@ -93,6 +93,12 @@ def display_3D_population(individuals,generation):
 
 
 def display_3D_plotly_population(individuals,generation):
+    """
+    Using plotly.offline.plot - displays each individual in the moving_point population
+    where each individual is a set of x,y,z coordinates
+    Also displays the current DYNAMIC_ENVIRONMENT_TARGET
+    :return: Nothing
+    """
     if (params['PLOTLY']):
         # generate PLOTLY dashboard/charts
         print("generate plot.ly charts....")
