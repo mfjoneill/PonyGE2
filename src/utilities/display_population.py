@@ -219,14 +219,15 @@ def display_3D_plotly_population(individuals,generation):
         file_html = open('test.html','w')
         file_html.write('<html>')
         file_html.write('''<div style="width: 100%;">''')
-        file_html.write('''<div style="width: 50%; float: left; display: inline-block;">''')
+        file_html.write('''<div style="width: 50%; height: 600; float: left;">''')
         file_html.write(mpd_div)
         file_html.write('</div>')
-        file_html.write('''<div style="width: 50%; display: inline-block;">''')
+        file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
         file_html.write(mpdfd_div)
+        file_html.write(mpdfit_div)
         file_html.write('</div></div>')
         file_html.write('<div>')
-        file_html.write(mpdfit_div)
+        # another row
         file_html.write('</div></html>')
         file_html.close()
         import webbrowser
