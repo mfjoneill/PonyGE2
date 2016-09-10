@@ -160,7 +160,7 @@ def display_3D_plotly_population(individuals,generation):
                         )
         fig = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
-        plotly.offline.plot(fig,filename=filename)
+        mpd_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div')
 
         # Create fitness histogram plot
         #
@@ -182,7 +182,19 @@ def display_3D_plotly_population(individuals,generation):
                         )
         fig = Figure(data=data, layout=layout)
         filename = "movingpointdisplay_fitnessdistribution.html"
-        plotly.offline.plot(fig, filename=filename)
+        mpdfd_div = plotly.offline.plot(fig, filename=filename,auto_open=True,output_type='div')
+        file_html = open('test.html','w')
+        file_html.write('<html>')
+        file_html.write('''<div style="width: 100%;">''')
+        file_html.write('''<div style="width: 50%; float: left; display: inline-block;">''')
+        file_html.write(mpd_div)
+        file_html.write('</div>')
+        file_html.write('''<div style="width: 50%; display: inline-block;">''')
+        file_html.write(mpdfd_div)
+        file_html.write('</div></div></html>')
+        file_html.close()
+        import webbrowser
+        webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
 
 
 def display_3D_population_dual_target(individuals,generation):
