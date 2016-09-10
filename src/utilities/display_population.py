@@ -102,8 +102,9 @@ def display_3D_plotly_population(individuals,generation):
     if (params['PLOTLY']):
         # generate PLOTLY dashboard/charts
         print("generate plot.ly charts....")
+        from plotly import tools
         import plotly
-        from plotly.graph_objs import Scatter3d, Layout, Figure
+        from plotly.graph_objs import Scatter3d, Layout, Figure, Histogram
 
         # retrieve the x,y,z coordinates of the target[0]
         #
@@ -149,6 +150,7 @@ def display_3D_plotly_population(individuals,generation):
                           opacity=0.9,
                           name='Population'
                           )
+
         data = [trace1,trace2]
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
@@ -159,6 +161,28 @@ def display_3D_plotly_population(individuals,generation):
         fig = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
         plotly.offline.plot(fig,filename=filename)
+
+        # Create fitness histogram plot
+        #
+        # retrieve a fitness list for the population
+        #
+        fitness = []
+        for i in range(params['POPULATION_SIZE']):
+            fitness.append(individuals[i].fitness)
+
+        # plot fitness distribution histogram
+        #
+
+        trace3 = Histogram(x=fitness)
+        data = [trace3]
+        title = "Moving Point - Population Fitness Distribution - " + str(generation)
+        layout = Layout(title=title,
+        #                xaxis=dict(range=[0, 100000]),
+        #                yaxis=dict(range=[0, 100000])
+                        )
+        fig = Figure(data=data, layout=layout)
+        filename = "movingpointdisplay_fitnessdistribution.html"
+        plotly.offline.plot(fig, filename=filename)
 
 
 def display_3D_population_dual_target(individuals,generation):
