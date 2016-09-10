@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 plt.rc('font', family='Times New Roman')
 from datetime import datetime
 import time
-
+from utilities import trackers
 
 
 def display_3D_population(individuals,generation):
@@ -104,7 +104,7 @@ def display_3D_plotly_population(individuals,generation):
         print("generate plot.ly charts....")
         from plotly import tools
         import plotly
-        from plotly.graph_objs import Scatter3d, Layout, Figure, Histogram
+        from plotly.graph_objs import Scatter, Scatter3d, Layout, Figure, Histogram
 
         # retrieve the x,y,z coordinates of the target[0]
         #
@@ -155,8 +155,8 @@ def display_3D_plotly_population(individuals,generation):
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
         layout = Layout(title=title,
-                        xaxis=dict(range=[0,100000]),
-                        yaxis=dict(range=[0,100000])
+                        #xaxis=dict(range=[0,100000]),
+                        #yaxis=dict(range=[0,100000])
                         )
         fig = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
@@ -170,6 +170,39 @@ def display_3D_plotly_population(individuals,generation):
         for i in range(params['POPULATION_SIZE']):
             fitness.append(individuals[i].fitness)
 
+        #        max_fit = max(fitness)
+        #        min_fit = min(fitness)
+        #        sum_fit = sum(fitness)
+        #        mean_fit = float(sum_fit)/float(len(fitness))
+
+        # create fitness plot
+        #
+
+        trace4 = Scatter(x=generation, y=trackers.best_fitness_list,
+                          mode='lines+markers',
+                          marker=dict(
+                              # color='rgb(127, 127, 127)',
+                              color='blue',
+                              size=4,
+                              symbol='circle',
+                          ),
+                          opacity=0.9,
+                          name='Best Fitness'
+                          )
+
+        data = [trace4]
+        #plotly.offline.plot(data)
+        title = "Moving Point - Generation " + str(generation)
+        layout = Layout(title=title,
+                        #yaxis=dict(range=[0,100000]),
+                        yaxis=dict(title='Best Fitness'),
+                        xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
+                        )
+        fig = Figure(data=data,layout=layout)
+        filename = "movingpointdisplay_fitness.html"
+        mpdfit_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div')
+
+
         # plot fitness distribution histogram
         #
 
@@ -178,7 +211,7 @@ def display_3D_plotly_population(individuals,generation):
         title = "Moving Point - Population Fitness Distribution - " + str(generation)
         layout = Layout(title=title,
         #                xaxis=dict(range=[0, 100000]),
-        #                yaxis=dict(range=[0, 100000])
+                        yaxis=dict(range=[0, params['POPULATION_SIZE']])
                         )
         fig = Figure(data=data, layout=layout)
         filename = "movingpointdisplay_fitnessdistribution.html"
@@ -191,7 +224,10 @@ def display_3D_plotly_population(individuals,generation):
         file_html.write('</div>')
         file_html.write('''<div style="width: 50%; display: inline-block;">''')
         file_html.write(mpdfd_div)
-        file_html.write('</div></div></html>')
+        file_html.write('</div></div>')
+        file_html.write('<div>')
+        file_html.write(mpdfit_div)
+        file_html.write('</div></html>')
         file_html.close()
         import webbrowser
         webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
