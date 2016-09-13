@@ -162,3 +162,19 @@ def grid_init(size):
                 #population.append(individual.Individual(None, None))
                 population.append(individual.Individual([0,(index[x]+10),0,0,0,(index[y]+10),0,0,0,(index[z]+10),0,0,0],None))
     return population
+
+def random_plus_grid_init(size):
+    """
+    Initialise to a grid of points where points are int values
+    :return:
+    """
+    population = []
+    index = [1,3,5,7,9]
+    for x in range(len(index)):
+        for y in range(len(index)):
+            for z in range(len(index)):
+                #genome = [0,(index[x]+10),0,0,0,(index[y]+10),0,0,0,(index[z]+10),0,0,0]
+                #population.append(individual.Individual(None, None))
+                population.append(individual.Individual([0,(index[x]+10),0,0,0,(index[y]+10),0,0,0,(index[z]+10),0,0,0],None))
+    temp_pop = rhh(size-125)
+    return population + temp_pop

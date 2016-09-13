@@ -10,14 +10,14 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 125,
-        'GENERATIONS': 2,
+        'POPULATION_SIZE': 250,
+        'GENERATIONS': 500,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point",
+        'PROBLEM': "moving_point_dual",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -76,7 +76,7 @@ params = {
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
-        'MPV_VISION_ENABLED': False,
+        'MPV_VISION_ENABLED': True,
 
         # generate plot.ly charts/dashboard for dynamic problems
         'PLOTLY': True,
@@ -87,8 +87,9 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
+        'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
         #"operators.initialisation.random_init"
         # "operators.initialisation.rhh"
@@ -123,9 +124,10 @@ params = {
         'MUTATION_EVENTS': 1,
 
         # REPLACEMENT
-        'REPLACEMENT': "operators.replacement.generational",
+        'REPLACEMENT': "operators.replacement.grid_generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
+        # "operators.replacement.grid_generational",
         #If elite size = none defaults to 1% of population
         'ELITE_SIZE': 0,
 

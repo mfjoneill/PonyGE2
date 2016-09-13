@@ -33,3 +33,34 @@ def steady_state(new_pop, individuals):
     individuals.sort(reverse=True)
     individuals[-1] = max(new_pop + individuals[-1:])
     return individuals
+
+def grid_generational(new_pop, individuals):
+    """Return new pop. The ELITE_SIZE best individuals are appended
+    to new pop if they are better than the worst individuals in new
+    pop"""
+    from algorithm.evaluate_fitness import evaluation
+    from representation import individual
+
+    if params['GENERATION_SIZE']<250:
+        print("Generations must be more than 250 with Grid Generational Replacement")
+        quit()
+
+    individuals.sort(reverse=True)
+    for ind in individuals[:params['ELITE_SIZE']]:
+        new_pop.append(copy(ind))
+    new_pop.sort(reverse=True)
+    new_pop = new_pop[:params['GENERATION_SIZE']-125]
+
+    grid_pop = []
+    index = [1, 3, 5, 7, 9]
+    for x in range(len(index)):
+        for y in range(len(index)):
+            for z in range(len(index)):
+                # genome = [0,(index[x]+10),0,0,0,(index[y]+10),0,0,0,(index[z]+10),0,0,0]
+                # population.append(individual.Individual(None, None))
+                grid_pop.append(individual.Individual(
+                    [0, (index[x] + 10), 0, 0, 0, (index[y] + 10), 0, 0, 0, (index[z] + 10), 0, 0, 0], None))
+    grid_pop = evaluation(grid_pop)
+    new_pop = new_pop + grid_pop
+    new_pop.sort(reverse=True)
+    return new_pop[:params['GENERATION_SIZE']]
