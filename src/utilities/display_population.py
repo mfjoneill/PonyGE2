@@ -232,6 +232,7 @@ def display_3D_plotly_population(individuals,generation):
         file_html.close()
         import webbrowser
         webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
+        time.sleep(1)
 
 
 def display_3D_population_dual_target(individuals,generation):

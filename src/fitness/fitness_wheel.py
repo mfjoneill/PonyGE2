@@ -12,6 +12,8 @@ def set_fitness_params(problem, params):
         return "grammars/letter.bnf", params['STRING_MATCH_TARGET']
     elif problem == "moving_point":
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
+    elif problem == "moving_point_vision":
+        return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     elif problem == "moving_point_dual":
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     elif problem == "moving_point_realworld":
@@ -31,6 +33,8 @@ def set_fitness_function(problem, alternate=None):
     elif problem == "string_match":
         return StringMatch(alternate)
     elif problem == "moving_point":
+        return MovingPoint(alternate)
+    elif problem == "moving_point_vision":
         return MovingPoint(alternate)
     elif problem == "moving_point_realworld":
         return MovingPoint(alternate)
