@@ -155,8 +155,8 @@ def display_3D_plotly_population(individuals,generation):
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
         layout = Layout(title=title,
-                        #xaxis=dict(range=[0,100000]),
-                        #yaxis=dict(range=[0,100000])
+                        #xaxis=dict(range=[0,params['MP_X_LIM_MAX']]),
+                        #yaxis=dict(range=[0,params['MP_Y_LIM_MAX']])
                         )
         fig = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
