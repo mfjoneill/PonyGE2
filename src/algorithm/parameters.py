@@ -10,17 +10,18 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 250,
-        'GENERATIONS': 500,
+        'POPULATION_SIZE': 4,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_dual",
+        'PROBLEM': "moving_point",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "moving_point_vision" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_dual"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_realworld" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
 
@@ -76,10 +77,10 @@ params = {
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
-        'MPV_VISION_ENABLED': True,
+        'MPV_VISION_ENABLED': False,
 
         # generate plot.ly charts/dashboard for dynamic problems
-        'PLOTLY': True,
+        'PLOTLY': False,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -87,9 +88,9 @@ params = {
         'GENOME_LENGTH': 500,
 
         # INITIALISATION
-        #'INITIALISATION': "operators.initialisation.rhh",
+        'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
-        'INITIALISATION': "operators.initialisation.random_plus_grid_init",
+        #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
         #"operators.initialisation.random_init"
         # "operators.initialisation.rhh"
@@ -124,12 +125,12 @@ params = {
         'MUTATION_EVENTS': 1,
 
         # REPLACEMENT
-        'REPLACEMENT': "operators.replacement.grid_generational",
+        'REPLACEMENT': "operators.replacement.generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
         # "operators.replacement.grid_generational",
         #If elite size = none defaults to 1% of population
-        'ELITE_SIZE': 0,
+        'ELITE_SIZE': 1,
 
         # DEBUGGING
         # Use this to turn on debugging mode. This mode doesn't write any files
