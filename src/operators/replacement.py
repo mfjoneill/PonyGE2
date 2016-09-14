@@ -15,14 +15,17 @@ def replacement(new_pop, individuals):
 
 
 def generational(new_pop, individuals):
-    """Return new pop. The ELITE_SIZE best individuals are appended
-    to new pop if they are better than the worst individuals in new
-    pop"""
+    """Return new pop. The ELITE_SIZE best individuals are cloned
+    to new_pop the remainder is filled by generational replacement"""
 
     individuals.sort(reverse=True)
-    for ind in individuals[:params['ELITE_SIZE']]:
-        new_pop.append(copy(ind))
+    #for ind in individuals[:params['ELITE_SIZE']]:
+    #   new_pop.append(copy(ind))
+    #new_pop.sort(reverse=True)
     new_pop.sort(reverse=True)
+    for ind in individuals[:params['ELITE_SIZE']]:
+        new_pop.insert(0,copy(ind))
+
     return new_pop[:params['GENERATION_SIZE']]
 
 
