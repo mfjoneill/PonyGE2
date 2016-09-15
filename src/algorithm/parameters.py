@@ -11,13 +11,13 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 100,
-        'GENERATIONS': 1000,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_spiral",
+        'PROBLEM': "moving_point",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -78,10 +78,10 @@ params = {
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
-        'MPV_VISION_ENABLED': True,
+        'MPV_VISION_ENABLED': False,
 
         # generate plot.ly charts/dashboard for dynamic problems
-        'PLOTLY': False,
+        'PLOTLY': True,
         #Spiral Move Params
         'CIRCLE_SPEED': 10,
         'FORWARD_SPEED': 10,
@@ -137,7 +137,7 @@ params = {
         # "operators.replacement.steady_state",
         # "operators.replacement.grid_generational",
         #If elite size = none defaults to 1% of population
-        'ELITE_SIZE': 10,
+        'ELITE_SIZE': 1,
 
         # DEBUGGING
         # Use this to turn on debugging mode. This mode doesn't write any files
