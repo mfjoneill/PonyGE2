@@ -2,7 +2,7 @@ from algorithm import step, evaluate_fitness
 from stats.stats import stats, get_stats
 from algorithm.parameters import params
 from utilities.trackers import cache
-from fitness.move_target import move_target, move_target_vision_avoid, move_target_vision_avoid_alt, move_target_realworldmapping
+from fitness.move_target import move_target, move_target_vision_avoid, move_target_vision_avoid_alt, move_target_realworldmapping, move_target_spiral
 from utilities.display_population import display_3D_population, display_3D_population_dual_target, display_3D_plotly_population
 
 def search_loop_wheel():
@@ -96,21 +96,26 @@ def search_dynamic_loop():
             print("----+CHANGE FITNESS TARGET+----")
             if params['PROBLEM'] == "moving_point":
                 move_target()
+                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
             elif params['PROBLEM'] == "moving_point_vision":
                 move_target_vision_avoid(individuals)
+                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
+            elif params['PROBLEM'] == "moving_point_spiral":
+                move_target_spiral(generation,'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
+                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'])
             elif params['PROBLEM'] == "moving_point_dual":
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET' , 'MP_DESTINATION_INDEX')
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET_ALT' , 'MP_DESTINATION_INDEX_ALT')
+                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'], params['DYNAMIC_ENVIRONMENT_TARGET_ALT'])
             elif params['PROBLEM'] == "moving_point_realworld":
                 move_target_realworldmapping()
+                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
             # Reset the population level statistics
             get_stats(individuals) # this also generates an additional entry/gen in the reports e.g.,stats.csv
 
-
-        print("gen: ",generation,"\t target: ",params['DYNAMIC_ENVIRONMENT_TARGET'])
 
         # New generation
         individuals = step.step(individuals)
@@ -123,6 +128,8 @@ def search_dynamic_loop():
         if params['PROBLEM'] in ("moving_point","moving_point_vision","moving_point_realworld","new_problem_here"):
             display_3D_population(individuals,generation)
             display_3D_plotly_population(individuals, generation)
+        elif params['PROBLEM'] == "moving_point_spiral":
+            display_3D_population(individuals, generation, 'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
         elif params['PROBLEM'] in ("moving_point_dual","new_problem_here"):
             display_3D_population_dual_target(individuals, generation)
 

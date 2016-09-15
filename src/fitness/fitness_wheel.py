@@ -16,6 +16,8 @@ def set_fitness_params(problem, params):
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     elif problem == "moving_point_dual":
         return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
+    elif problem == "moving_point_spiral":
+        return "grammars/movingpoint_10000_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL']
     elif problem == "moving_point_realworld":
         return "grammars/movingpoint_99999_99_max.bnf", params['DYNAMIC_ENVIRONMENT_TARGET']
     else:
@@ -40,6 +42,8 @@ def set_fitness_function(problem, alternate=None):
         return MovingPoint(alternate)
     elif problem == "moving_point_dual":
         return MovingPointDual(alternate)
+    elif problem == "moving_point_spiral":
+        return MovingPoint(alternate)
     elif problem == "new":
         print("new problem goes here")
         # parameters.FITNESS_FUNCTION = whatever

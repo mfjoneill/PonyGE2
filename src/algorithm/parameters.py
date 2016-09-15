@@ -11,18 +11,19 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 100,
-        'GENERATIONS': 200,
+        'GENERATIONS': 1000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_vision",
+        'PROBLEM': "moving_point_spiral",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_vision" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_dual"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "moving_point_spiral"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_realworld" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
 
 
@@ -81,6 +82,12 @@ params = {
 
         # generate plot.ly charts/dashboard for dynamic problems
         'PLOTLY': False,
+        #Spiral Move Params
+        'CIRCLE_SPEED': 10,
+        'FORWARD_SPEED': 10,
+        'CIRCLE_SIZE': 4500,
+        'CIRCLE_GROW_SPEED': 10,
+        'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,

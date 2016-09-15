@@ -12,7 +12,7 @@ import time
 from utilities import trackers
 
 
-def display_3D_population(individuals,generation):
+def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TARGET'):
     """
     Displays each individual in the moving_point population
     where each individual is a set of x,y,z coordinates
@@ -23,7 +23,7 @@ def display_3D_population(individuals,generation):
     # store the x,y,z coordinates of the target[0]
     #
     xs, ys, zs = [], [], []  
-    xyz = params['DYNAMIC_ENVIRONMENT_TARGET']
+    xyz = params[target]
     #print("xyz:", xyz)
     xs.append(xyz[0])
     ys.append(xyz[1])

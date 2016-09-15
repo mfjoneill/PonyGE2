@@ -77,6 +77,8 @@ class Individual(object):
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype, dist)
         elif params['PROBLEM'] in ("moving_point", "moving_point_vision","moving_point_realworld","moving_point_dual"):
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype, params['DYNAMIC_ENVIRONMENT_TARGET'])
+        elif params['PROBLEM'] in ("moving_point_spiral","moving_point_new"):
+            self.fitness = params['FITNESS_FUNCTION'](self.phenotype, params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'])
         else:
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype)
 

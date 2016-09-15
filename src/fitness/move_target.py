@@ -1,6 +1,6 @@
 from algorithm.parameters import params
 from scipy.spatial import distance
-from math import sqrt
+from math import sqrt,sin,cos
 from random import randint
 
 def move_target():
@@ -190,3 +190,19 @@ def move_target_vision_avoid_alt(individuals,target,index):
             params[index][0] = temp_index
             temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],params['DELTA'])
     params[target] = temp_target
+
+def move_target_spiral(generation, target):
+    circle_speed = params['CIRCLE_SPEED']
+    circle_size = params['CIRCLE_SIZE']
+    forward_speed = params['FORWARD_SPEED']
+    circle_grow_speed = params['CIRCLE_GROW_SPEED']
+
+    x = 5000 + cos((generation%360)/36) * circle_size
+    y = 5000 + sin((generation%360)/36) * circle_size
+    z = 0 + params['FORWARD_SPEED'] * generation
+    params[target] = (x,y,z)
+    if circle_size + circle_grow_speed > 4500:
+        params['CIRCLE_GROW_SPEED'] = circle_grow_speed*-1
+    elif circle_size + circle_grow_speed < 500:
+        params['CIRCLE_GROW_SPEED'] = circle_grow_speed * -1
+    params['CIRCLE_SIZE'] = circle_size + params['CIRCLE_GROW_SPEED']
