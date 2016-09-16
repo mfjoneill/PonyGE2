@@ -1,21 +1,33 @@
-Grammatical evolution (GE) is an evolutionary algorithm which uses
-formal grammars, written in BNF, to define the search space. PonyGE2 is
-an implementation of GE in Python. It's intended as
-an advertisement and a starting-point for those new to GE, a reference
-for implementors and researchers, a rapid-prototyping medium for our
-own experiments, and a Python workout.
+------------
+Introduction
+------------
 
-PonyGE (https://github.com/jmmcd/ponyge) was originally designed to be
-a small single file implementation of GE however over time this has
-grown to a stage where a more formal structured approach was needed.
+Grammatical evolution (GE) is a population-based evolutionary algorithm, where
+a formal BNF-style grammar is used in the genotype to phenotype mapping
+process.
+
+PonyGE2 is an implementation of GE in Python. It's intended as an advertisement
+and a starting-point for those new to GE, a reference for students and
+researchers, a rapid-prototyping medium for our own experiments, and as a
+Python workout.
+
+The original version of PonyGE (https://github.com/jmmcd/ponyge) was originally
+designed to be a small single-file implementation of GE. However, over time
+this has grown to a stage where a more formal structured approach was needed.
+This has led to the development of PonyGE2 (https://github.com/jmmcd/ponyge2),
+presented here.
+
+The PonyGE2 development team can be contacted at:
+
+    James McDermott <jamesmichaelmcdermott@gmail.com>,
+    Erik Hemberg <erik.hemberg@gmail.com>,
+    Michael Fenton <michaelfenton1@gmail.com>,
+    David Fagan <fagan.david@gmail.com>.
 
 PonyGE2 is copyright (C) 2009-2016
-Erik Hemberg <erik.hemberg@gmail.com>,
-James McDermott <jamesmichaelmcdermott@gmail.com>,
-Michael Fenton <michaelfenton1@gmail.com>,
-David Fagan <fagan.david@gmail.com>.
 
 
+------------
 Requirements
 ------------
 
@@ -25,11 +37,12 @@ Using matplotlib, numpy, scipy, scikit-learn (sklearn), pandas
 All requirements can be satisfied with Anaconda.
 
 
+--------------
 Running PonyGE
 --------------
 
-We don't provide any setup script. You can run an example problem (the
-default is String-match, see below) just by saying:
+We don't provide any setup script. You can run an example problem (the default
+is regression, see below) just by typing:
 
 $ cd src
 $ python ponyge.py
@@ -37,7 +50,7 @@ $ python ponyge.py
 This will run an example problem and generate a results folder. The folder
 contains several files showing the run's stats, producing graphs and
 documenting the parameters used, as well as a file containing the best
-individuals. For a more verbose command line experience run the following
+individuals. For a more verbose command line experience run the following:
 
 $ cd src
 $ python ponyge.py --verbose
@@ -47,21 +60,193 @@ prints out all statistics on the current run (only if --verbose is specified).
 Upon completion of a run, the best individual is printed to the command line,
 along with summary statistics.
 
-There are a number of flags that can be used for passing values via
-the command-line. To see a full list of these just run the following
+There are a number of flags that can be used for passing values via the
+command-line. To see a full list of these just run the following:
 
 $ python ponyge.py --help
 
 
+-------------
+About PonyGE2
+-------------
+
+#TODO: Fill out this section heftily.
+
+A full breakdown of the currently implemented elements in PonyGE2 is provided
+below. This includes a brief description of each individual component and how
+to activate them. PonyGE2 automatically parses the correct path for all
+operators, meaning you don't have to specify the full direct path but only
+the name of the desired operator, e.g. "--crossover subtree" instead of
+"--crossover operators.crossover.subtree". However, it is still possible to
+specify the full correct path if you so desire. Specifying the full direct path
+allows you to create new operators and place them wherever you like.
+
+    - Initialisation
+      --------------
+        There are two main ways to initialise a GE individual: by generating a
+        genome, or by generating a subtree. Generation of a genome can only be
+        done by creating a random genome string and as such individuals cannot
+        be controlled. Subtree generation on the other hand can be forced to
+        conform to specified limits, e.g. depth limits. This is implemented in
+        ramped half-half initialisation (also called Sensible initialisation).
+        It is also possible to initialise a population using randomly generated
+        subtrees, which is similar in theory to random genome initialisation
+        except there is far less bias than random genome initialisation as a
+        result of the number of production choices in the grammar.
+
+        - Genome
+            - Random
+                Activate with "--genome_init"
+        - Subtree
+            - Random
+                Activate with "--initialisation random_init"
+            - Ramped Half-Half
+                Activate with "--initialisation rhh"
+
+    - Selection
+      ---------
+        - Tournament
+            Activate with "--selection tournament"
+        - Truncation
+            *** NOT FULLY IMPLEMENTED ***
+            Activate with "--selection truncation"
+
+    - Variation
+      ---------
+        - Crossover
+            - Onepoint
+                Activate with "--crossover onepoint"
+            - Subtree
+                Activate with "--crossover subtree"
+        - Mutation
+            - Int Flip
+                Activate with "--mutation int_flip"
+            - Subtree
+                Activate with "--mutation subtree"
+
+    - Evaluation
+      ----------
+
+    - Replacement
+      -----------
+        - Generational
+            Activate with "--replacement generational"
+        - Steady State
+            *** NOT FULLY IMPLEMENTED ***
+            Activate with "--replacement steady_state"
+
+
+Writing grammars
+----------------
+
+Grammars are written in Backus-Naur form, aka BNF. See the examples in
+src/grammars. Each rule is composed of a left-hand side (a single
+non-terminal), followed by the "goes-to" symbol ::=, followed by a
+list of productions separated by the "or" symbol |. Non-terminals are
+enclosed by angle brackets <>. For example:
+
+<a> ::= <b>c | d
+
+You can use an "or" symbol or angle bracket in a production. Escape it
+using a backslash: \|, \<, \>. You can use the "goes-to" symbol in a
+production without escaping it.
+
+Along with the fitness function, grammars are one of the most problem-specific
+components of the PonyGE2 algorithm. The performance of PonyGE2 can be vastly
+affected by the quality of the grammar used.
+
+
+A note on unit productions
+--------------------------
+
+Traditionally GE would not consume a codon for unit productions. This was a
+design decision taken by O'Neill et al. In PonyGE2 unit productions consume
+codons. The logic being that it helps to do linear tree-style operations.
+Furthermore, the checks needed for unit productions during the running of the
+algorithm can add up to millions of checks that aren't needed if we just
+consume codons for unit productions.
+
+The original design decision on unit productions was also taken before the
+introduction of evolvable grammars whereby the arity of a unit production
+could change over time. In this case consuming codons will help to limit the
+ripple effect from that change in arity. This also replicates non coding
+regions of genome as seen in nature.
+
+In summary, the merits for not consuming a codon for unit productions are not
+clearly defined in the literature. The benefits in consuming codons are a
+reduction in computation and improved speed with linear tree style operations.
+Other benefits are an increase in non-coding regions in the chromosome (more
+in line with nature) that through evolution of the grammar may then express
+useful information.
+
+
+#FIXME Need to finalise a suite of problems for PonyGE2
+----------------
+Example Problems
+----------------
+
+Three example problems are currently provided:
+
+    - String-match
+    - Regression
+    - Classification
+
+A brief description is given below of each problem, along with the command-line
+arguments necessary to call each problem. It is not necessary to specify the
+desired grammar for each individual problem as PonyGE does this automatically
+based on the given inputs.
+
+
+String-match
+------------
+
+The grammar specifies words as lists of vowels and consonants. The aim
+is to match a target word.
+
+To use it, specify the following command-line arguments:
+
+    "--problem string_match"
+    "--target_string TYPE_TARGET_STRING" (e.g. golden, ponyge_rocks)
+
+
+Regression
+----------
+
+The grammar generates a symbolic function composed of standard mathematical
+operations and a set of variables. This function is then evaluated using a
+pre-defined set of inputs, given in the datasets folder. Each problem suite has
+a unique set of inputs. The aim is to minimise some error between the expected
+output of the function and the desired output specified in the datasets.
+This is the default problem for PonyGE.
+
+To use it, specify the following command-line arguments:
+
+    "--problem regression"
+    "--problem_suite PROBLEM_SUITE" (e.g. Keijzer6, Vladislavleva4)
+
+
+Classification
+--------------
+
+#TODO Explain classificaiton problem here
+
+
+-----------------
 Post-run Analysis
 -----------------
 
 We don't provide any experiment managers other than the ability to save runs
 to specific folders using the --experiment_name handle. However, there are a
-number of functions available in utilities.save_plot which allow for plotting
-of run statistics. By default, runs save a plot of best fitness (unless --debug
-is specified). Additionally, users can save plots from pre-existing stats.tsv
-files (i.e. stats files generated upon completion of a run) using:
+number of functions available in utilities.save_plots which allow for plotting
+of run statistics.
+
+
+Post-run Analysis - Single Runs
+-------------------------------
+
+By default, runs save a plot of best fitness (unless --debug is specified).
+Additionally, users can save plots from pre-existing stats.tsv files (i.e.
+stats files generated upon completion of a run) using:
 
     utilities.save_plot.save_plot_from_file(file_name, stat_name)
 
@@ -86,95 +271,23 @@ where:
     stat_name = a valid key from the stats.stats.stats dictionary.
 
 
-Finally, a function is given for generating a plot of the average stat values
-across multiple runs, as given by:
+Post-run Analysis - Multiple Runs
+---------------------------------
 
-    utilities.save_plot.save_average_plot_across_runs(file_name)
+If multiple runs are saved in a folder using the --experiment_name handle, a
+file is given for generating plots of the average stat values across these
+multiple runs, as given by:
 
-where:
+    stats.parse_stats.py
 
-    file_name = the full file path to a comma-separated summary results file.
+There are a number of flags that must be used for passing values via
+the command-line. To see a full list of these just run the following
 
-Note: The summary results file must be comma-separated, and of the form:
+$ python stats/parse_stats.py --help
 
-        run0_gen0       run1_gen0       .   .   .   run(n-1)_gen0
-        run0_gen1       run1_gen1       .   .   .   run(n-1)_gen1
-        run0_gen2       run1_gen2       .   .   .   run(n-1)_gen2
-        .               .               .   .   .   .
-        .               .               .   .   .   .
-        .               .               .   .   .   .
-        run0_gen(n-1)   run1_gen(n-1)   .   .   .   run(n-1)_gen(n-1)
-        run0_gen(n)     run1_gen(n)     .   .   .   run(n-1)_gen(n)
-
-Summary files can be generated using
-
-    stats.parse_stats.parse_stat_from_runs(experiment_name, stat_name)
-
-where:
-
-    experiment_name = the name of the collecting folder holding multiple runs
-    stat_name       = a valid key from the stats.stats.stats dictionary.
-
-
-Writing grammars
-----------------
-
-Grammars are written in Backus-Naur form, aka BNF. See the examples in
-src/grammars. Each rule is composed of a left-hand side (a single
-non-terminal), followed by the "goes-to" symbol ::=, followed by a
-list of productions separated by the "or" symbol |. Non-terminals are
-enclosed by angle brackets <>. For example:
-
-<a> ::= <b>c | d
-
-You can use an "or" symbol or angle bracket in a production. Escape it
-using a backslash: \|, \<, \>. You can use the "goes-to" symbol in a
-production without escaping it.
-
-
-#FIXME Need to finalise a suite of problems for PonyGE2
-Example Problems
-----------------
-
-
-String-match
-------------
-
-The grammar specifies words as lists of vowels and consonants. The aim
-is to match a target word. This is the default problem: as you can see
-in ponyge.py, the necessary grammar and fitness function are specified
-by default:
-
-GRAMMAR_FILE, FITNESS_FUNCTION = "grammars/letter.bnf", \
-StringMatch("golden")
-
-
-Note on unit productions
-------------------------------------
-
-Traditionally GE would not consume a codon for unit productions. This was a
-design decision taken by O'Neill et al. In PonyGE2 unit productions consume
-codons. The logic being that it helps to do linear tree-style operations.
-Furthermore, the checks needed for unit productions during the running of the
-algorithm can add up to millions of checks that aren't needed if we just
-consume codons for unit productions.
-
-The original design decision on unit productions was also taken before the
-introduction of evolvable grammars whereby the arity of a unit production
-could change over time. In this case consuming codons will help to limit the
-ripple effect from that change in arity. This also replicates non coding
-regions of genome as seen in nature.
-
-In summary, the merits for not consuming a codon for unit productions are not
-clearly defined in the literature. The benefits in consuming codons are a
-reduction in computation and improved speed with linear tree style operations.
-Other benefits are an increase in non-coding regions in the chromosome (more
-in line with nature) that through evolution of the grammar may then express
-useful information.
-
-
+----------
 References
----------
+----------
 
 Michael O'Neill and Conor Ryan, "Grammatical Evolution: Evolutionary
 Automatic Programming in an Arbitrary Language", Kluwer Academic

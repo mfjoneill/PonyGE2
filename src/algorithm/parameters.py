@@ -25,6 +25,7 @@ params = {
         # "moving_point_dual"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_spiral"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_realworld" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
+        # "classification"
 
 
     # Select Regression Problem Suite
@@ -238,7 +239,6 @@ def set_params(command_line_args):
         # POPULATION OPTIONS
         elif opt == "--population":
             params['POPULATION_SIZE'] = int(arg)
-            params['GENERATION_SIZE'] = int(arg)
         elif opt == "--generations":
             params['GENERATIONS'] = int(arg)
 
@@ -257,6 +257,7 @@ def set_params(command_line_args):
             params['MAX_INIT_DEPTH'] = int(arg)
         elif opt == "--genome_init":
             params['GENOME_INIT'] = True
+            params['INITIALISATION'] = "operators.initialisation.random_init"
 
         # SELECTION
         elif opt == "--selection":
@@ -356,7 +357,8 @@ def set_params(command_line_args):
         params['ELITE_SIZE'] = return_percent(1, params['POPULATION_SIZE'])
 
     # Set the size of a generation
-    params['GENERATION_SIZE'] = params['POPULATION_SIZE']
+    params['GENERATION_SIZE'] = params['POPULATION_SIZE'] - params[
+        'ELITE_SIZE']
 
     # Set random seed
     if params['RANDOM_SEED'] is None:
