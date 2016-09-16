@@ -152,15 +152,16 @@ def display_3D_plotly_population(individuals,generation):
                           )
 
         data = [trace1,trace2]
-        #plotly.offline.plot(data)
+        #plotly.plotly.plot(data)
         title = "Moving Point - Generation " + str(generation)
         layout = Layout(title=title,
                         #xaxis=dict(range=[0,params['MP_X_LIM_MAX']]),
                         #yaxis=dict(range=[0,params['MP_Y_LIM_MAX']])
                         )
-        fig = Figure(data=data,layout=layout)
+        fig1 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay.html"
-        mpd_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div')
+        if not params['JUPYTER']:
+            mpd_div = plotly.offline.plot(fig1, filename=filename, auto_open=True, output_type='div',show_link=False)
 
         # Create fitness histogram plot
         #
@@ -198,9 +199,10 @@ def display_3D_plotly_population(individuals,generation):
                         yaxis=dict(title='Best Fitness'),
                         xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
                         )
-        fig = Figure(data=data,layout=layout)
+        fig2 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay_fitness.html"
-        mpdfit_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div')
+        if not params['JUPYTER']:
+            mpdfit_div = plotly.offline.plot(fig2,filename=filename,auto_open=True,output_type='div',show_link=False)
 
 
         # plot fitness distribution histogram
@@ -213,26 +215,40 @@ def display_3D_plotly_population(individuals,generation):
         #                xaxis=dict(range=[0, 100000]),
                         yaxis=dict(range=[0, params['POPULATION_SIZE']])
                         )
-        fig = Figure(data=data, layout=layout)
+        fig3 = Figure(data=data, layout=layout)
         filename = "movingpointdisplay_fitnessdistribution.html"
-        mpdfd_div = plotly.offline.plot(fig, filename=filename,auto_open=True,output_type='div')
-        file_html = open('test.html','w')
-        file_html.write('<html>')
-        file_html.write('''<div style="width: 100%;">''')
-        file_html.write('''<div style="width: 50%; height: 600; float: left;">''')
-        file_html.write(mpd_div)
-        file_html.write('</div>')
-        file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
-        file_html.write(mpdfd_div)
-        file_html.write(mpdfit_div)
-        file_html.write('</div></div>')
-        file_html.write('<div>')
-        # another row
-        file_html.write('</div></html>')
-        file_html.close()
-        import webbrowser
-        webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
-        time.sleep(1)
+        if not params['JUPYTER']:
+            mpdfd_div = plotly.offline.plot(fig3, filename=filename,auto_open=True,output_type='div',show_link=False)
+
+        if not params['JUPYTER']:
+            file_html = open('test.html','w')
+            file_html.write('<html>')
+            file_html.write('''<div style="width: 100%;">''')
+            file_html.write('''<div style="width: 50%; height: 600; float: left;">''')
+            file_html.write(mpd_div)
+            file_html.write('</div>')
+            file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
+            file_html.write(mpdfd_div)
+            file_html.write(mpdfit_div)
+            file_html.write('</div></div>')
+            file_html.write('<div>')
+            # another row
+            file_html.write('</div></html>')
+            file_html.close()
+            import webbrowser
+            webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
+            time.sleep(1)
+
+        if (params['JUPYTER']):
+            fig4 = tools.make_subplots(rows=2, specs=[[{'is_3d': True}], [{'is_3d': False}]])
+            fig4.append_trace(trace1,1,1)
+            fig4.append_trace(trace2,1,1)
+            fig4.append_trace(trace3,2,1)
+            #print(fig4.to_string())
+            plotly.offline.iplot(fig4,show_link=False)
+            #mpd_div = plotly.offline.iplot(fig1)
+            #mpdfit_div = plotly.offline.iplot(fig2)
+            #mpdfd_div = plotly.offline.iplot(fig3)
 
 
 def display_3D_population_dual_target(individuals,generation):

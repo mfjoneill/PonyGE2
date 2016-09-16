@@ -11,7 +11,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 100,
-        'GENERATIONS': 10,
+        'GENERATIONS': 3,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -82,6 +82,10 @@ params = {
 
         # generate plot.ly charts/dashboard for dynamic problems
         'PLOTLY': True,
+        # generate plot.ly charts/dashboard for dynamic problems
+        # when in a Jupyter Notebook environment
+        'JUPYTER': False,
+
         #Spiral Move Params
         'CIRCLE_SPEED': 10,
         'FORWARD_SPEED': 10,
