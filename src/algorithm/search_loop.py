@@ -91,6 +91,9 @@ def search_dynamic_loop():
     for generation in range(1, (params['GENERATIONS']+1)):
         stats['gen'] = generation
 
+        # New generation
+        individuals = step.step(individuals)
+
         # Do we change the fitness environment?
         if generation%params['DYNAMIC_ENVIRONMENT_PERIOD'] == 0:
             print("----+CHANGE FITNESS TARGET+----")
@@ -114,11 +117,7 @@ def search_dynamic_loop():
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
             # Reset the population level statistics
-            get_stats(individuals) # this also generates an additional entry/gen in the reports e.g.,stats.csv
-
-
-        # New generation
-        individuals = step.step(individuals)
+            #get_stats(individuals) # this also generates an additional entry/gen in the reports e.g.,stats.csv
 
         # Generate statistics for run so far
         get_stats(individuals)
