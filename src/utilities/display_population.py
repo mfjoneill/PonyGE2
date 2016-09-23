@@ -1,6 +1,6 @@
 from algorithm.parameters import params
 from scipy.spatial import distance
-from scipy.stats import entropy
+from scipy.stats import entropy, variation
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -171,11 +171,12 @@ def display_3D_plotly_population(individuals,generation):
         fitness = []
         for i in range(params['POPULATION_SIZE']):
             fitness.append(individuals[i].fitness)
+            #        max_fit = max(fitness)
+            #        min_fit = min(fitness)
 
-        #        max_fit = max(fitness)
-        #        min_fit = min(fitness)
-        #        sum_fit = sum(fitness)
-        #        mean_fit = float(sum_fit)/float(len(fitness))
+        sum_fit = sum(fitness)
+        mean_fit = float(sum_fit)/float(len(fitness))
+        trackers.mean_fitness_list.append(mean_fit)
 
         # create fitness plot
         #
@@ -185,11 +186,23 @@ def display_3D_plotly_population(individuals,generation):
                           marker=dict(
                               # color='rgb(127, 127, 127)',
                               color='blue',
-                              size=4,
-                              symbol='circle',
+                              size=6,
+                              symbol='circle-open',
                           ),
                           opacity=0.9,
                           name='Best Fitness'
+                          )
+
+        trace4a = Scatter(x=generation, y=trackers.mean_fitness_list,
+                          mode='lines+markers',
+                          marker=dict(
+                              # color='rgb(127, 127, 127)',
+                              color='green',
+                              size=6,
+                              symbol='circle-open',
+                          ),
+                          opacity=0.9,
+                          name='Mean Fitness'
                           )
 
         e = entropy(fitness)
@@ -203,29 +216,51 @@ def display_3D_plotly_population(individuals,generation):
                               symbol='circle',
                           ),
                           opacity=0.9,
-                          name='Entropy'
+                          name='Entropy',
+                          yaxis='y2'
                           )
 
         #plotly.offline.plot([trace5])
+        __v = variation(fitness)
+        #print("hello variance...",__v)
+        trackers.fitness_variation_list.append(__v)
+        trace6 = Scatter(x=generation, y=trackers.fitness_variation_list,
+                          mode='lines+markers',
+                          marker=dict(
+                              color='yellow',
+                              size=4,
+                              symbol='circle',
+                          ),
+                          opacity=0.9,
+                          name='Variation',
+                          yaxis='y2'
+                          )
 
-        fig = tools.make_subplots(2,1)
-        fig.append_trace(trace4,1,1)
-        fig.append_trace(trace5,2,1)
+        #fig = tools.make_subplots(1,1)
+        #fig.append_trace(trace4,1,1)
+        #fig.append_trace(trace4a,1,1)
+        #fig.append_trace(trace5,1,1)
+        #fig.append_trace(trace6,1,1)
 
-        data = [trace4]
+        data = [trace4,trace4a,trace5,trace6]
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
-        fig['layout'].update(title=title)
-        #        layout = Layout(title=title,
-        #                        #yaxis=dict(range=[0,100000]),
-        #                        yaxis=dict(title='Best Fitness'),
-        #                        #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
-        #                        xaxis=dict(title='#Fitness Changes (Generations*2)')
-        #                        )
-        #        fig2 = Figure(data=data,layout=layout)
+        #fig['layout'].update(title=title, legend=dict(orientation='h'),
+        #                     yaxis1=dict(side='left',autorange=True),
+        #                     yaxis2=dict(title='Diversity/Dispersion',type='linear',side='right',overlaying='y',range=[0,4])) #,yaxis=dict(type='log',autorange=True)
+        #fig['layout']['yaxis1'].update(title='Fitness',type='log')
+        #fig['layout']['yaxis2'].update(title='Diversity/Dispersion',side='right',type='log')
+        layout = Layout(title=title, legend=dict(orientation='h'),
+                            #yaxis=dict(range=[0,100000]),
+                            yaxis1=dict(title='Fitness',type='log'),
+                            #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
+                            xaxis=dict(title='Generations'),
+                            yaxis2=dict(title='Entropy/Variation',side='right',overlaying='y',type='linear',autorange=True)
+                        )
+        fig2 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay_fitness.html"
         if not params['JUPYTER']:
-            mpdfit_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div',show_link=False)
+            mpdfit_div = plotly.offline.plot(fig2,filename=filename,auto_open=True,output_type='div',show_link=False)
 
 
         # plot fitness distribution histogram
@@ -247,10 +282,10 @@ def display_3D_plotly_population(individuals,generation):
             file_html = open('test.html','w')
             file_html.write('<html>')
             file_html.write('''<div style="width: 100%;">''')
-            file_html.write('''<div style="width: 50%; height: 600; float: left;">''')
+            file_html.write('''<div style="width: 40%; height: 600; float: left;">''')
             file_html.write(mpd_div)
             file_html.write('</div>')
-            file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
+            file_html.write('''<div style="width: 60%; height: 300; display: inline-block;">''')
             file_html.write(mpdfd_div)
             file_html.write(mpdfit_div)
             file_html.write('</div></div>')
