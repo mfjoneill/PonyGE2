@@ -191,18 +191,41 @@ def display_3D_plotly_population(individuals,generation):
                           name='Best Fitness'
                           )
 
+        from scipy.stats import entropy
+        e = entropy(fitness)
+        #print("hello entropy...",e)
+        trackers.fitness_entropy_list.append(e)
+        trace5 = Scatter(x=generation, y=trackers.fitness_entropy_list,
+                          mode='lines+markers',
+                          marker=dict(
+                              color='red',
+                              size=4,
+                              symbol='circle',
+                          ),
+                          opacity=0.9,
+                          name='Entropy'
+                          )
+
+        #plotly.offline.plot([trace5])
+
+        fig = tools.make_subplots(1,2)
+        fig.append_trace(trace4,1,1)
+        fig.append_trace(trace5,1,2)
+
         data = [trace4]
         #plotly.offline.plot(data)
         title = "Moving Point - Generation " + str(generation)
-        layout = Layout(title=title,
-                        #yaxis=dict(range=[0,100000]),
-                        yaxis=dict(title='Best Fitness'),
-                        xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
-                        )
-        fig2 = Figure(data=data,layout=layout)
+        fig['layout'].update(title=title)
+        #        layout = Layout(title=title,
+        #                        #yaxis=dict(range=[0,100000]),
+        #                        yaxis=dict(title='Best Fitness'),
+        #                        #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
+        #                        xaxis=dict(title='#Fitness Changes (Generations*2)')
+        #                        )
+        #        fig2 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay_fitness.html"
         if not params['JUPYTER']:
-            mpdfit_div = plotly.offline.plot(fig2,filename=filename,auto_open=True,output_type='div',show_link=False)
+            mpdfit_div = plotly.offline.plot(fig,filename=filename,auto_open=True,output_type='div',show_link=False)
 
 
         # plot fitness distribution histogram

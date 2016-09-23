@@ -17,3 +17,6 @@ time_list = []
 stats_list = []
 # List for storing stats at each generation
 # Used when verbose mode is off to speed up program
+
+fitness_entropy_list = []
+#  useful for plotting entropy of fitness of population over time
