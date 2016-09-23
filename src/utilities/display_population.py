@@ -1,5 +1,6 @@
 from algorithm.parameters import params
 from scipy.spatial import distance
+from scipy.stats import entropy
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -191,7 +192,6 @@ def display_3D_plotly_population(individuals,generation):
                           name='Best Fitness'
                           )
 
-        from scipy.stats import entropy
         e = entropy(fitness)
         #print("hello entropy...",e)
         trackers.fitness_entropy_list.append(e)
@@ -208,9 +208,9 @@ def display_3D_plotly_population(individuals,generation):
 
         #plotly.offline.plot([trace5])
 
-        fig = tools.make_subplots(1,2)
+        fig = tools.make_subplots(2,1)
         fig.append_trace(trace4,1,1)
-        fig.append_trace(trace5,1,2)
+        fig.append_trace(trace5,2,1)
 
         data = [trace4]
         #plotly.offline.plot(data)
