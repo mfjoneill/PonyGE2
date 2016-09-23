@@ -263,6 +263,56 @@ def display_3D_plotly_population(individuals,generation):
             mpdfit_div = plotly.offline.plot(fig2,filename=filename,auto_open=True,output_type='div',show_link=False)
 
 
+        # plot correlations
+        #
+        trace7 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_variation_list,
+                          mode='markers',
+                          marker=dict(
+                              color='black',
+                              size=4,
+                              symbol='circle-open',
+                          ),
+                          opacity=0.9,
+                          name='Variation',
+                          xaxis='x2'
+                          )
+        data = [trace7]
+        title = "Best Fitness vs Variation"
+        layout = Layout(title=title, legend=dict(orientation='h'),
+                            #yaxis=dict(range=[0,100000]),
+                            yaxis=dict(title='Best Fitness'),
+                            #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
+                            xaxis=dict(title='Variation')
+                        )
+        figcorr1 = Figure(data=data,layout=layout)
+        filename = "movingpointdisplay_fitness_variation.html"
+        if not params['JUPYTER']:
+            mpdfitvarcorr_div = plotly.offline.plot(figcorr1,filename=filename,auto_open=True,output_type='div',show_link=False)
+
+        trace8 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_entropy_list,
+                          mode='markers',
+                          marker=dict(
+                              color='red',
+                              size=4,
+                              symbol='circle',
+                          ),
+                          opacity=0.9,
+                          name='Entropy',
+                          xaxis='x3'
+                          )
+        data = [trace7,trace8]
+        title = ""#"Best Fitness vs Entropy"
+        layout = Layout(title=title, legend=dict(orientation='v'),
+                            yaxis=dict(title='Best Fitness'),
+                            xaxis2=dict(title='Variation',autorange=True),
+                            xaxis3=dict(title='Entropy',overlaying='x2',side='top',autorange=True)
+                        )
+        figcorr2 = Figure(data=data,layout=layout)
+        filename = "movingpointdisplay_fitness_entropy.html"
+        if not params['JUPYTER']:
+            mpdfitentropycorr_div = plotly.offline.plot(figcorr2,filename=filename,auto_open=True,output_type='div',show_link=False)
+
+
         # plot fitness distribution histogram
         #
 
@@ -281,17 +331,24 @@ def display_3D_plotly_population(individuals,generation):
         if not params['JUPYTER']:
             file_html = open('test.html','w')
             file_html.write('<html>')
+            #file_html.write('''<div style="clear:left/right/both;">''')
+            #file_html.write(mpd_div)
+            #file_html.write('</div>')
+            #another row
             file_html.write('''<div style="width: 100%;">''')
-            file_html.write('''<div style="width: 40%; height: 600; float: left;">''')
+            file_html.write('''<div style="width: 50%; height: 300; float: left;">''')
             file_html.write(mpd_div)
+            #file_html.write(mpdfitvarcorr_div)
+            file_html.write(mpdfitentropycorr_div)
             file_html.write('</div>')
-            file_html.write('''<div style="width: 60%; height: 300; display: inline-block;">''')
+
+            file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
             file_html.write(mpdfd_div)
             file_html.write(mpdfit_div)
-            file_html.write('</div></div>')
-            file_html.write('<div>')
+            file_html.write('</div>')
+            file_html.write('</div>')
             # another row
-            file_html.write('</div></html>')
+            file_html.write('</html>')
             file_html.close()
             import webbrowser
             webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
