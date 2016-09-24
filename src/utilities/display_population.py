@@ -1,6 +1,6 @@
 from algorithm.parameters import params
 from scipy.spatial import distance
-from scipy.stats import entropy, variation, iqr
+from scipy.stats import entropy, variation, iqr, tstd
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -177,6 +177,7 @@ def display_3D_plotly_population(individuals,generation):
         sum_fit = sum(fitness)
         mean_fit = float(sum_fit)/float(len(fitness))
         trackers.mean_fitness_list.append(mean_fit)
+        sd_fit = tstd(fitness)
 
         # create fitness plot
         #
@@ -344,10 +345,13 @@ def display_3D_plotly_population(individuals,generation):
             mpdfd_div = plotly.offline.plot(fig3, filename=filename,auto_open=True,output_type='div',show_link=False)
             # create pyplots for movie generation...
             plt.hist(fitness)
-            plt.title("Moving Point - Generation " + str(generation))
+            plt.title("Moving Point - Population Fitness Histogram - Generation " + str(generation))
             #plt.show()
             plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
-
+            plt.ylabel('#Individuals')
+            plt.xlabel('Fitness')
+            __hist_text = "$\mu="+"{0:.2f}".format(mean_fit)+",\ \sigma="+"{0:.2f}".format(sd_fit)+",\ entropy="+"{0:.2f}".format(e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
+            plt.text(10,params['POPULATION_SIZE']*.9, __hist_text)
             time1 = datetime.now()
             hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
             plt.savefig(
