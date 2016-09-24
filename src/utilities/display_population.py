@@ -342,13 +342,11 @@ def display_3D_plotly_population(individuals,generation):
         filename = "movingpointdisplay_fitnessdistribution.html"
         if not params['JUPYTER']:
             mpdfd_div = plotly.offline.plot(fig3, filename=filename,auto_open=True,output_type='div',show_link=False)
-            #fig = plt.figure()
-            #ax1 = fig.add_subplot(111, projection='3d')
-            #ax1.set_autoscale_on(False)
-            #ax1.scatter(xs, ys, zs, c=c)
+            # create pyplots for movie generation...
             plt.hist(fitness)
             plt.title("Moving Point - Generation " + str(generation))
             #plt.show()
+            plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
 
             time1 = datetime.now()
             hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
