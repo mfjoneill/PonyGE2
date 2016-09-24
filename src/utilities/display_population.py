@@ -61,7 +61,8 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
         xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
 
     c = ['r'] + icolor
-
+    s = [1 for n in range(params['POPULATION_SIZE'])]
+    s = [5] + s
     #nx, ny, nz = [23.0, 22.0], [15.0, 14.0], [2.0, 1.0]
     #xs, ys, zs = xs+nx, ys+ny, zs+nz
     #print("xs:",xs,"ys:",ys,"zs:",zs)
@@ -71,7 +72,7 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
     fig = plt.figure()
     ax1 = fig.add_subplot(111, projection='3d')
     ax1.set_autoscale_on(False)
-    ax1.scatter(xs,ys,zs,c=c)
+    ax1.scatter(xs,ys,zs,c=c,s=s)
     ax1.set_xlim(params['MP_X_LIM_MIN'],params['MP_X_LIM_MAX'])
     ax1.set_ylim(params['MP_Y_LIM_MIN'],params['MP_Y_LIM_MAX'])
     ax1.set_zlim(params['MP_Z_LIM_MIN'],params['MP_Z_LIM_MAX'])
@@ -344,14 +345,15 @@ def display_3D_plotly_population(individuals,generation):
         if not params['JUPYTER']:
             mpdfd_div = plotly.offline.plot(fig3, filename=filename,auto_open=True,output_type='div',show_link=False)
             # create pyplots for movie generation...
-            plt.hist(fitness)
+            plt.hist(fitness)#,bins=int(params['POPULATION_SIZE']*0.1))
             plt.title("Moving Point - Population Fitness Histogram - Generation " + str(generation))
             #plt.show()
             plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
             plt.ylabel('#Individuals')
             plt.xlabel('Fitness')
+            plt.grid(True)
             __hist_text = "$\mu="+"{0:.2f}".format(mean_fit)+",\ \sigma="+"{0:.2f}".format(sd_fit)+",\ entropy="+"{0:.2f}".format(e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
-            plt.text(10,params['POPULATION_SIZE']*.9, __hist_text)
+            plt.text(1000,params['POPULATION_SIZE']*.9, __hist_text)
             time1 = datetime.now()
             hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
             plt.savefig(
