@@ -24,6 +24,9 @@ fitness_entropy_list = []
 fitness_variation_list = []
 #  useful for plotting variation of fitness of population over time
 
+fitness_iqr_list = []
+#  useful for plotting variation of fitness of population over time
+
 mean_fitness_list = []
 # fitness_plot is simply a list of the best fitnesses at each generation.
 # Useful for plotting evolutionary progress.

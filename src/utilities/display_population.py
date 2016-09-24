@@ -1,6 +1,6 @@
 from algorithm.parameters import params
 from scipy.spatial import distance
-from scipy.stats import entropy, variation
+from scipy.stats import entropy, variation, iqr
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -227,13 +227,28 @@ def display_3D_plotly_population(individuals,generation):
         trace6 = Scatter(x=generation, y=trackers.fitness_variation_list,
                           mode='lines+markers',
                           marker=dict(
-                              color='yellow',
+                              color='black',
                               size=4,
-                              symbol='circle',
+                              symbol='circle-open',
                           ),
                           opacity=0.9,
                           name='Variation',
                           yaxis='y2'
+                          )
+
+        __iqr = iqr(fitness)
+        #print("hello variance...",__v)
+        trackers.fitness_iqr_list.append(__iqr)
+        trace6a = Scatter(x=generation, y=trackers.fitness_iqr_list,
+                          mode='lines+markers',
+                          marker=dict(
+                              color='grey',
+                              size=4,
+                              symbol='circle-open',
+                          ),
+                          opacity=0.9,
+                          name='IQR'#,
+                          #yaxis='y2'
                           )
 
         #fig = tools.make_subplots(1,1)
@@ -242,9 +257,9 @@ def display_3D_plotly_population(individuals,generation):
         #fig.append_trace(trace5,1,1)
         #fig.append_trace(trace6,1,1)
 
-        data = [trace4,trace4a,trace5,trace6]
+        data = [trace4,trace4a,trace5,trace6,trace6a]
         #plotly.offline.plot(data)
-        title = "Moving Point - Generation " + str(generation)
+        title = ""#"Moving Point - Generation " + str(generation)
         #fig['layout'].update(title=title, legend=dict(orientation='h'),
         #                     yaxis1=dict(side='left',autorange=True),
         #                     yaxis2=dict(title='Diversity/Dispersion',type='linear',side='right',overlaying='y',range=[0,4])) #,yaxis=dict(type='log',autorange=True)
@@ -255,7 +270,7 @@ def display_3D_plotly_population(individuals,generation):
                             yaxis1=dict(title='Fitness',type='log'),
                             #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
                             xaxis=dict(title='Generations'),
-                            yaxis2=dict(title='Entropy/Variation',side='right',overlaying='y',type='linear',autorange=True)
+                            yaxis2=dict(title='Entropy/Variation/IQR',side='right',overlaying='y',type='linear',autorange=True)
                         )
         fig2 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay_fitness.html"
