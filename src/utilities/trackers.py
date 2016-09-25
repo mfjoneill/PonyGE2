@@ -18,6 +18,9 @@ stats_list = []
 # List for storing stats at each generation
 # Used when verbose mode is off to speed up program
 
+fitness_list = []
+#  useful for plotting histogram of fitness of population over time
+
 fitness_entropy_list = []
 #  useful for plotting entropy of fitness of population over time
 
@@ -30,3 +33,6 @@ fitness_iqr_list = []
 mean_fitness_list = []
 # fitness_plot is simply a list of the best fitnesses at each generation.
 # Useful for plotting evolutionary progress.
+
+fitness_std_list = []
+#  useful for plotting std of fitness of population over time

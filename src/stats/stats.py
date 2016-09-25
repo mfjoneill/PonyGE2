@@ -6,6 +6,7 @@ from utilities import trackers
 from sys import stdout
 from copy import copy
 import time
+from scipy.stats import entropy, variation, iqr, tstd
 
 
 """Algorithm statistics"""
@@ -32,7 +33,11 @@ stats = {
         "ave_fitness": 0,
         "best_fitness": 0,
         "time_taken": 0,
-        "total_time": 0
+        "total_time": 0,
+        "fitness_entropy": 0,
+        "fitness_variation": 0,
+        "fitness_iqr": 0,
+        "fitness_std": 0
 }
 
 
@@ -84,11 +89,22 @@ def get_stats(individuals, end=False):
         fitnesses = [i.fitness for i in available]
         stats['ave_fitness'] = ave(fitnesses)
         stats['best_fitness'] = stats['best_ever'].fitness
+        stats['fitness_entropy'] = entropy(fitnesses)
+        stats['fitness_variation'] = variation(fitnesses)
+        stats['fitness_iqr'] = iqr(fitnesses)
+        stats['fitness_std'] = tstd(fitnesses)
+        trackers.fitness_list.append(fitnesses)
 
     # Save fitness plot information
     if params['SAVE_PLOTS'] and not params['DEBUG']:
         if not end:
             trackers.best_fitness_list.append(stats['best_ever'].fitness)
+            trackers.mean_fitness_list.append(stats['ave_fitness'])
+            trackers.fitness_std_list.append(stats['fitness_std'])
+            trackers.fitness_iqr_list.append(stats['fitness_iqr'])
+            trackers.fitness_variation_list.append(stats['fitness_variation'])
+            trackers.fitness_entropy_list.append(stats['fitness_entropy'])
+
         if params['VERBOSE'] or end:
             save_best_fitness_plot()
 

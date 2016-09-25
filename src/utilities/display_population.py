@@ -165,20 +165,6 @@ def display_3D_plotly_population(individuals,generation):
         if not params['JUPYTER']:
             mpd_div = plotly.offline.plot(fig1, filename=filename, auto_open=True, output_type='div',show_link=False)
 
-        # Create fitness histogram plot
-        #
-        # retrieve a fitness list for the population
-        #
-        fitness = []
-        for i in range(params['POPULATION_SIZE']):
-            fitness.append(individuals[i].fitness)
-            #        max_fit = max(fitness)
-            #        min_fit = min(fitness)
-
-        sum_fit = sum(fitness)
-        mean_fit = float(sum_fit)/float(len(fitness))
-        trackers.mean_fitness_list.append(mean_fit)
-        sd_fit = tstd(fitness)
 
         # create fitness plot
         #
@@ -207,9 +193,6 @@ def display_3D_plotly_population(individuals,generation):
                           name='Mean Fitness'
                           )
 
-        e = entropy(fitness)
-        #print("hello entropy...",e)
-        trackers.fitness_entropy_list.append(e)
         trace5 = Scatter(x=generation, y=trackers.fitness_entropy_list,
                           mode='lines+markers',
                           marker=dict(
@@ -223,9 +206,7 @@ def display_3D_plotly_population(individuals,generation):
                           )
 
         #plotly.offline.plot([trace5])
-        __v = variation(fitness)
-        #print("hello variance...",__v)
-        trackers.fitness_variation_list.append(__v)
+
         trace6 = Scatter(x=generation, y=trackers.fitness_variation_list,
                           mode='lines+markers',
                           marker=dict(
@@ -238,9 +219,6 @@ def display_3D_plotly_population(individuals,generation):
                           yaxis='y2'
                           )
 
-        __iqr = iqr(fitness)
-        #print("hello variance...",__v)
-        trackers.fitness_iqr_list.append(__iqr)
         trace6a = Scatter(x=generation, y=trackers.fitness_iqr_list,
                           mode='lines+markers',
                           marker=dict(
@@ -330,6 +308,18 @@ def display_3D_plotly_population(individuals,generation):
             mpdfitentropycorr_div = plotly.offline.plot(figcorr2,filename=filename,auto_open=True,output_type='div',show_link=False)
 
 
+        # Create fitness histogram plot
+        #
+        # retrieve a fitness list for the population
+        #
+        fitness = []
+        fitness = trackers.fitness_list[generation]
+        __sum_fit = sum(fitness)
+        __mean_fit = float(__sum_fit)/float(len(fitness))
+        __sd_fit = tstd(fitness)
+        __iqr = iqr(fitness)
+        __v = variation(fitness)
+        __e = entropy(fitness)
         # plot fitness distribution histogram
         #
 
@@ -352,7 +342,7 @@ def display_3D_plotly_population(individuals,generation):
             plt.ylabel('#Individuals')
             plt.xlabel('Fitness')
             plt.grid(True)
-            __hist_text = "$\mu="+"{0:.2f}".format(mean_fit)+",\ \sigma="+"{0:.2f}".format(sd_fit)+",\ entropy="+"{0:.2f}".format(e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
+            __hist_text = "$\mu="+"{0:.2f}".format(__mean_fit)+",\ \sigma="+"{0:.2f}".format(__sd_fit)+",\ entropy="+"{0:.2f}".format(__e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
             plt.text(1000,params['POPULATION_SIZE']*.9, __hist_text)
             time1 = datetime.now()
             hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
