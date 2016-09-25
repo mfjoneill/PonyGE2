@@ -1,4 +1,4 @@
-from utilities.trackers import best_fitness_list
+from utilities.trackers import best_fitness_list, fitness_list
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
@@ -71,3 +71,40 @@ def save_plot_from_file(filename, stat_name):
     # Save plot
     plt.savefig(save_path + '/' + stat_name + '.pdf')
     plt.close()
+
+
+def save_fitness_histogram_movie():
+    from moviepy.editor import VideoClip
+    from moviepy.video.io.bindings import mplfig_to_npimage
+    from algorithm.parameters import params
+
+    def make_frame(t):
+        """ returns an image of the frame at time t """
+        # ... create the frame with any library
+        fitness = fitness_list[int(t)]
+        __sum_fit = sum(fitness)
+        __mean_fit = float(__sum_fit)/float(len(fitness))
+        from scipy.stats import tstd, iqr, variation, entropy
+        __sd_fit = tstd(fitness)
+        __iqr = iqr(fitness)
+        __v = variation(fitness)
+        __e = entropy(fitness)
+
+        fig = plt.figure()
+        plt.hist(fitness)  # ,bins=int(params['POPULATION_SIZE']*0.1))
+        plt.title("Moving Point - Population Fitness Histogram - Generation " + str(int(t)))
+        plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
+        plt.ylabel('#Individuals')
+        plt.xlabel('Fitness')
+        plt.grid(True)
+        __hist_text = "$\mu=" + "{0:.2f}".format(__mean_fit) + ",\ \sigma=" + "{0:.2f}".format(
+            __sd_fit) + ",\ entropy=" + "{0:.2f}".format(__e) + ",\ iqr=" + "{0:.2f}".format(__iqr) + "$"
+        plt.text(1000, params['POPULATION_SIZE'] * .9, __hist_text)
+        return mplfig_to_npimage(fig)  # (Height x Width x 3) Numpy array
+
+    filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/fitnessdistribution'
+    fps = 1
+    duration = params['GENERATIONS']+1
+    animation = VideoClip(make_frame, duration=duration)
+    animation.write_videofile(filename+".mp4", fps=fps)  # export as video
+    animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
