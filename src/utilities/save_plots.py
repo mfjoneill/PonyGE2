@@ -1,4 +1,4 @@
-from utilities.trackers import best_fitness_list, fitness_list
+from utilities.trackers import best_fitness_list, fitness_list, genotype_list, target_list
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
@@ -103,6 +103,67 @@ def save_fitness_histogram_movie():
         return mplfig_to_npimage(fig)  # (Height x Width x 3) Numpy array
 
     filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/fitnessdistribution'
+    fps = 1
+    duration = params['GENERATIONS']+1
+    animation = VideoClip(make_frame, duration=duration)
+    animation.write_videofile(filename+".mp4", fps=fps)  # export as video
+    animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
+
+def save_3Dgenotype_movie():
+    from moviepy.editor import VideoClip
+    from moviepy.video.io.bindings import mplfig_to_npimage
+    from algorithm.parameters import params
+
+    def make_frame(t):
+        """ returns an image of the frame at time t """
+        # ... create the frame with any library
+        __genotype = genotype_list[int(t)]
+        #        print("__genotype:", __genotype)
+        #        print("__genotype[1]:", __genotype[1],type(__genotype[1]))
+        #        print("__genotype[1][0]:", __genotype[1][0],type(__genotype[1][0]))
+        #        print("__genotype[1][0][0]:", __genotype[1][0][0],type(__genotype[1][0][0]))
+
+        __target = target_list[int(t)]
+
+        xs, ys, zs = [], [], []
+        xs.append(__target[0])
+        ys.append(__target[1])
+        zs.append(__target[2])
+
+        # colour code the target as red, and the population members as blue
+        icolor = []
+        for i in range(params['POPULATION_SIZE']):
+            icolor.append('b')
+            nextx, nexty, nextz = [], [], []
+            #            print("__genotype[i+1][0][0]:", __genotype[i+1][0][0], type(__genotype[i+1][0][0]))
+            #            print("__genotype[i+1][0][1]:", __genotype[i+1][1][0], type(__genotype[i+1][1][0]))
+            #            print("__genotype[i+1][0][2]:", __genotype[i+1][2][0], type(__genotype[i+1][2][0]))
+            nextx.append(float(__genotype[i+1][0][0]))
+            nexty.append(float(__genotype[i+1][1][0]))
+            nextz.append(float(__genotype[i+1][2][0]))
+            xs, ys, zs = xs + nextx, ys + nexty, zs + nextz
+
+        c = ['r'] + icolor
+        s = [5 for n in range(params['POPULATION_SIZE'])]
+        s = [15] + s
+
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111, projection='3d')
+        ax1.set_autoscale_on(False)
+        ax1.scatter(xs, ys, zs, c=c, s=s)
+        ax1.set_xlim(params['MP_X_LIM_MIN'], params['MP_X_LIM_MAX'])
+        ax1.set_ylim(params['MP_Y_LIM_MIN'], params['MP_Y_LIM_MAX'])
+        ax1.set_zlim(params['MP_Z_LIM_MIN'], params['MP_Z_LIM_MAX'])
+        ax1.set_ylabel('y', fontsize=14)
+        ax1.set_xlabel('x', fontsize=14)
+        ax1.set_zlabel('z', fontsize=14)
+        # ax1.view_init(15,180)
+        ax1.view_init(30, 135)
+        plt.title("Moving Point - Generation " + str(int(t)))
+
+        return mplfig_to_npimage(fig)  # (Height x Width x 3) Numpy array
+
+    filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/3Dgenotypes'
     fps = 1
     duration = params['GENERATIONS']+1
     animation = VideoClip(make_frame, duration=duration)

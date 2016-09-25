@@ -25,6 +25,8 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
     #
     xs, ys, zs = [], [], []  
     xyz = params[target]
+    trackers.target_list.append(xyz)
+
     #print("xyz:", xyz)
     xs.append(xyz[0])
     ys.append(xyz[1])
@@ -37,12 +39,9 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
                                        (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
 
     # colour code the target as red, and the population members as blue
-    #icolor = ['b']
-    #icolor = icolor * params['POPULATION_SIZE']
-    # print(icolor)
-
-    # print(c)
     icolor = []
+    __ano_gen = [generation,]
+    trackers.genotype_list.append(__ano_gen)
     for i in range(params['POPULATION_SIZE']):
         #print(individuals[i].phenotype)
         if params['MPV_VISION_ENABLED']:
@@ -53,45 +52,44 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
         else:
             icolor.append('b')
         next_xyz = individuals[i].phenotype.split()
-        #print("next_xyz:",next_xyz)
         nextx, nexty, nextz = [], [], []
         nextx.append(float(next_xyz[0]))
         nexty.append(float(next_xyz[1]))
         nextz.append(float(next_xyz[2]))
         xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
+        __genotype = [nextx, nexty, nextz]
+        trackers.genotype_list[generation].append(__genotype)
 
     c = ['r'] + icolor
     s = [5 for n in range(params['POPULATION_SIZE'])]
     s = [15] + s
-    #nx, ny, nz = [23.0, 22.0], [15.0, 14.0], [2.0, 1.0]
-    #xs, ys, zs = xs+nx, ys+ny, zs+nz
-    #print("xs:",xs,"ys:",ys,"zs:",zs)
-    #print("type of xs[0] is:",type(xs[0]), "type of xs is:",type(xs))
 
-
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111, projection='3d')
-    ax1.set_autoscale_on(False)
-    ax1.scatter(xs,ys,zs,c=c,s=s)
-    ax1.set_xlim(params['MP_X_LIM_MIN'],params['MP_X_LIM_MAX'])
-    ax1.set_ylim(params['MP_Y_LIM_MIN'],params['MP_Y_LIM_MAX'])
-    ax1.set_zlim(params['MP_Z_LIM_MIN'],params['MP_Z_LIM_MAX'])
-    ax1.set_ylabel('y', fontsize=14)
-    ax1.set_xlabel('x', fontsize=14)
-    ax1.set_zlabel('z', fontsize=14)
-    #ax1.view_init(15,180)
-    ax1.view_init(30,135)
-    plt.title("Moving Point - Generation " +  str(generation))
-    plt.show()
-
-    time1 =  datetime.now()
-    hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
-
-    plt.savefig(
-        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_' + str(hms) + '_' + str(generation) + '.pdf')
-    plt.savefig(
-        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
-    plt.close()
+# COMMENTED OUT CODE BELOW WHICH GENERATIONS .pdf of each generation 3D scatterplot
+# A MOVIE IS NOW GENERATED in save_plots USING data generated in trackers above
+#
+#
+#    fig = plt.figure()
+#    ax1 = fig.add_subplot(111, projection='3d')
+#    ax1.set_autoscale_on(False)
+#    ax1.scatter(xs,ys,zs,c=c,s=s)
+#    ax1.set_xlim(params['MP_X_LIM_MIN'],params['MP_X_LIM_MAX'])
+#    ax1.set_ylim(params['MP_Y_LIM_MIN'],params['MP_Y_LIM_MAX'])
+#    ax1.set_zlim(params['MP_Z_LIM_MIN'],params['MP_Z_LIM_MAX'])
+#    ax1.set_ylabel('y', fontsize=14)
+#    ax1.set_xlabel('x', fontsize=14)
+#    ax1.set_zlabel('z', fontsize=14)
+#    ax1.view_init(30,135)
+#    plt.title("Moving Point - Generation " +  str(generation))
+#    plt.show()
+#
+#    time1 =  datetime.now()
+#    hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
+#
+#    plt.savefig(
+#        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_' + str(hms) + '_' + str(generation) + '.pdf')
+#    plt.savefig(
+#        params['FILE_PATH'] + str(params['TIME_STAMP']) + '/' + str(generation) + '.png')
+#    plt.close()
 
 
 def display_3D_plotly_population(individuals,generation):

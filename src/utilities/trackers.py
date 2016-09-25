@@ -36,3 +36,12 @@ mean_fitness_list = []
 
 fitness_std_list = []
 #  useful for plotting std of fitness of population over time
+
+genotype_list = []
+# WARNING: Memory intensive - stores genome of every individual in each generation
+# useful for calculating population/run statistics on genomes
+# used for 3D population visualisation
+
+target_list =[]
+# keeps track of the global optimum target at each generation
+# used in dynamic problem environments

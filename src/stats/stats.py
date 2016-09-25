@@ -1,4 +1,4 @@
-from utilities.save_plots import save_best_fitness_plot, save_fitness_histogram_movie
+from utilities.save_plots import save_best_fitness_plot, save_fitness_histogram_movie, save_3Dgenotype_movie
 from algorithm.parameters import params
 from os import path, mkdir, getcwd
 from datetime import timedelta
@@ -108,6 +108,8 @@ def get_stats(individuals, end=False):
         if params['VERBOSE'] or end:
             save_best_fitness_plot()
             save_fitness_histogram_movie()
+            if(params['PROBLEM']=='moving_point'):
+                save_3Dgenotype_movie()
 
     # Print statistics
     if params['VERBOSE']:
