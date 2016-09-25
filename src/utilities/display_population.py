@@ -314,12 +314,12 @@ def display_3D_plotly_population(individuals,generation):
         #
         fitness = []
         fitness = trackers.fitness_list[generation]
-        __sum_fit = sum(fitness)
-        __mean_fit = float(__sum_fit)/float(len(fitness))
-        __sd_fit = tstd(fitness)
-        __iqr = iqr(fitness)
-        __v = variation(fitness)
-        __e = entropy(fitness)
+#        __sum_fit = sum(fitness)
+#        __mean_fit = float(__sum_fit)/float(len(fitness))
+#        __sd_fit = tstd(fitness)
+#        __iqr = iqr(fitness)
+#        __v = variation(fitness)
+#        __e = entropy(fitness)
         # plot fitness distribution histogram
         #
 
@@ -335,21 +335,21 @@ def display_3D_plotly_population(individuals,generation):
         if not params['JUPYTER']:
             mpdfd_div = plotly.offline.plot(fig3, filename=filename,auto_open=True,output_type='div',show_link=False)
             # create pyplots for movie generation...
-            plt.hist(fitness)#,bins=int(params['POPULATION_SIZE']*0.1))
-            plt.title("Moving Point - Population Fitness Histogram - Generation " + str(generation))
-            #plt.show()
-            plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
-            plt.ylabel('#Individuals')
-            plt.xlabel('Fitness')
-            plt.grid(True)
-            __hist_text = "$\mu="+"{0:.2f}".format(__mean_fit)+",\ \sigma="+"{0:.2f}".format(__sd_fit)+",\ entropy="+"{0:.2f}".format(__e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
-            plt.text(1000,params['POPULATION_SIZE']*.9, __hist_text)
-            time1 = datetime.now()
-            hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
-            plt.savefig(
-                params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_fitnessdistribution_' + str(hms) + '_' + str(
-                    generation) + '.pdf')
-            plt.close()
+#            plt.hist(fitness)#,bins=int(params['POPULATION_SIZE']*0.1))
+#            plt.title("Moving Point - Population Fitness Histogram - Generation " + str(generation))
+#            #plt.show()
+#            plt.axis([0, 20000, 0, params['POPULATION_SIZE']])
+#            plt.ylabel('#Individuals')
+#            plt.xlabel('Fitness')
+#            plt.grid(True)
+#            __hist_text = "$\mu="+"{0:.2f}".format(__mean_fit)+",\ \sigma="+"{0:.2f}".format(__sd_fit)+",\ entropy="+"{0:.2f}".format(__e)+",\ iqr="+"{0:.2f}".format(__iqr)+"$"
+#            plt.text(1000,params['POPULATION_SIZE']*.9, __hist_text)
+#            time1 = datetime.now()
+#            hms = "%02d%02d%02d" % (time1.hour, time1.minute, time1.second)
+#            plt.savefig(
+#                params['FILE_PATH'] + str(params['TIME_STAMP']) + '/movingpointpopulation_fitnessdistribution_' + str(hms) + '_' + str(
+#                    generation) + '.pdf')
+#            plt.close()
 
 
 
