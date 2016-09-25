@@ -169,3 +169,27 @@ def save_3Dgenotype_movie():
     animation = VideoClip(make_frame, duration=duration)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video
     animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
+
+def merge_3Dgenotype_fitnesshistogram_movie():
+    from algorithm.parameters import params
+    import moviepy.editor as mpy
+
+    fps = 1
+    __filename1 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/3Dgenotypes.mp4'
+    __filename2 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/fitnessdistribution.mp4'
+    __outputfilename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/merge_3Dgenotype_fitnesshistogram.mp4'
+    clip_mayavi = mpy.VideoFileClip(__filename1)
+    clip_mpl = mpy.VideoFileClip(__filename2)
+    animation = mpy.clips_array([[clip_mpl, clip_mayavi]])
+    animation.write_videofile(__outputfilename, fps=fps)
+
+    # Make the white color transparent in clip_mayavi
+    clip_mayavi2 = (clip_mayavi.fx(mpy.vfx.mask_color, [255, 255, 255])
+                    .set_opacity(.4)  # whole clip is semi-transparent
+                    #.resize(height=0.85 * clip_mpl.h)
+                    .set_pos('center'))
+    # resize giving error messages!!
+
+    __outputfilename2 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/merge_3Dgenotype_fitnesshistogram_2.mp4'
+    animation = mpy.CompositeVideoClip([clip_mpl, clip_mayavi2])
+    animation.write_videofile(__outputfilename2, fps=fps)
