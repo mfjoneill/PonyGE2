@@ -61,8 +61,8 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
         xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
 
     c = ['r'] + icolor
-    s = [1 for n in range(params['POPULATION_SIZE'])]
-    s = [5] + s
+    s = [5 for n in range(params['POPULATION_SIZE'])]
+    s = [15] + s
     #nx, ny, nz = [23.0, 22.0], [15.0, 14.0], [2.0, 1.0]
     #xs, ys, zs = xs+nx, ys+ny, zs+nz
     #print("xs:",xs,"ys:",ys,"zs:",zs)
