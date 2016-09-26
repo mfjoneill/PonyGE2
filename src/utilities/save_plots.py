@@ -106,6 +106,7 @@ def save_fitness_histogram_movie():
     fps = 1
     duration = params['GENERATIONS']+1
     animation = VideoClip(make_frame, duration=duration)
+    animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video
     animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
 
@@ -167,6 +168,7 @@ def save_3Dgenotype_movie():
     fps = 1
     duration = params['GENERATIONS']+1
     animation = VideoClip(make_frame, duration=duration)
+    animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video
     animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
 
@@ -185,7 +187,7 @@ def merge_3Dgenotype_fitnesshistogram_movie():
 
     # Make the white color transparent in clip_mayavi
     clip_mayavi2 = (clip_mpl.fx(mpy.vfx.mask_color, [255, 255, 255])
-                    .set_opacity(.4)  # whole clip is semi-transparent
+                    .set_opacity(.8)  # whole clip is semi-transparent
                     .resize(height=0.33 * clip_mpl.h)    # needs pillow 2.9 (more recent packages break resize)
                     .set_pos('left'))
     # resize giving error messages!!
