@@ -184,12 +184,12 @@ def merge_3Dgenotype_fitnesshistogram_movie():
     animation.write_videofile(__outputfilename, fps=fps)
 
     # Make the white color transparent in clip_mayavi
-    clip_mayavi2 = (clip_mayavi.fx(mpy.vfx.mask_color, [255, 255, 255])
+    clip_mayavi2 = (clip_mpl.fx(mpy.vfx.mask_color, [255, 255, 255])
                     .set_opacity(.4)  # whole clip is semi-transparent
-                    #.resize(height=0.85 * clip_mpl.h)
-                    .set_pos('center'))
+                    .resize(height=0.33 * clip_mpl.h)    # needs pillow 2.9 (more recent packages break resize)
+                    .set_pos('left'))
     # resize giving error messages!!
 
     __outputfilename2 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/merge_3Dgenotype_fitnesshistogram_2.mp4'
-    animation = mpy.CompositeVideoClip([clip_mpl, clip_mayavi2])
+    animation = mpy.CompositeVideoClip([clip_mayavi, clip_mayavi2])
     animation.write_videofile(__outputfilename2, fps=fps)
