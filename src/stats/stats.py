@@ -322,7 +322,23 @@ def outputConvexHullVolume():
     from algorithm.parameters import params
     from utilities.trackers import genotype_list
     import numpy as np
-    __genotype = genotype_list[0]
-    print("genotypes[gen0]:",__genotype)
-    __garray = np.array(__genotype)
-    print("__garray: ",__garray)
+
+    __cvv = []
+    for p in range(params['GENERATIONS']):
+        __genotype = genotype_list[p]
+        #print("genotypes[gen0]:",__genotype)
+        __genotype.remove(p)
+        #print("2genotypes[gen0]:",__genotype)
+        __points = []
+        for i in range(params['POPULATION_SIZE']):
+            __points.append([float(__genotype[i][0][0]), float(__genotype[i][1][0]), float(__genotype[i][2][0])])
+
+        #print("__points: ",__points)
+        __garray = np.array(__points)
+        #print("__garray: ",__garray)
+        __cv = ConvexHull(__garray)
+        #print("__cv: ",__cv)
+        __cvv.append(__cv.volume)
+        #print("__cvv: ",__cvv)
+
+    print("Volumes: ",__cvv)
