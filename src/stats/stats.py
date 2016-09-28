@@ -322,6 +322,7 @@ def outputConvexHullVolume():
     from algorithm.parameters import params
     from utilities.trackers import genotype_list
     import numpy as np
+    import matplotlib.pyplot as plt
 
     __cvv = []
     for p in range(params['GENERATIONS']):
@@ -342,3 +343,11 @@ def outputConvexHullVolume():
         #print("__cvv: ",__cvv)
 
     print("Volumes: ",__cvv)
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 1, 1)
+    ax1.plot(__cvv)
+    ax1.set_ylabel('Convex Hull Volume', fontsize=14)
+    ax1.set_xlabel('Generation', fontsize=14)
+    plt.title("Moving Point")
+    plt.savefig(params['FILE_PATH'] + str(params['TIME_STAMP']) + '/convexhullvolume.pdf')
+    plt.close()
