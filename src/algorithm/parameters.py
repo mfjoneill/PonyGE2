@@ -10,7 +10,7 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 100,
+        'POPULATION_SIZE': 4,
         'GENERATIONS': 2,
 
         # Set optional experiment name

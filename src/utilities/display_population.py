@@ -60,13 +60,13 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
         __genotype = [nextx, nexty, nextz]
         trackers.genotype_list[generation].append(__genotype)
 
-    c = ['r'] + icolor
-    s = [5 for n in range(params['POPULATION_SIZE'])]
-    s = [15] + s
-
 # COMMENTED OUT CODE BELOW WHICH GENERATIONS .pdf of each generation 3D scatterplot
 # A MOVIE IS NOW GENERATED in save_plots USING data generated in trackers above
 #
+#
+#    c = ['r'] + icolor
+#    s = [5 for n in range(params['POPULATION_SIZE'])]
+#    s = [15] + s
 #
 #    fig = plt.figure()
 #    ax1 = fig.add_subplot(111, projection='3d')

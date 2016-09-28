@@ -111,6 +111,7 @@ def get_stats(individuals, end=False):
             if(params['PROBLEM']=='moving_point'):
                 save_3Dgenotype_movie()
                 merge_3Dgenotype_fitnesshistogram_movie()
+                outputConvexHullVolume()
 
     # Print statistics
     if params['VERBOSE']:
@@ -314,3 +315,14 @@ def generate_folders_and_files():
 
     save_params()
     save_stats_headers()
+
+
+def outputConvexHullVolume():
+    from scipy.spatial import ConvexHull
+    from algorithm.parameters import params
+    from utilities.trackers import genotype_list
+    import numpy as np
+    __genotype = genotype_list[0]
+    print("genotypes[gen0]:",__genotype)
+    __garray = np.array(__genotype)
+    print("__garray: ",__garray)
