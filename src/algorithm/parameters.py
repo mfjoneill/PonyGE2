@@ -17,7 +17,7 @@ params = {
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_spiral",
+        'PROBLEM': "moving_point",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -82,7 +82,7 @@ params = {
         'MPV_VISION_ENABLED': False,
 
         # generate plot.ly charts/dashboard for dynamic problems
-        'PLOTLY': True,
+        'PLOTLY': False,
         # generate plot.ly charts/dashboard for dynamic problems
         # when in a Jupyter Notebook environment
         'JUPYTER': False,
@@ -103,9 +103,9 @@ params = {
         'GRID_SIZE': 64,
         #or 64, 125
         # INITIALISATION
-        #'INITIALISATION': "operators.initialisation.rhh",
+        'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
-        'INITIALISATION': "operators.initialisation.random_plus_grid_init",
+        #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
         #"operators.initialisation.random_init"
         # "operators.initialisation.rhh"
@@ -140,10 +140,11 @@ params = {
         'MUTATION_EVENTS': 1,
 
         # REPLACEMENT
-        'REPLACEMENT': "operators.replacement.generational",
+        #'REPLACEMENT': "operators.replacement.generational",
+        'REPLACEMENT': "operators.replacement.grid_generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
-        # "operators.replacement.grid_generational",
+        #"operators.replacement.grid_generational",
         #If elite size = none defaults to 1% of population
         'ELITE_SIZE': 1,
 
