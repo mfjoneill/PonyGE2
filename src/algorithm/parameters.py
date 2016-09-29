@@ -17,7 +17,7 @@ params = {
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point",
+        'PROBLEM': "moving_point_spiral",
         # "regression"
         # "string_match"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -99,10 +99,13 @@ params = {
         'CODON_SIZE': 100000,
         'GENOME_LENGTH': 500,
 
+        #for grid init
+        'GRID_SIZE': 64,
+        #or 64, 125
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
-        #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
+        'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
         #"operators.initialisation.random_init"
         # "operators.initialisation.rhh"
