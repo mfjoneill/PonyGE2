@@ -40,7 +40,8 @@ stats = {
         "fitness_iqr": 0,
         "fitness_std": 0,
         "convexhullvolume": 0,
-        "accuracy": 0
+        "accuracy": 0,
+        "stability": 0
 }
 
 
@@ -98,9 +99,8 @@ def get_stats(individuals, end=False):
         stats['fitness_std'] = tstd(fitnesses)
         trackers.fitness_list.append(fitnesses)
 
-        # calculate accuracy
-        # used as a performance metric in dynamic environments
-        # how close the best fitness individual is to the best possible fitness
+        # calculate accuracy & stability
+        # used as performance metrics in dynamic environments
         __max_euclidean = distance.euclidean(
             (params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
             (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
@@ -111,6 +111,11 @@ def get_stats(individuals, end=False):
         __acc = __acc_top / __acc_bot
         #print("_acc: ", __acc)
         stats['accuracy'] = __acc
+        trackers.accuracy_list.append(__acc)
+        #print("_acc-1: ", trackers.accuracy_list[stats['gen']-1])
+        __stability = abs(__acc-trackers.accuracy_list[stats['gen']-1])
+        #print("__stability: ", __stability)
+        stats['stability'] = __stability
 
         # Convex Hull Volume (3D Dynamic Environment)
         if (params['PROBLEM'] in ['moving_point', 'moving_point_spiral', 'moving_point_vision']):

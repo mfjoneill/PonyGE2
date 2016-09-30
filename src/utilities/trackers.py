@@ -42,6 +42,8 @@ genotype_list = []
 # useful for calculating population/run statistics on genomes
 # used for 3D population visualisation
 
-target_list =[]
+target_list = []
 # keeps track of the global optimum target at each generation
 # used in dynamic problem environments
+
+accuracy_list = []
