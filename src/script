@@ -1,0 +1,23 @@
+#!/bin/tcsh
+set v=0
+echo "*************************************************"
+echo "Starting expt script by Michael O'Neill      "
+date
+echo "*************************************************"
+echo "                                                 "
+while ( $v != $1 ) 
+	echo "Population $v ..."
+	python3 ponyge.py --experiment_name "nogrid" --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "grid" --replacement "operators.replacement.grid_generational"
+
+    @ v++
+end
+#~mike/work/Statify/./statify 0.00000000001 min ge_ $5/$2/$3/XP$2$3-FIT-gen_obj_best_avg_worst.*
+#mv ge__* $5/$2/$3/
+#~mike/work/Statify/./statify_size $5/$2/$3/XP$2$3-SIZE-gen_max_avg_min_effmax_effavg_effmin.dat.*
+#mv statify_size.dat $5/$2/$3/
+echo "*************************************************"
+echo "expt script finished @                       "
+date
+echo "*************************************************"
+

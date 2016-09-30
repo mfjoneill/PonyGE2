@@ -101,6 +101,7 @@ def get_stats(individuals, end=False):
 
         # calculate accuracy & stability
         # used as performance metrics in dynamic environments
+
         __max_euclidean = distance.euclidean(
             (params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
             (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
