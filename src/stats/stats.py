@@ -104,27 +104,27 @@ def get_stats(individuals, end=False):
             from utilities.trackers import genotype_list
             import numpy as np
             from scipy.spatial import ConvexHull
-            print("genotype_list: ",genotype_list)
+            #print("genotype_list: ",genotype_list)
             if len(genotype_list) != 0:
                 __genotype = copy(genotype_list[(stats['gen'])])
-                print("gen: ", stats['gen'])
-                print("genotypes[gen0]:",__genotype)
+                #print("gen: ", stats['gen'])
+                #print("genotypes[gen0]:",__genotype)
                 __genotype.remove(stats['gen'])
-                print("2genotypes[gen0]:",__genotype)
+                #print("2genotypes[gen0]:",__genotype)
                 __points = []
                 for i in range(params['POPULATION_SIZE']):
-                    print("i: ", i)
-                    print("__genotype[xyz]", __genotype[i])
-                    print("__genotype[x]", __genotype[i][0])
-                    print("__genotype[y]", __genotype[i][1])
-                    print("__genotype[z]", __genotype[i][2])
+                    #print("i: ", i)
+                    #print("__genotype[xyz]", __genotype[i])
+                    #print("__genotype[x]", __genotype[i][0])
+                    #print("__genotype[y]", __genotype[i][1])
+                    #print("__genotype[z]", __genotype[i][2])
                     __points.append([float(__genotype[i][0]), float(__genotype[i][1]), float(__genotype[i][2])])
-                print("__points: ",__points)
+                #print("__points: ",__points)
                 __garray = np.array(__points)
-                print("__garray: ",__garray)
+                #print("__garray: ",__garray)
                 __cv = ConvexHull(__garray)
-                print("__cv: ",__cv)
-                print("__cvv: ",__cv.volume)
+                #print("__cv: ",__cv)
+                #print("__cvv: ",__cv.volume)
                 stats['convexhullvolume'] = __cv.volume
 
     # Save fitness plot information
