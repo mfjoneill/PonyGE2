@@ -7,6 +7,7 @@ from sys import stdout
 from copy import copy
 import time
 from scipy.stats import entropy, variation, iqr, tstd
+from scipy.spatial import distance
 
 
 """Algorithm statistics"""
@@ -38,7 +39,8 @@ stats = {
         "fitness_variation": 0,
         "fitness_iqr": 0,
         "fitness_std": 0,
-        "convexhullvolume": 0
+        "convexhullvolume": 0,
+        "accuracy": 0
 }
 
 
@@ -95,6 +97,20 @@ def get_stats(individuals, end=False):
         stats['fitness_iqr'] = iqr(fitnesses)
         stats['fitness_std'] = tstd(fitnesses)
         trackers.fitness_list.append(fitnesses)
+
+        # calculate accuracy
+        # used as a performance metric in dynamic environments
+        # how close the best fitness individual is to the best possible fitness
+        __max_euclidean = distance.euclidean(
+            (params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
+            (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
+        #print("__max_euclidean: ", __max_euclidean)
+        __acc_top = (__max_euclidean - stats['best_ever'].fitness)
+        __acc_bot = (__max_euclidean - 0.0)
+        #print("__acc_top: ",__acc_top, "__acc_bot: ",__acc_bot)
+        __acc = __acc_top / __acc_bot
+        #print("_acc: ", __acc)
+        stats['accuracy'] = __acc
 
         # Convex Hull Volume (3D Dynamic Environment)
         if (params['PROBLEM'] in ['moving_point', 'moving_point_spiral', 'moving_point_vision']):
