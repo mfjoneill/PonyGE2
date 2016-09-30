@@ -37,7 +37,8 @@ stats = {
         "fitness_entropy": 0,
         "fitness_variation": 0,
         "fitness_iqr": 0,
-        "fitness_std": 0
+        "fitness_std": 0,
+        "convexhullvolume": 0
 }
 
 
@@ -95,6 +96,37 @@ def get_stats(individuals, end=False):
         stats['fitness_std'] = tstd(fitnesses)
         trackers.fitness_list.append(fitnesses)
 
+        # Convex Hull Volume (3D Dynamic Environment)
+        if (params['PROBLEM'] in ['moving_point', 'moving_point_spiral', 'moving_point_vision']):
+            # store x,y,z of population in genotype_list
+            track_xyz(individuals)
+            # calculate convex hull volume
+            from utilities.trackers import genotype_list
+            import numpy as np
+            from scipy.spatial import ConvexHull
+            print("genotype_list: ",genotype_list)
+            if len(genotype_list) != 0:
+                __genotype = copy(genotype_list[(stats['gen'])])
+                print("gen: ", stats['gen'])
+                print("genotypes[gen0]:",__genotype)
+                __genotype.remove(stats['gen'])
+                print("2genotypes[gen0]:",__genotype)
+                __points = []
+                for i in range(params['POPULATION_SIZE']):
+                    print("i: ", i)
+                    print("__genotype[xyz]", __genotype[i])
+                    print("__genotype[x]", __genotype[i][0])
+                    print("__genotype[y]", __genotype[i][1])
+                    print("__genotype[z]", __genotype[i][2])
+                    __points.append([float(__genotype[i][0]), float(__genotype[i][1]), float(__genotype[i][2])])
+                print("__points: ",__points)
+                __garray = np.array(__points)
+                print("__garray: ",__garray)
+                __cv = ConvexHull(__garray)
+                print("__cv: ",__cv)
+                print("__cvv: ",__cv.volume)
+                stats['convexhullvolume'] = __cv.volume
+
     # Save fitness plot information
     if params['SAVE_PLOTS'] and not params['DEBUG']:
         if not end:
@@ -108,7 +140,7 @@ def get_stats(individuals, end=False):
         if params['VERBOSE'] or end:
             save_best_fitness_plot()
             save_fitness_histogram_movie()
-            if(params['PROBLEM']=='moving_point'):
+            if(params['PROBLEM'] in ['moving_point','moving_point_spiral','moving_point_vision']):
                 save_3Dgenotype_movie()
                 merge_3Dgenotype_fitnesshistogram_movie()
                 outputConvexHullVolume()
@@ -332,7 +364,7 @@ def outputConvexHullVolume():
         #print("2genotypes[gen0]:",__genotype)
         __points = []
         for i in range(params['POPULATION_SIZE']):
-            __points.append([float(__genotype[i][0][0]), float(__genotype[i][1][0]), float(__genotype[i][2][0])])
+            __points.append([float(__genotype[i][0]), float(__genotype[i][1]), float(__genotype[i][2])])
 
         #print("__points: ",__points)
         __garray = np.array(__points)
@@ -342,7 +374,9 @@ def outputConvexHullVolume():
         __cvv.append(__cv.volume)
         #print("__cvv: ",__cvv)
 
-    print("Volumes: ",__cvv)
+    #print("Volumes: ",__cvv)
+    stats['convexhullvolume'] = __cvv
+
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
     ax1.plot(__cvv)
@@ -351,3 +385,13 @@ def outputConvexHullVolume():
     plt.title("Moving Point")
     plt.savefig(params['FILE_PATH'] + str(params['TIME_STAMP']) + '/convexhullvolume.pdf')
     plt.close()
+
+
+def track_xyz(individuals):
+    from utilities.trackers import genotype_list
+    __ano_gen = [stats['gen'],]
+    genotype_list.append(__ano_gen)
+    for i in range(params['POPULATION_SIZE']):
+        next_xyz = individuals[i].phenotype.split()
+        __genotype = [float(next_xyz[0]), float(next_xyz[1]), float(next_xyz[2])]
+        genotype_list[stats['gen']].append(__genotype)

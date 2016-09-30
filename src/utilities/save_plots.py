@@ -119,11 +119,13 @@ def save_3Dgenotype_movie():
         """ returns an image of the frame at time t """
         # ... create the frame with any library
         __genotype = genotype_list[int(t)]
-        #        print("__genotype:", __genotype)
-        #        print("__genotype[1]:", __genotype[1],type(__genotype[1]))
-        #        print("__genotype[1][0]:", __genotype[1][0],type(__genotype[1][0]))
+        print("__genotype:", __genotype)
+        print("__genotype[1]:", __genotype[1],type(__genotype[1]))
+        print("__genotype[1][0]:", __genotype[1][0],type(__genotype[1][0]))
         #        print("__genotype[1][0][0]:", __genotype[1][0][0],type(__genotype[1][0][0]))
 
+        print("target: ",target_list)
+        print("t: ",t)
         __target = target_list[int(t)]
 
         xs, ys, zs = [], [], []
@@ -136,12 +138,12 @@ def save_3Dgenotype_movie():
         for i in range(params['POPULATION_SIZE']):
             icolor.append('b')
             nextx, nexty, nextz = [], [], []
-            #            print("__genotype[i+1][0][0]:", __genotype[i+1][0][0], type(__genotype[i+1][0][0]))
+            print("__genotype[i+1][0]:", __genotype[i+1][0], type(__genotype[i+1][0]))
             #            print("__genotype[i+1][0][1]:", __genotype[i+1][1][0], type(__genotype[i+1][1][0]))
             #            print("__genotype[i+1][0][2]:", __genotype[i+1][2][0], type(__genotype[i+1][2][0]))
-            nextx.append(float(__genotype[i+1][0][0]))
-            nexty.append(float(__genotype[i+1][1][0]))
-            nextz.append(float(__genotype[i+1][2][0]))
+            nextx.append(float(__genotype[i+1][0]))
+            nexty.append(float(__genotype[i+1][1]))
+            nextz.append(float(__genotype[i+1][2]))
             xs, ys, zs = xs + nextx, ys + nexty, zs + nextz
 
         c = ['r'] + icolor

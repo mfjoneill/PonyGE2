@@ -10,7 +10,7 @@ machine_name = hostname[0]
 """Algorithm parameters"""
 params = {
         # Evolutionary Parameters
-        'POPULATION_SIZE': 100,
+        'POPULATION_SIZE': 10,
         'GENERATIONS': 10,
 
         # Set optional experiment name
@@ -54,10 +54,10 @@ params = {
         # change target every DYNAMIC_ENVIRONMENT_PERIOD generations
         'DYNAMIC_ENVIRONMENT_PERIOD': 1,
         # set the move_target xyz delta's for the moving_points problem
-        'X_DELTA': 50.0,
-        'Y_DELTA': 50.0,
-        'Z_DELTA': 50.0,
-        'DELTA': 50.0,
+        'X_DELTA': 100.0,
+        'Y_DELTA': 100.0,
+        'Z_DELTA': 100.0,
+        'DELTA': 100.0,
         'FLEE_DELTA': 200.0,
         # define the x,y,z axes range for display_population for moving_points problem
         'MP_X_LIM_MAX': 10000,
@@ -140,8 +140,8 @@ params = {
         'MUTATION_EVENTS': 1,
 
         # REPLACEMENT
-        #'REPLACEMENT': "operators.replacement.generational",
-        'REPLACEMENT': "operators.replacement.grid_generational",
+        'REPLACEMENT': "operators.replacement.generational",
+        ##'REPLACEMENT': "operators.replacement.grid_generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
         #"operators.replacement.grid_generational",

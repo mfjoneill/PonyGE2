@@ -27,38 +27,39 @@ def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TAR
     xyz = params[target]
     trackers.target_list.append(xyz)
 
-    #print("xyz:", xyz)
-    xs.append(xyz[0])
-    ys.append(xyz[1])
-    zs.append(xyz[2])
-    #print("xs:",xs,"ys:",ys,"zs:",zs)
-
-    # retrieve and append the populations x,y,z coordinates to xs, ys, zs
-    #
-    max_euclidean = distance.euclidean((params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
-                                       (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
-
-    # colour code the target as red, and the population members as blue
-    icolor = []
-    __ano_gen = [generation,]
-    trackers.genotype_list.append(__ano_gen)
-    for i in range(params['POPULATION_SIZE']):
-        #print(individuals[i].phenotype)
-        if params['MPV_VISION_ENABLED']:
-            if individuals[i].fitness > max_euclidean * params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
-                icolor.append('b')
-            else:
-                icolor.append('g')
-        else:
-            icolor.append('b')
-        next_xyz = individuals[i].phenotype.split()
-        nextx, nexty, nextz = [], [], []
-        nextx.append(float(next_xyz[0]))
-        nexty.append(float(next_xyz[1]))
-        nextz.append(float(next_xyz[2]))
-        xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
-        __genotype = [nextx, nexty, nextz]
-        trackers.genotype_list[generation].append(__genotype)
+#    #print("xyz:", xyz)
+#    xs.append(xyz[0])
+#    ys.append(xyz[1])
+#    zs.append(xyz[2])
+#    #print("xs:",xs,"ys:",ys,"zs:",zs)
+#
+#    # retrieve and append the populations x,y,z coordinates to xs, ys, zs
+#    #
+#    max_euclidean = distance.euclidean((params['MP_X_LIM_MAX'], params['MP_Y_LIM_MAX'], params['MP_Z_LIM_MAX']),
+#
+#                                       (params['MP_X_LIM_MIN'], params['MP_Y_LIM_MIN'], params['MP_Z_LIM_MIN']))
+#
+#    # colour code the target as red, and the population members as blue
+#    icolor = []
+#    __ano_gen = [generation,]
+#    trackers.genotype_list.append(__ano_gen)
+#    for i in range(params['POPULATION_SIZE']):
+#        #print(individuals[i].phenotype)
+#        if params['MPV_VISION_ENABLED']:
+#            if individuals[i].fitness > max_euclidean * params['MPV_INDIVIDUAL_FIELD_OF_VISION']:
+#                icolor.append('b')
+#            else:
+#                icolor.append('g')
+#        else:
+#            icolor.append('b')
+#        next_xyz = individuals[i].phenotype.split()
+#        nextx, nexty, nextz = [], [], []
+#        nextx.append(float(next_xyz[0]))
+#        nexty.append(float(next_xyz[1]))
+#        nextz.append(float(next_xyz[2]))
+#        xs, ys, zs = xs+nextx, ys+nexty, zs+nextz
+#        __genotype = [nextx, nexty, nextz]
+#        trackers.genotype_list[generation].append(__genotype)
 
 # COMMENTED OUT CODE BELOW WHICH GENERATIONS .pdf of each generation 3D scatterplot
 # A MOVIE IS NOW GENERATED in save_plots USING data generated in trackers above

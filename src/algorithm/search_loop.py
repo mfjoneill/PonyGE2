@@ -80,8 +80,11 @@ def search_dynamic_loop():
 
     # if 'PROBLEM' == "moving_point"
     # display the population & the target
-    if params['PROBLEM'] in ("moving_point", "moving_point_vision", "moving_point_spiral"):
+    if params['PROBLEM'] in ("moving_point", "moving_point_vision"):
         display_3D_population(individuals,0)
+        display_3D_plotly_population(individuals, 0)
+    elif params['PROBLEM'] == "moving_point_spiral":
+        display_3D_population(individuals,0,'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
         display_3D_plotly_population(individuals, 0)
         # plot.ly dashboard
     elif params['PROBLEM'] in ("moving_point_dual", "new_problem_here"):
@@ -124,7 +127,7 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] in ("moving_point","moving_point_vision","moving_point_realworld","new_problem_here","moving_point_spiral"):
+        if params['PROBLEM'] in ("moving_point","moving_point_vision","moving_point_realworld","new_problem_here"):
             display_3D_population(individuals,generation)
             display_3D_plotly_population(individuals, generation)
         elif params['PROBLEM'] == "moving_point_spiral":
