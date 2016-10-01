@@ -324,7 +324,7 @@ def set_params(command_line_args):
         elif opt == "--vision_enabled":
             params['MPV_VISION_ENABLED'] = arg
         elif opt == "--field_of_vision":
-            params['MPV_INDIVIDUAL_FIELD_OF_VISION'] = arg
+            params['MPV_INDIVIDUAL_FIELD_OF_VISION'] = float(arg)
 
         # OPTIONS
         elif opt == "--random_seed":
