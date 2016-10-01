@@ -7,8 +7,23 @@ echo "*************************************************"
 echo "                                                 "
 while ( $v != $1 ) 
 	echo "Population $v ..."
-	python3 ponyge.py --experiment_name "nogrid" --replacement "operators.replacement.generational"
-	python3 ponyge.py --experiment_name "grid" --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_nogrid" --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_grid" --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_spiral_nogrid" --problem moving_point_spiral --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_spiral_grid" --problem moving_point_spiral --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_nogrid" --vision_enabled True --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_grid" --vision_enabled True --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_nogrid" --vision_enabled True --field_of_vision 0.5 --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_grid" --vision_enabled True --field_of_vision 0.5 --replacement "operators.replacement.grid_generational"
+
+	python3 ponyge.py --experiment_name "moving_point_nogrid_noxover" --crossover_prob 0.0 --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_grid_noxover" --crossover_prob 0.0 --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_spiral_nogrid_noxover" --crossover_prob 0.0 --problem moving_point_spiral --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_spiral_grid_noxover" --crossover_prob 0.0 --problem moving_point_spiral --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_nogrid_noxover" --crossover_prob 0.0 --vision_enabled True --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_grid_noxover" --crossover_prob 0.0 --vision_enabled True --replacement "operators.replacement.grid_generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_nogrid_noxover" --crossover_prob 0.0 --vision_enabled True --field_of_vision 0.5 --replacement "operators.replacement.generational"
+	python3 ponyge.py --experiment_name "moving_point_vision_grid_noxover" --crossover_prob 0.0 --vision_enabled True --field_of_vision 0.5 --replacement "operators.replacement.grid_generational"
 
     @ v++
 end

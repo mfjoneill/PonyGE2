@@ -78,7 +78,7 @@ params = {
         'MP_DESTINATION_INDEX_ALT': [0],
 
         # "field of vision" for individuals in the population for moving_point_vision problem
-        'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.05,
+        'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.1,
         'MPV_VISION_ENABLED': False,
 
         # generate plot.ly charts/dashboard for dynamic problems
@@ -228,7 +228,7 @@ def set_params(command_line_args):
                                     "complete_evals", "genome_length=",
                                     "invalid_selection", "silent",
                                     "dont_lookup_fitness", "experiment_name=",
-                                    "multicore", "cores="])
+                                    "multicore", "cores=", "vision_enabled=", "field_of_vision="])
     except getopt.GetoptError as err:
         print("Most parameters need a value associated with them \n",
               "Run python ponyge.py --help for more info")
@@ -321,6 +321,10 @@ def set_params(command_line_args):
             params['STRING_MATCH_TARGET'] = arg
         elif opt == "--experiment_name":
             params['EXPERIMENT_NAME'] = arg
+        elif opt == "--vision_enabled":
+            params['MPV_VISION_ENABLED'] = arg
+        elif opt == "--field_of_vision":
+            params['MPV_INDIVIDUAL_FIELD_OF_VISION'] = arg
 
         # OPTIONS
         elif opt == "--random_seed":
