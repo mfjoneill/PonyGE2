@@ -202,7 +202,7 @@ def parse_mikes_stat_from_runs(experiment_name, stats, graph):
         quit()
 
     runs = [run for run in listdir(path) if "." not in run]
-    header = "#"
+    header = ""
     full_stats = []
     for stat in stats:
         if stat == "best_ever":
@@ -227,28 +227,22 @@ def parse_mikes_stat_from_runs(experiment_name, stats, graph):
                                                        "%H:%M:%S.%f") - zero).total_seconds()
                                     for time in run]
 
-        header = header + stat + ","
-        print(header)
-        summary_stats = np.asarray(summary_stats)
-        full_stats.append(summary_stats)
-        header = header + stat+"_mean" + ","
-        summary_stats_mean = np.nanmean(summary_stats)
+        summary_stats = np.array(summary_stats)
+        header = header + stat + "_mean" + ","
+        summary_stats_mean = np.nanmean(summary_stats, axis=0)
         full_stats.append(summary_stats_mean)
         header = header + stat + "_std" + ","
-        summary_stats_std = np.nanstd(summary_stats)
+        summary_stats_std = np.nanstd(summary_stats, axis=0)
         full_stats.append(summary_stats_std)
-
-
-
         summary_stats = np.transpose(summary_stats)
+        print(summary_stats)
         np.savetxt(path + stat + ".csv", summary_stats, delimiter=",")
         if graph:
             save_average_plot_across_runs(path + stat + ".csv")
 
-    full_stats = np.asarray(full_stats)
-    np.savetxt(path+"full_stats.csv", full_stats, delimiter=',',
-               header=header[:-1],
-               comments="")
+    full_stats = np.array(full_stats)
+    full_stats = np.transpose(full_stats)
+    np.savetxt(path+"full_stats.csv", full_stats, delimiter=',',header=header[:-1])
 
 def save_average_plot_across_runs(filename):
     """
