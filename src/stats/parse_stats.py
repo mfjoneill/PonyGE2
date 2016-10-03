@@ -160,6 +160,94 @@ def parse_stat_from_runs(experiment_name, stats, graph):
             save_average_plot_across_runs(path + stat + ".csv")
 
 
+def parse_mikes_stat_from_runs(experiment_name, stats, graph):
+    """
+    Analyses a list of given stats from a group of runs saved under an
+    "experiment_name" folder. Creates a summary .csv file which can be used by
+    plotting functions in utilities.save_plot. Saves a file of the format:
+
+        run0_gen0       run1_gen0       .   .   .   run(n-1)_gen0
+        run0_gen1       run1_gen1       .   .   .   run(n-1)_gen1
+        run0_gen2       run1_gen2       .   .   .   run(n-1)_gen2
+        .               .               .   .   .   .
+        .               .               .   .   .   .
+        .               .               .   .   .   .
+        run0_gen(n-1)   run1_gen(n-1)   .   .   .   run(n-1)_gen(n-1)
+        run0_gen(n)     run1_gen(n)     .   .   .   run(n-1)_gen(n)
+
+    Generated file is compatible with
+
+        utilities.save_plot.save_average_plot_across_runs()
+
+    :param experiment_name: The name of a collecting folder within the
+    ./results folder which holds multiple runs.
+    :param stats: A list of the names of the stats to be parsed.
+    :return: Nothing.
+    """
+
+    path = getcwd()
+    if sys.platform == 'win32':
+        slash = "\\"
+    else:
+        slash = "/"
+    if path.split(slash)[-1] == "stats":
+        path = slash.join(path.split(slash)[:-1]) + slash + "results" + slash
+    else:
+        path = path + slash + "results" + slash
+
+    if experiment_name:
+        path += experiment_name + slash
+    else:
+        print("Error: experiment name not specified")
+        quit()
+
+    runs = [run for run in listdir(path) if "." not in run]
+    header = "#"
+    full_stats = []
+    for stat in stats:
+        if stat == "best_ever":
+            print("Error: Cannot graph instances of individual class. Do not"
+                  " specify 'best_ever' as stat to be parsed.")
+            quit()
+        summary_stats = []
+
+        for run in runs:
+            data = pd.read_csv(path + str(run) + "/stats.tsv", sep="\t")
+            try:
+                summary_stats.append(list(data[stat]))
+            except KeyError:
+                print("Error: stat", stat, "does not exist")
+                quit()
+
+        if stat in ["total_time", "time_taken"]:
+            zero = datetime.strptime("1900-01-01 0:00:00.000000",
+                                     "%Y-%m-%d %H:%M:%S.%f")
+            for i, run in enumerate(summary_stats):
+                summary_stats[i] = [(datetime.strptime(time,
+                                                       "%H:%M:%S.%f") - zero).total_seconds()
+                                    for time in run]
+
+        header = header + stat + ","
+        print(header)
+        summary_stats = np.asarray(summary_stats)
+        full_stats.append(summary_stats)
+        header = header + stat+"_mean" + ","
+        summary_stats_mean = np.nanmean(summary_stats)
+        full_stats.append(summary_stats_mean)
+        header = header + stat + "_std" + ","
+        summary_stats_std = np.nanstd(summary_stats)
+        full_stats.append(summary_stats_std)
+
+
+        summary_stats = np.transpose(summary_stats)
+        np.savetxt(path + stat + ".csv", summary_stats, delimiter=",")
+        if graph:
+            save_average_plot_across_runs(path + stat + ".csv")
+
+    np.savetxt(path+"full_stats.csv", full_stats, delimiter=',',
+               header=header[:-1],
+               comments="")
+
 def save_average_plot_across_runs(filename):
     """
     Saves an average plot of multiple runs. Input file data must be of the
