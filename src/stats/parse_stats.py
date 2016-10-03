@@ -239,11 +239,13 @@ def parse_mikes_stat_from_runs(experiment_name, stats, graph):
         full_stats.append(summary_stats_std)
 
 
+
         summary_stats = np.transpose(summary_stats)
         np.savetxt(path + stat + ".csv", summary_stats, delimiter=",")
         if graph:
             save_average_plot_across_runs(path + stat + ".csv")
 
+    full_stats = np.asarray(full_stats)
     np.savetxt(path+"full_stats.csv", full_stats, delimiter=',',
                header=header[:-1],
                comments="")
@@ -300,4 +302,5 @@ def save_average_plot_across_runs(filename):
 
 if __name__ == "__main__":
     experiment_name, stats, graph = parse_opts(sys.argv)
-    parse_stat_from_runs(experiment_name, stats, graph)
+    #parse_stat_from_runs(experiment_name, stats, graph)
+    parse_mikes_stat_from_runs(experiment_name, stats, graph)
