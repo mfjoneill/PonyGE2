@@ -140,8 +140,8 @@ params = {
         'MUTATION_EVENTS': 1,
 
         # REPLACEMENT
-        #'REPLACEMENT': "operators.replacement.generational",
-        'REPLACEMENT': "operators.replacement.grid_generational",
+        'REPLACEMENT': "operators.replacement.generational",
+        #'REPLACEMENT': "operators.replacement.grid_generational",
         # "operators.replacement.generational",
         # "operators.replacement.steady_state",
         #"operators.replacement.grid_generational",
@@ -149,7 +149,7 @@ params = {
         'ELITE_SIZE': 1,
 
         #Allows the grid indivs to allwas see when grid replacement is used
-        'GRID_TOTAL_VISION': True,
+        'GRID_TOTAL_VISION': False,
 
         # DEBUGGING
         # Use this to turn on debugging mode. This mode doesn't write any files
