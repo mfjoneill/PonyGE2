@@ -5,14 +5,14 @@ from multiprocessing import Pool
 from stats.stats import stats
 
 
-def evaluation(individuals):
+def evaluation(individuals,grid_eval=False):
     if params['MULTICORE']:
         return evaluate_fitness_multicore(individuals)
     else:
-        return evaluate_fitness(individuals)
+        return evaluate_fitness(individuals,grid_eval=False)
 
 
-def evaluate_fitness(individuals):
+def evaluate_fitness(individuals,grid_eval=False):
     """ Perform the mapping for each individual """
 
     for ind in individuals:
@@ -37,9 +37,9 @@ def evaluate_fitness(individuals):
                         ind.evaluate()
                         cache[ind.phenotype] = ind.fitness
                     else:
-                        ind.evaluate()
+                        ind.evaluate(grid_eval=grid_eval)
             else:
-                ind.evaluate()
+                ind.evaluate(grid_eval=grid_eval)
 
     return individuals
 

@@ -68,7 +68,7 @@ class Individual(object):
         return ("Individual: " +
                 str(self.phenotype) + "; " + str(self.fitness))
 
-    def evaluate(self, dist="training"):
+    def evaluate(self, dist="training", grid_eval=False):
         """ Evaluates phenotype in fitness function on either training or test
         distributions and sets fitness"""
 
@@ -76,9 +76,13 @@ class Individual(object):
             # The problem is regression, e.g. has training and test data
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype, dist)
         elif params['PROBLEM'] in ("moving_point", "moving_point_vision","moving_point_realworld","moving_point_dual"):
-            self.fitness = params['FITNESS_FUNCTION'](self.phenotype, params['DYNAMIC_ENVIRONMENT_TARGET'])
+            self.fitness = params['FITNESS_FUNCTION'](self.phenotype,
+                                                      params[
+                                                          'DYNAMIC_ENVIRONMENT_TARGET'],grid_eval)
         elif params['PROBLEM'] in ("moving_point_spiral","moving_point_new"):
-            self.fitness = params['FITNESS_FUNCTION'](self.phenotype, params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'])
+            self.fitness = params['FITNESS_FUNCTION'](self.phenotype,
+                                                      params[
+                                                          'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'], grid_eval)
         else:
             self.fitness = params['FITNESS_FUNCTION'](self.phenotype)
 

@@ -68,7 +68,7 @@ def grid_generational(new_pop, individuals):
         for y in range(len(index)):
             for z in range(len(index)):
                 grid_pop.append(individual.Individual([0, (index[x] + 10), 0, 0, 0, (index[y] + 10), 0, 0, 0, (index[z] + 10), 0, 0, 0], None))
-    grid_pop = evaluation(grid_pop)
+    grid_pop = evaluation(grid_pop,grid_eval=params['GRID_TOTAL_VISION'])
     new_pop = new_pop + grid_pop
     new_pop.sort(reverse=True)
     return new_pop[:params['GENERATION_SIZE']+params['ELITE_SIZE']]
