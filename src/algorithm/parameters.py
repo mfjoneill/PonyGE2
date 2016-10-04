@@ -147,7 +147,6 @@ params = {
         #"operators.replacement.grid_generational",
         #If elite size = none defaults to 1% of population
         'ELITE_SIZE': 1,
-
         #Allows the grid indivs to allwas see when grid replacement is used
         'GRID_TOTAL_VISION': True,
 
