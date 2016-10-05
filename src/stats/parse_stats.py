@@ -235,7 +235,7 @@ def parse_mikes_stat_from_runs(experiment_name, stats, graph):
         summary_stats_std = np.nanstd(summary_stats, axis=0)
         full_stats.append(summary_stats_std)
         summary_stats = np.transpose(summary_stats)
-        print(summary_stats)
+        #print(summary_stats)
         np.savetxt(path + stat + ".csv", summary_stats, delimiter=",")
         if graph:
             save_average_plot_across_runs(path + stat + ".csv")

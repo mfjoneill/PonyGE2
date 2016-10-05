@@ -108,7 +108,7 @@ def save_fitness_histogram_movie():
     animation = VideoClip(make_frame, duration=duration)
     #animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video
-    animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
+    #animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
 
 def save_3Dgenotype_movie():
     from moviepy.editor import VideoClip
@@ -172,7 +172,7 @@ def save_3Dgenotype_movie():
     animation = VideoClip(make_frame, duration=duration)
     #animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video
-    animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
+    #animation.write_gif(filename+".gif", fps=fps)  # export as GIF (slow)
 
 def merge_3Dgenotype_fitnesshistogram_movie():
     from algorithm.parameters import params
@@ -187,14 +187,14 @@ def merge_3Dgenotype_fitnesshistogram_movie():
     animation = mpy.clips_array([[clip_mpl, clip_mayavi]])
     animation.write_videofile(__outputfilename, fps=fps)
 
-    # Make the white color transparent in clip_mayavi
-    clip_mayavi2 = (clip_mpl.fx(mpy.vfx.mask_color, [255, 255, 255])
-                    .set_opacity(.8)  # whole clip is semi-transparent
-                    #.resize(height=0.33 * clip_mpl.h)    # needs pillow 2.9
-                    #  (more recent packages break resize)
-                    .set_pos('left'))
-    # resize giving error messages!!
-
-    __outputfilename2 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/merge_3Dgenotype_fitnesshistogram_2.mp4'
-    animation = mpy.CompositeVideoClip([clip_mayavi, clip_mayavi2])
-    animation.write_videofile(__outputfilename2, fps=fps)
+    ## Make the white color transparent in clip_mayavi
+    #clip_mayavi2 = (clip_mpl.fx(mpy.vfx.mask_color, [255, 255, 255])
+    #                .set_opacity(.8)  # whole clip is semi-transparent
+    #                #.resize(height=0.33 * clip_mpl.h)    # needs pillow 2.9
+    #                #  (more recent packages break resize)
+    #                .set_pos('left'))
+    ## resize giving error messages!!
+    #
+    #__outputfilename2 = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/merge_3Dgenotype_fitnesshistogram_2.mp4'
+    #animation = mpy.CompositeVideoClip([clip_mayavi, clip_mayavi2])
+    #animation.write_videofile(__outputfilename2, fps=fps)
