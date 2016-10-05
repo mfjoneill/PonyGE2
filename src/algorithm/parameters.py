@@ -1,5 +1,7 @@
 from multiprocessing import cpu_count
 from socket import gethostname
+from os import getcwd
+from utilities.moving_point_sequence_generator import read_target_points
 from random import seed
 import time
 
@@ -17,9 +19,11 @@ params = {
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point",
+        'PROBLEM': "moving_point_step",
         # "regression"
         # "string_match"
+        # "moving_point"
+        # "moving_point_step"
         # "moving_point"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_vision" warning: need to set the DYNAMIC_ENVIRONMENT parameters below
         # "moving_point_dual"  warning: need to set the DYNAMIC_ENVIRONMENT parameters below
@@ -76,6 +80,11 @@ params = {
                                   (10000, 10000, 10000)],
         'MP_DESTINATION_INDEX': [7],
         'MP_DESTINATION_INDEX_ALT': [0],
+
+        'MP_TARGET_LIST': None,
+        #'MP_TARGET_FILE': "/fitness/1_step.csv",
+        'MP_TARGET_FILE': "/fitness/10_steps.csv",
+        #'MP_TARGET_FILE': "/fitness/random.csv",
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.1,
@@ -388,8 +397,11 @@ def set_params(command_line_args):
     # Set problem specifics
     params['GRAMMAR_FILE'], \
     params['ALTERNATE'] = set_fitness_params(params['PROBLEM'], params)
-    params['FITNESS_FUNCTION'] = set_fitness_function(params['PROBLEM'],
-                                                      params['ALTERNATE'])
+    params['FITNESS_FUNCTION'] = set_fitness_function(params['PROBLEM'],params['ALTERNATE'])
+
+    if params['PROBLEM'] == "moving_point_step":
+        params['MP_TARGET_LIST'] = read_target_points(getcwd() + params['MP_TARGET_FILE'])
+        params['DYNAMIC_ENVIRONMENT_TARGET'] = params['MP_TARGET_LIST'][0]
 
     # Initialise run lists and folders
     initialise_run_params()

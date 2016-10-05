@@ -191,6 +191,10 @@ def move_target_vision_avoid_alt(individuals,target,index):
             temp_target = new_target_point(params[target],params['MP_DESTINATION_POINTS'][params[index][0]],params['DELTA'])
     params[target] = temp_target
 
+def move_target_step(generation, target):
+    params[target] = params['MP_TARGET_LIST'][generation]
+    print(params[target])
+
 def move_target_spiral(generation, target):
     circle_speed = params['CIRCLE_SPEED']
     circle_size = params['CIRCLE_SIZE']
