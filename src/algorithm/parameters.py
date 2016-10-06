@@ -83,7 +83,8 @@ params = {
 
         'MP_TARGET_LIST': None,
         #'MP_TARGET_FILE': "/datasets/1_step.csv",
-        'MP_TARGET_FILE': "/datasets/10_steps.csv",
+        #'MP_TARGET_FILE': "/datasets/10_steps.csv",
+        'MP_TARGET_FILE': "/datasets/20_steps.csv",
         #'MP_TARGET_FILE': "/datasets/random.csv",
 
         # "field of vision" for individuals in the population for moving_point_vision problem

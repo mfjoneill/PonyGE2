@@ -57,5 +57,6 @@ if __name__ == "__main__":
     print("Uncomment as needed")
     #generate_sequence('random')
     #generate_sequence('10_steps',interval=10)
+    generate_sequence('20_steps',interval=20)
     #generate_sequence('1_step',interval=1)
     #read_target_points('1_step.csv')
