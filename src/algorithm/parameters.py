@@ -82,9 +82,9 @@ params = {
         'MP_DESTINATION_INDEX_ALT': [0],
 
         'MP_TARGET_LIST': None,
-        #'MP_TARGET_FILE': "/fitness/1_step.csv",
-        'MP_TARGET_FILE': "/fitness/10_steps.csv",
-        #'MP_TARGET_FILE': "/fitness/random.csv",
+        #'MP_TARGET_FILE': "/datasets/1_step.csv",
+        'MP_TARGET_FILE': "/datasets/10_steps.csv",
+        #'MP_TARGET_FILE': "/datasets/random.csv",
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.1,

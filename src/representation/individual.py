@@ -29,7 +29,6 @@ class Individual(object):
                                         range(int(self.used_codons/2))]
                 self.fitness = \
                     default_fitness(params['FITNESS_FUNCTION'].maximise)
-
         elif genome and (ind_tree is None):
             # Need to generate a tree
             self.genome = list(genome)
