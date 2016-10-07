@@ -161,11 +161,13 @@ def get_stats(individuals, end=False):
 
         if params['VERBOSE'] or end:
             save_best_fitness_plot()
-            save_fitness_histogram_movie()
             if(params['PROBLEM'] in ['moving_point','moving_point_spiral','moving_point_vision','moving_point_step']):
-                save_3Dgenotype_movie()
-                merge_3Dgenotype_fitnesshistogram_movie()
                 outputConvexHullVolume()
+                if(params['MOVIE']):
+                    save_fitness_histogram_movie()
+                    save_3Dgenotype_movie()
+                    merge_3Dgenotype_fitnesshistogram_movie()
+
 
     # Print statistics
     if params['VERBOSE']:

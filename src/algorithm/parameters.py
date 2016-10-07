@@ -13,13 +13,13 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 100,
+        'GENERATIONS': 1000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_step",
+        'PROBLEM': "moving_point_spiral",
         # "regression"
         # "string_match"
         # "moving_point"
@@ -91,6 +91,8 @@ params = {
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.1,
         'MPV_VISION_ENABLED': False,
 
+        # generate movies for dyanmic problems
+        'MOVIE': False,
         # generate plot.ly charts/dashboard for dynamic problems
         'PLOTLY': False,
         # generate plot.ly charts/dashboard for dynamic problems
@@ -241,7 +243,8 @@ def set_params(command_line_args):
                                     "complete_evals", "genome_length=",
                                     "invalid_selection", "silent",
                                     "dont_lookup_fitness", "experiment_name=",
-                                    "multicore", "cores=", "vision_enabled=", "field_of_vision="])
+                                    "multicore", "cores=", "vision_enabled=",
+                                    "field_of_vision=", "mp_target_file="])
     except getopt.GetoptError as err:
         print("Most parameters need a value associated with them \n",
               "Run python ponyge.py --help for more info")
@@ -338,6 +341,8 @@ def set_params(command_line_args):
             params['MPV_VISION_ENABLED'] = arg
         elif opt == "--field_of_vision":
             params['MPV_INDIVIDUAL_FIELD_OF_VISION'] = float(arg)
+        elif opt == "--mp_target_file":
+            params['MP_TARGET_FILE'] = arg
 
         # OPTIONS
         elif opt == "--random_seed":
