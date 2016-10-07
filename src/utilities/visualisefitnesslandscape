@@ -1,0 +1,119 @@
+import numpy as np
+from pylab import *
+from scipy.spatial import distance
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+plt.rc('font', family='Times New Roman')
+import random
+import getopt
+
+
+def randrange(n, vmin, vmax):
+    return (vmax-vmin)*np.random.rand(n) + vmin
+
+def visualiselandscape(command_line_args):
+
+    try:
+        opts, args = getopt.getopt(command_line_args[1:], "", ["sample_size="])
+    except getopt.GetoptError as err:
+        print("wooops!")
+        print(str(err))
+        exit(2)
+
+    samplesize = 0
+    for opt, arg in opts:
+        if opt == "--sample_size":
+            samplesize=int(arg)
+    print("samplesize: ", samplesize)
+
+    MP_X_LIM_MAX, MP_Y_LIM_MAX, MP_Z_LIM_MAX = 10000, 10000, 10000
+    MP_X_LIM_MIN, MP_Y_LIM_MIN, MP_Z_LIM_MIN = 0, 0, 0
+    xs, ys, zs = [], [], []
+    SAMPLE_SIZE = samplesize
+
+    target_xyz, position_xyz = [i for i in range(3)], [i for i in range(3)]
+    target_xyz[0], target_xyz[1], target_xyz[2]  = MP_X_LIM_MAX, MP_Y_LIM_MAX, MP_Z_LIM_MAX
+    #target_xyz[0], target_xyz[1], target_xyz[2]  = 5000, 5000, 5000
+
+    position_xyz[0], position_xyz[1], position_xyz[2] = MP_X_LIM_MIN, MP_Y_LIM_MIN, MP_Z_LIM_MIN
+    print("target: ", target_xyz)
+    print("pos: ", position_xyz)
+
+    # calculate the distance to the self.target to this guess at position_xyz
+    fitness = distance.euclidean(position_xyz,target_xyz)
+
+    # perturb the topology of the fitness landscape
+    # rastrigin
+    A = 10
+    n = 3
+    #fitness = A*n + ((position_xyz[0]*position_xyz[0])-A*cos(2*pi*position_xyz[0])) \
+    #          + ((position_xyz[1] * position_xyz[1]) - A * cos(2 * pi * position_xyz[1]))\
+    #          + ((position_xyz[2] * position_xyz[2]) - A * cos(2 * pi * position_xyz[2]))
+
+    print("fitness: ", fitness)
+
+    c = [] # colors of each point in scale with fitness
+    for p in range(SAMPLE_SIZE):
+        position_xyz[0], position_xyz[1], position_xyz[2] = random.randint(MP_X_LIM_MIN, MP_X_LIM_MAX), \
+                                                            random.randint(MP_Y_LIM_MIN, MP_Y_LIM_MAX), \
+                                                            random.randint(MP_Z_LIM_MIN, MP_Z_LIM_MAX)
+        fitness = distance.euclidean(position_xyz,target_xyz)
+#        fitness = A * n + ((position_xyz[0] * position_xyz[0]) - A * cos(2 * pi * position_xyz[0])) \
+#                  + ((position_xyz[1] * position_xyz[1]) - A * cos(2 * pi * position_xyz[1])) \
+#                  + ((position_xyz[2] * position_xyz[2]) - A * cos(2 * pi * position_xyz[2]))
+        xs.append(position_xyz[0])
+        ys.append(position_xyz[1])
+        zs.append(position_xyz[2])
+        c.append(fitness)
+
+    #print("xs,ys,zs: ", xs,ys,zs)
+    #print("c: ",c)
+
+    czs = randrange(SAMPLE_SIZE, 0, 100)
+    colmap = cm.ScalarMappable(cmap=cm.hsv)
+    colmap.set_array(c)
+
+    # calculate the max euclidean distance in this search space
+    max_euclidean = distance.euclidean((MP_X_LIM_MAX,MP_Y_LIM_MAX,MP_Z_LIM_MAX),(MP_X_LIM_MIN,MP_Y_LIM_MIN,MP_Z_LIM_MIN))
+    print("max_euclidean: ", max_euclidean)
+    s = [25 for n in range(SAMPLE_SIZE)] # the size of each point on the fitness landscape
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111, projection='3d')
+    ax1.set_autoscale_on(False)
+    ax1.scatter(xs,ys,zs,s=s,c=cm.hsv(c/max(c)))
+    plt.colorbar(colmap)
+    ax1.set_xlim(0,MP_X_LIM_MAX)
+    ax1.set_ylim(0,MP_Y_LIM_MAX)
+    ax1.set_zlim(0,MP_Z_LIM_MAX)
+    ax1.set_ylabel('y', fontsize=14)
+    ax1.set_xlabel('x', fontsize=14)
+    ax1.set_zlabel('z', fontsize=14)
+    ax1.view_init(30,135)
+    plt.title("Moving Point - Fitness Landscape ")
+    plt.show()
+#
+#    plt.savefig(
+#         'fitnesslandscape.pdf')
+#    plt.close()
+
+
+#    from plotly import tools
+#    import plotly
+#    from plotly.graph_objs import Scatter, Scatter3d, Layout, Figure, Histogram
+#    trace1 = Scatter3d(x=xs, y=ys, z=zs,
+#                       mode='markers',
+#                       marker=dict(
+#                           # color='rgb(127, 127, 127)',
+#                           color='blue',
+#                           size=4,
+#                           symbol='circle',
+#                       ),
+#                       opacity=0.9,
+#                       name='Population'
+#                       )
+#    data = [trace1]
+#    plotly.offline.plot([trace1])
+
+
+if __name__ == "__main__":
+    visualiselandscape(sys.argv)
