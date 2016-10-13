@@ -13,13 +13,13 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 1000,
+        'GENERATIONS': 200,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
 
         # Class of problem
-        'PROBLEM': "moving_point_spiral",
+        'PROBLEM': "moving_point_step",
         # "regression"
         # "string_match"
         # "moving_point"
@@ -45,6 +45,7 @@ params = {
 
         # Flag to run dynamic environment loop which changes the target fitness function
         'DYNAMIC_ENVIRONMENT': True,
+        'DYNAMIC_ENVIRONMENT_RELOAD': False,
         # N.B.
         # as well as writing the dynamic fitness function,
         # the user must also specify the move_target function in fitness.move_target.py
@@ -107,7 +108,7 @@ params = {
         'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
         #Baseline steps
-        'BASELINE_STEPS': False,
+        'BASELINE_STEPS': True,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -216,7 +217,7 @@ params = {
         'MACHINE': machine_name,
 
         # Set Random Seed
-        'RANDOM_SEED': None
+        'RANDOM_SEED': 1
 }
 
 
