@@ -106,6 +106,9 @@ params = {
         'CIRCLE_GROW_SPEED': 10,
         'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
+        #Baseline steps
+        'BASELINE_STEPS': False,
+
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
         'CODON_SIZE': 100000,
@@ -244,7 +247,8 @@ def set_params(command_line_args):
                                     "invalid_selection", "silent",
                                     "dont_lookup_fitness", "experiment_name=",
                                     "multicore", "cores=", "vision_enabled=",
-                                    "field_of_vision=", "mp_target_file="])
+                                    "field_of_vision=", "mp_target_file=",
+                                    "baseline_steps"])
     except getopt.GetoptError as err:
         print("Most parameters need a value associated with them \n",
               "Run python ponyge.py --help for more info")
@@ -343,6 +347,9 @@ def set_params(command_line_args):
             params['MPV_INDIVIDUAL_FIELD_OF_VISION'] = float(arg)
         elif opt == "--mp_target_file":
             params['MP_TARGET_FILE'] = arg
+
+        elif opt == "--baseline_steps":
+            params['BASELINE_STEPS'] = True
 
         # OPTIONS
         elif opt == "--random_seed":

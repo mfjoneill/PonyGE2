@@ -3,25 +3,29 @@ from operators.crossover import crossover
 from operators.mutation import mutation
 from operators.replacement import replacement
 from operators.selection import selection
+from algorithm.parameters import params
 
 
 def step(individuals):
     """Return individuals and best ever individual from a step of
     the EA iteration"""
 
-    # Select parents
-    parents = selection(individuals)
+    if params['BASELINE_STEPS']:
+        individuals = evaluation(individuals)
+    else:
+        # Select parents
+        parents = selection(individuals)
 
-    # Crossover parents and add to the new population
-    cross_pop = crossover(parents)
+        # Crossover parents and add to the new population
+        cross_pop = crossover(parents)
 
-    # Mutate the new population
-    new_pop = mutation(cross_pop)
+        # Mutate the new population
+        new_pop = mutation(cross_pop)
 
-    # Evaluate the fitness of the new population
-    new_pop = evaluation(new_pop)
+        # Evaluate the fitness of the new population
+        new_pop = evaluation(new_pop)
 
-    # Replace the sorted individuals with the new populations
-    individuals = replacement(new_pop, individuals)
+        # Replace the sorted individuals with the new populations
+        individuals = replacement(new_pop, individuals)
 
     return individuals
