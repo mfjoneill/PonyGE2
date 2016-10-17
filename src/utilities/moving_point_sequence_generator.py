@@ -79,7 +79,7 @@ def get_point_on_sphere(point, radius):
            not_found = False
     return (x, y, z)
 
-def generate_sequence_with_fixed_amplitude(name, max_p=1000, interval=None,
+def generate_sequence_with_fixed_amplitude(name, max_p=10000, interval=None,
                                    seed=None, amplitude=None):
     points = []
     dists = []
