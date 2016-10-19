@@ -72,7 +72,7 @@ def search_loop_complete_evals():
 
 def search_dynamic_loop():
     """Loop over max generations in a dynamic fitness environment"""
-
+    #print("search_dynamic_loop")
     # Initialise population
     individuals = params['INITIALISATION'](params['POPULATION_SIZE'])
 
@@ -84,15 +84,15 @@ def search_dynamic_loop():
 
     # if 'PROBLEM' == "moving_point"
     # display the population & the target
-    if params['PROBLEM'] in ("moving_point", "moving_point_vision", "moving_point_step"):
-        display_3D_population(individuals,0)
-        display_3D_plotly_population(individuals, 0)
-    elif params['PROBLEM'] == "moving_point_spiral":
-        display_3D_population(individuals,0,'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
-        display_3D_plotly_population(individuals, 0)
+    #if params['PROBLEM'] in ("moving_point", "moving_point_vision", "moving_point_step"):
+        #display_3D_population(individuals,0)
+        #display_3D_plotly_population(individuals, 0)
+    #elif params['PROBLEM'] == "moving_point_spiral":
+        #display_3D_population(individuals,0,'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
+        #display_3D_plotly_population(individuals, 0)
         # plot.ly dashboard
-    elif params['PROBLEM'] in ("moving_point_dual", "new_problem_here"):
-        display_3D_population_dual_target(individuals, 0)
+    #elif params['PROBLEM'] in ("moving_point_dual", "new_problem_here"):
+        #display_3D_population_dual_target(individuals, 0)
 
     # Traditional GE
     for generation in range(1, (params['GENERATIONS']+1)):
@@ -103,26 +103,26 @@ def search_dynamic_loop():
 
         # Do we change the fitness environment?
         if generation%params['DYNAMIC_ENVIRONMENT_PERIOD'] == 0:
-            print("----+CHANGE FITNESS TARGET+----")
+            #print("----+CHANGE FITNESS TARGET+----")
             if params['PROBLEM'] == "moving_point":
                 move_target()
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
             elif params['PROBLEM'] == "moving_point_vision":
                 move_target_vision_avoid(individuals)
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
             elif params['PROBLEM'] == "moving_point_step":
                 move_target_step(generation,'DYNAMIC_ENVIRONMENT_TARGET')
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
             elif params['PROBLEM'] == "moving_point_spiral":
                 move_target_spiral(generation,'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET_SPIRAL'])
             elif params['PROBLEM'] == "moving_point_dual":
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET' , 'MP_DESTINATION_INDEX')
                 move_target_vision_avoid_alt(individuals, 'DYNAMIC_ENVIRONMENT_TARGET_ALT' , 'MP_DESTINATION_INDEX_ALT')
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'], params['DYNAMIC_ENVIRONMENT_TARGET_ALT'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'], params['DYNAMIC_ENVIRONMENT_TARGET_ALT'])
             elif params['PROBLEM'] == "moving_point_realworld":
                 move_target_realworldmapping()
-                print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
+                #print("gen: ", generation, "\t target: ", params['DYNAMIC_ENVIRONMENT_TARGET'])
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
@@ -134,19 +134,20 @@ def search_dynamic_loop():
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target
-        if params['PROBLEM'] in ("moving_point","moving_point_vision","moving_point_step","moving_point_realworld","new_problem_here"):
-            display_3D_population(individuals,generation)
-            display_3D_plotly_population(individuals, generation)
-        elif params['PROBLEM'] == "moving_point_spiral":
-            display_3D_population(individuals, generation, 'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
-        elif params['PROBLEM'] in ("moving_point_dual","new_problem_here"):
-            display_3D_population_dual_target(individuals, generation)
+        #if params['PROBLEM'] in ("moving_point","moving_point_vision","moving_point_step","moving_point_realworld","new_problem_here"):
+            #display_3D_population(individuals,generation)
+            #display_3D_plotly_population(individuals, generation)
+        #elif params['PROBLEM'] == "moving_point_spiral":
+            #display_3D_population(individuals, generation, 'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL')
+        #elif params['PROBLEM'] in ("moving_point_dual","new_problem_here"):
+            #display_3D_population_dual_target(individuals, generation)
 
 
     return individuals
 
 def search_dynamic_reload_loop():
     """Loop over max generations in a dynamic fitness environment"""
+    #print("search_dynamic_reload_loop")
 
     # Initialise population
     individuals = params['INITIALISATION'](params['POPULATION_SIZE'])

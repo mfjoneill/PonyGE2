@@ -141,9 +141,9 @@ def save_3Dgenotype_movie():
             #print("__genotype[i+1][0]:", __genotype[i+1][0], type(__genotype[i+1][0]))
             #            print("__genotype[i+1][0][1]:", __genotype[i+1][1][0], type(__genotype[i+1][1][0]))
             #            print("__genotype[i+1][0][2]:", __genotype[i+1][2][0], type(__genotype[i+1][2][0]))
-            nextx.append(float(__genotype[i+1][0]))
-            nexty.append(float(__genotype[i+1][1]))
-            nextz.append(float(__genotype[i+1][2]))
+            nextx.append(float(__genotype[i][0]))
+            nexty.append(float(__genotype[i][1]))
+            nextz.append(float(__genotype[i][2]))
             xs, ys, zs = xs + nextx, ys + nexty, zs + nextz
 
         c = ['r'] + icolor
@@ -168,7 +168,7 @@ def save_3Dgenotype_movie():
 
     filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/3Dgenotypes'
     fps = 1
-    duration = params['GENERATIONS']+1
+    duration = params['GENERATIONS']
     animation = VideoClip(make_frame, duration=duration)
     #animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video

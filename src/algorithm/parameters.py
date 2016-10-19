@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 200,
+        'GENERATIONS': 10000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -85,8 +85,9 @@ params = {
         'MP_TARGET_LIST': None,
         #'MP_TARGET_FILE': "/datasets/1_step.csv",
         #'MP_TARGET_FILE': "/datasets/10_steps.csv",
-        'MP_TARGET_FILE': "/datasets/20_steps.csv",
-        #'MP_TARGET_FILE': "/datasets/random.csv",
+        #'MP_TARGET_FILE': "/datasets/20_steps.csv",
+        #'MP_TARGET_FILE': "/datasets/random_10.csv",
+        'MP_TARGET_FILE': "/datasets/random.csv",
 
         # "field of vision" for individuals in the population for moving_point_vision problem
         'MPV_INDIVIDUAL_FIELD_OF_VISION': 0.1,
@@ -108,7 +109,7 @@ params = {
         'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
         #Baseline steps
-        'BASELINE_STEPS': True,
+        'BASELINE_STEPS': False,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
@@ -183,7 +184,7 @@ params = {
         'SAVE_ALL': False,
         # Use this to save the phenotype of the best individual from each
         # generation. Can generate a lot of files. DEBUG must be False.
-        'SAVE_PLOTS': True,
+        'SAVE_PLOTS': False,
         # Saves a plot of the evolution of the best fitness result for each
         # generation.
 

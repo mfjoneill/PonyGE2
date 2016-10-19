@@ -193,7 +193,7 @@ def move_target_vision_avoid_alt(individuals,target,index):
 
 def move_target_step(generation, target):
     params[target] = params['MP_TARGET_LIST'][generation]
-    print(params[target])
+    #print(params[target])
 
 def move_target_spiral(generation, target):
     circle_speed = params['CIRCLE_SPEED']

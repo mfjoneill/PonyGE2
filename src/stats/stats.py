@@ -97,7 +97,7 @@ def get_stats(individuals, end=False):
         stats['fitness_variation'] = variation(fitnesses)
         stats['fitness_iqr'] = iqr(fitnesses)
         stats['fitness_std'] = tstd(fitnesses)
-        trackers.fitness_list.append(fitnesses)
+        #trackers.fitness_list.append(fitnesses)
 
         # calculate accuracy & stability
         # used as performance metrics in dynamic environments
@@ -121,33 +121,35 @@ def get_stats(individuals, end=False):
         # Convex Hull Volume (3D Dynamic Environment)
         if (params['PROBLEM'] in ['moving_point', 'moving_point_spiral', 'moving_point_vision','moving_point_step']):
             # store x,y,z of population in genotype_list
-            track_xyz(individuals)
+            #track_xyz(individuals)
             # calculate convex hull volume
             from utilities.trackers import genotype_list
             import numpy as np
             from scipy.spatial import ConvexHull
             #print("genotype_list: ",genotype_list)
-            if len(genotype_list) != 0:
-                __genotype = copy(genotype_list[(stats['gen'])])
-                #print("gen: ", stats['gen'])
-                #print("genotypes[gen0]:",__genotype)
-                __genotype.remove(stats['gen'])
-                #print("2genotypes[gen0]:",__genotype)
-                __points = []
-                for i in range(params['POPULATION_SIZE']):
-                    #print("i: ", i)
-                    #print("__genotype[xyz]", __genotype[i])
-                    #print("__genotype[x]", __genotype[i][0])
-                    #print("__genotype[y]", __genotype[i][1])
-                    #print("__genotype[z]", __genotype[i][2])
-                    __points.append([float(__genotype[i][0]), float(__genotype[i][1]), float(__genotype[i][2])])
-                #print("__points: ",__points)
-                __garray = np.array(__points)
-                #print("__garray: ",__garray)
-                __cv = ConvexHull(__garray)
-                #print("__cv: ",__cv)
-                #print("__cvv: ",__cv.volume)
-                stats['convexhullvolume'] = __cv.volume
+            #if len(genotype_list) != 0:
+            #    __genotype = copy(genotype_list[(stats['gen'])])
+            #    #print("gen: ", stats['gen'])
+            #    #print("genotypes[gen0]:",__genotype)
+            #    __genotype.remove(stats['gen'])
+            #    #print("2genotypes[gen0]:",__genotype)
+            __points = []
+            for i in range(params['POPULATION_SIZE']):
+                next_xyz = individuals[i].phenotype.split()
+                __genotype = [float(next_xyz[0]), float(next_xyz[1]), float(next_xyz[2])]
+                #print("i: ", i)
+                #print("__genotype[xyz]", __genotype[i])
+                #print("__genotype[x]", __genotype[i][0])
+                #print("__genotype[y]", __genotype[i][1])
+                #print("__genotype[z]", __genotype[i][2])
+                __points.append([float(__genotype[0]), float(__genotype[1]), float(__genotype[2])])
+            #print("__points: ",__points)
+            __garray = np.array(__points)
+            #print("__garray: ",__garray)
+            __cv = ConvexHull(__garray)
+            #print("__cv: ",__cv)
+            #print("__cvv: ",__cv.volume)
+            stats['convexhullvolume'] = __cv.volume
 
     # Save fitness plot information
     if params['SAVE_PLOTS'] and not params['DEBUG']:

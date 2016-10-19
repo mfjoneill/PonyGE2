@@ -10,6 +10,7 @@ from copy import deepcopy
 def step(individuals):
     """Return individuals and best ever individual from a step of
     the EA iteration"""
+    #print("normal step")
 
     if params['BASELINE_STEPS']:
         individuals = evaluation(individuals)

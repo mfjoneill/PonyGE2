@@ -26,6 +26,9 @@ def mane():
     # Set Grammar File
     params['BNF_GRAMMAR'] = grammar.Grammar(params['GRAMMAR_FILE'])
 
+
+    #print("[step]: ",params['MP_TARGET_FILE'])
+
     # Run evolution
     individuals = search_loop.search_loop_wheel()
 
@@ -40,6 +43,6 @@ if __name__ == "__main__":
     mane()
 
     # dump an ave_fitness plot for the run
-    from utilities import trackers, save_plots
-    data = [i['ave_fitness'] for i in trackers.stats_list]
-    save_plots.save_plot_from_data(data, 'ave_fitness')
+    #from utilities import trackers, save_plots
+    #data = [i['ave_fitness'] for i in trackers.stats_list]
+    #save_plots.save_plot_from_data(data, 'ave_fitness')
