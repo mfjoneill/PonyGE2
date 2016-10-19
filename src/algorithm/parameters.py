@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 10000,
+        'GENERATIONS': 1000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -176,7 +176,7 @@ params = {
         # PRINTING
         # Use this to print out basic statistics for each generation to the
         # command line.
-        'VERBOSE': False,
+        'VERBOSE': True,
         # Use this to prevent anything being printed to the command line.
         'SILENT': False,
 

@@ -172,10 +172,11 @@ def get_stats(individuals, end=False):
 
 
     # Print statistics
-    if params['VERBOSE']:
-        if not end:
-            print_stats()
-    elif not params['SILENT']:
+    #if params['VERBOSE']:
+        #if not end:
+            #print_stats()
+    #elif not params['SILENT']:
+    if not params['SILENT']:
         perc = stats['gen'] / (params['GENERATIONS']+1) * 100
         stdout.write("Evolution: %d%% complete\r" % perc)
         stdout.flush()
@@ -244,13 +245,17 @@ def print_final_stats():
 def save_stats(end=False):
     """Write the results to a results file for later analysis"""
     if params['VERBOSE']:
-        filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + \
-                   "/stats.tsv"
-        savefile = open(filename, 'a')
-        for stat in sorted(stats.keys()):
-            savefile.write(str(stat) + "\t" + str(stats[stat]) + "\t")
-        savefile.write("\n")
-        savefile.close()
+        if stats['gen']==0:
+            save_stats_headers()
+        else:
+            filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + \
+                       "/stats.tsv"
+            savefile = open(filename, 'a')
+            for stat in sorted(stats.keys()):
+                #savefile.write(str(stat) + "\t" + str(stats[stat]) + "\t")
+                savefile.write(str(stats[stat]) + "\t")
+            savefile.write("\n")
+            savefile.close()
 
     elif end:
         filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + \
