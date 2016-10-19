@@ -2,7 +2,7 @@ import random
 from scipy.spatial import distance
 from math import pi,cos,sin,acos
 
-def generate_sequence(name, max_p=10000,interval=None, seed=None):
+def generate_sequence(name, max_p=10000,interval=None, seed=None,max_s=20):
     points = []
     dists = []
     if seed is None:
@@ -13,7 +13,7 @@ def generate_sequence(name, max_p=10000,interval=None, seed=None):
     while len(points)<max_p:
         if interval is None:
             gard = max_p - len(points)
-            seq_len = random.randrange(1,20)
+            seq_len = random.randrange(1,max_s)
             new_point = (random.randint(0, 10000),
                            random.randint(0, 10000),
                            random.randint(0, 10000))
