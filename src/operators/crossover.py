@@ -59,6 +59,36 @@ def onepoint(p_0, p_1, within_used=True):
     return [ind_0, ind_1]
 
 
+def fixedlength_onepoint(p_0, p_1, within_used=True):
+    """Given two individuals, create two children using fixed-length one-point crossover
+    (i.e., like a GA with a single locus shared between both parents)
+    and return them."""
+
+    # Get the chromosomes
+    c_p_0, c_p_1 = p_0.genome, p_1.genome
+
+    # Uniformly generate a single crossover point.
+    if within_used:
+        max_p_0, max_p_1 = p_0.used_codons, p_1.used_codons
+    else:
+        max_p_0 = len(c_p_0)
+
+    pt_p_0 = randint(1, max_p_0)
+
+    # Make new chromosomes by crossover: these slices perform copies
+    if random() < params['CROSSOVER_PROBABILITY']:
+        c_0 = c_p_0[:pt_p_0] + c_p_1[pt_p_0:]
+        c_1 = c_p_1[:pt_p_0] + c_p_0[pt_p_0:]
+    else:
+        c_0, c_1 = c_p_0[:], c_p_1[:]
+
+    # Put the new chromosomes into new individuals
+    ind_0 = individual.Individual(c_0, None)
+    ind_1 = individual.Individual(c_1, None)
+
+    return [ind_0, ind_1]
+
+
 def subtree(p_0, p_1):
     """Given two individuals, create two children using subtree crossover and
     return them."""

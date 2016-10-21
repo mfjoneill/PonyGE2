@@ -119,11 +119,11 @@ params = {
         'GRID_SIZE': 64,
         #or 64, 125
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
         #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
-        #"operators.initialisation.random_init"
+        'INITIALISATION': "operators.initialisation.random_init",
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
@@ -144,6 +144,7 @@ params = {
 
         # CROSSOVER
         'CROSSOVER': "operators.crossover.onepoint",
+        # 'CROSSOVER': "operators.crossover.fixedlength_onepoint",
         # "operators.crossover.onepoint",
         # "operators.crossover.subtree",
         'CROSSOVER_PROBABILITY': 0.75,
