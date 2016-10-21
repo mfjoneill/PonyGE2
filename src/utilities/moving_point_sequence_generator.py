@@ -21,13 +21,13 @@ def generate_sequence(name, max_p=10000,interval=None, seed=None,max_s=20):
                 for i in range(gard):
                     points.append(new_point)
                     dists.append(distance.euclidean(prev_point,new_point))
-                    print(dists)
+                    #print(dists)
                     prev_point = new_point
             else:
                 for i in range(seq_len):
                     points.append(new_point)
                     dists.append(distance.euclidean(prev_point, new_point))
-                    print(dists)
+                    #print(dists)
                     prev_point = new_point
         elif interval > 1:
             gard = max_p - len(points)
@@ -147,22 +147,23 @@ def read_target_points(filename):
     return points
 
 if __name__ == "__main__":
-    print("Uncomment as needed")
+    #print("Uncomment as needed")
     #generate_sequence('random')
     #generate_sequence('10_steps',interval=10)
     #generate_sequence('20_steps',interval=20)
     #generate_sequence('1_step',interval=1)
+    generate_sequence('longrandom',max_p=100000,max_s=50)
 
-    max_distance = distance.euclidean((0,0,0),(10000,10000,10000))
-    print("First")
-    generate_sequence_with_fixed_amplitude('random_10', amplitude = max_distance*0.1)
-    print("Second")
-    generate_sequence_with_fixed_amplitude('random_30',
-                                           amplitude= max_distance * 0.3)
-    print("Third")
-    generate_sequence_with_fixed_amplitude('random_50',
-                                           amplitude= max_distance * 0.5)
-    print("Fourth")
-    generate_sequence_with_fixed_amplitude('random_70',
-                                           amplitude=max_distance * 0.7)
+    #max_distance = distance.euclidean((0,0,0),(10000,10000,10000))
+    #print("First")
+    #generate_sequence_with_fixed_amplitude('random_10', amplitude = max_distance*0.1)
+    #print("Second")
+    #generate_sequence_with_fixed_amplitude('random_30',
+    #                                       amplitude= max_distance * 0.3)
+    #print("Third")
+    #generate_sequence_with_fixed_amplitude('random_50',
+    #                                       amplitude= max_distance * 0.5)
+    #print("Fourth")
+    #generate_sequence_with_fixed_amplitude('random_70',
+    #                                       amplitude=max_distance * 0.7)
     #read_target_points('1_step.csv')

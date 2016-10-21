@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 1000,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -114,21 +114,21 @@ params = {
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
         'CODON_SIZE': 100000,
-        'GENOME_LENGTH': 500,
+        'GENOME_LENGTH': 13,
 
         #for grid init
         'GRID_SIZE': 64,
         #or 64, 125
         # INITIALISATION
-        'INITIALISATION': "operators.initialisation.rhh",
+        #'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
         #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
-        #"operators.initialisation.random_init"
-        # "operators.initialisation.rhh"
+        'INITIALISATION': "operators.initialisation.random_init",
+        #
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
-        'GENOME_INIT': False,
+        'GENOME_INIT': True,
         # If True, initialises individuals by generating random genomes (i.e.
         # doesn't use trees to initialise individuals).
 
@@ -144,7 +144,8 @@ params = {
         # Allow for selection of invalid individuals during selection process.
 
         # CROSSOVER
-        'CROSSOVER': "operators.crossover.onepoint",
+        'CROSSOVER': "operators.crossover.fixedlength_onepoint",
+        # "operators.crossover.fixedlength_onepoint",
         # "operators.crossover.onepoint",
         # "operators.crossover.subtree",
         'CROSSOVER_PROBABILITY': 0.75,
