@@ -13,6 +13,7 @@ import time
 from utilities import trackers
 
 
+
 def display_3D_population(individuals,generation,target='DYNAMIC_ENVIRONMENT_TARGET'):
     """
     Displays each individual in the moving_point population
@@ -111,7 +112,7 @@ def display_3D_plotly_population(individuals,generation):
         #
         xyz = params['DYNAMIC_ENVIRONMENT_TARGET']
         txs, tys, tzs = [], [], []
-        # print("xyz:", xyz)
+        #print("xyz:", xyz)
         txs.append(xyz[0])
         tys.append(xyz[1])
         tzs.append(xyz[2])
@@ -133,7 +134,7 @@ def display_3D_plotly_population(individuals,generation):
         xs, ys, zs = [], [], []
         for i in range(params['POPULATION_SIZE']):
             next_xyz = individuals[i].phenotype.split()
-            # print("next_xyz:",next_xyz)
+            #print("next_xyz:",next_xyz)
             nextx, nexty, nextz = [], [], []
             nextx.append(float(next_xyz[0]))
             nexty.append(float(next_xyz[1]))
@@ -173,7 +174,7 @@ def display_3D_plotly_population(individuals,generation):
                           marker=dict(
                               # color='rgb(127, 127, 127)',
                               color='blue',
-                              size=6,
+                              size=8,
                               symbol='circle-open',
                           ),
                           opacity=0.9,
@@ -236,7 +237,9 @@ def display_3D_plotly_population(individuals,generation):
         #fig.append_trace(trace5,1,1)
         #fig.append_trace(trace6,1,1)
 
-        data = [trace4,trace4a,trace5,trace6,trace6a]
+        #data = [trace4,trace4a,trace5,trace6,trace6a]
+        print("pre trace4,trace5")
+        data = [trace4, trace5]
         #plotly.offline.plot(data)
         title = ""#"Moving Point - Generation " + str(generation)
         #fig['layout'].update(title=title, legend=dict(orientation='h'),
@@ -249,7 +252,7 @@ def display_3D_plotly_population(individuals,generation):
                             yaxis1=dict(title='Fitness',type='log'),
                             #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
                             xaxis=dict(title='Generations'),
-                            yaxis2=dict(title='Entropy/Variation/IQR',side='right',overlaying='y',type='linear',autorange=True)
+                            yaxis2=dict(title='Entropy',side='right',overlaying='y',type='linear',autorange=True)
                         )
         fig2 = Figure(data=data,layout=layout)
         filename = "movingpointdisplay_fitness.html"
@@ -259,54 +262,54 @@ def display_3D_plotly_population(individuals,generation):
 
         # plot correlations
         #
-        trace7 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_variation_list,
-                          mode='markers',
-                          marker=dict(
-                              color='black',
-                              size=4,
-                              symbol='circle-open',
-                          ),
-                          opacity=0.9,
-                          name='Variation',
-                          xaxis='x2'
-                          )
-        data = [trace7]
-        title = "Best Fitness vs Variation"
-        layout = Layout(title=title, legend=dict(orientation='h'),
-                            #yaxis=dict(range=[0,100000]),
-                            yaxis=dict(title='Best Fitness'),
-                            #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
-                            xaxis=dict(title='Variation')
-                        )
-        figcorr1 = Figure(data=data,layout=layout)
-        filename = "movingpointdisplay_fitness_variation.html"
-        if not params['JUPYTER']:
-            mpdfitvarcorr_div = plotly.offline.plot(figcorr1,filename=filename,auto_open=True,output_type='div',show_link=False)
+        #trace7 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_variation_list,
+        #                  mode='markers',
+        #                  marker=dict(
+        #                      color='black',
+        #                      size=4,
+        #                      symbol='circle-open',
+        #                  ),
+        #                  opacity=0.9,
+        #                  name='Variation',
+        #                  xaxis='x2'
+        #                  )
+        #data = [trace7]
+        #title = "Best Fitness vs Variation"
+        #layout = Layout(title=title, legend=dict(orientation='h'),
+        #                    #yaxis=dict(range=[0,100000]),
+        #                    yaxis=dict(title='Best Fitness'),
+        #                    #xaxis=dict(range=[0,params['GENERATIONS']],title='Generation')
+        #                    xaxis=dict(title='Variation')
+        #                )
+        #figcorr1 = Figure(data=data,layout=layout)
+        #filename = "movingpointdisplay_fitness_variation.html"
+        #if not params['JUPYTER']:
+        #    mpdfitvarcorr_div = plotly.offline.plot(figcorr1,filename=filename,auto_open=True,output_type='div',show_link=False)
 
-        trace8 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_entropy_list,
-                          mode='markers',
-                          marker=dict(
-                              color='red',
-                              size=4,
-                              symbol='circle',
-                          ),
-                          opacity=0.9,
-                          name='Entropy',
-                          xaxis='x3'
-                          )
-        data = [trace7,trace8]
-        title = ""#"Best Fitness vs Entropy"
-        layout = Layout(title=title, legend=dict(orientation='v'),
-                            yaxis=dict(title='Best Fitness'),
-                            xaxis2=dict(title='Variation',autorange=True),
-                            xaxis3=dict(title='Entropy',overlaying='x2',side='top',autorange=True)
-                        )
-        figcorr2 = Figure(data=data,layout=layout)
-        filename = "movingpointdisplay_fitness_entropy.html"
-        if not params['JUPYTER']:
-            mpdfitentropycorr_div = plotly.offline.plot(figcorr2,filename=filename,auto_open=True,output_type='div',show_link=False)
+        #trace8 = Scatter(y=trackers.best_fitness_list, x=trackers.fitness_entropy_list,
+        #                  mode='markers',
+        #                  marker=dict(
+        #                      color='red',
+        #                      size=4,
+        #                      symbol='circle',
+        #                  ),
+        #                  opacity=0.9,
+        #                  name='Entropy',
+        #                  xaxis='x3'
+        #                  )
+        #data = [trace7,trace8]
+        #title = ""#"Best Fitness vs Entropy"
+        #layout = Layout(title=title, legend=dict(orientation='v'),
+        #                    yaxis=dict(title='Best Fitness'),
+        #                    xaxis2=dict(title='Variation',autorange=True),
+        #                    xaxis3=dict(title='Entropy',overlaying='x2',side='top',autorange=True)
+        #                )
+        #figcorr2 = Figure(data=data,layout=layout)
+        #filename = "movingpointdisplay_fitness_entropy.html"
+        #if not params['JUPYTER']:
+        #    mpdfitentropycorr_div = plotly.offline.plot(figcorr2,filename=filename,auto_open=True,output_type='div',show_link=False)
 
-
+        print("fitness histogram generation....")
         # Create fitness histogram plot
         #
         # retrieve a fitness list for the population
@@ -351,7 +354,7 @@ def display_3D_plotly_population(individuals,generation):
 #            plt.close()
 
 
-
+        #print("generating test.html")
         if not params['JUPYTER']:
             file_html = open('test.html','w')
             file_html.write('<html>')
@@ -360,23 +363,28 @@ def display_3D_plotly_population(individuals,generation):
             #file_html.write('</div>')
             #another row
             file_html.write('''<div style="width: 100%;">''')
-            file_html.write('''<div style="width: 50%; height: 300; float: left;">''')
+            file_html.write('''<div style="width: 50%; height: 1200; float: left;">''')
             file_html.write(mpd_div)
-            #file_html.write(mpdfitvarcorr_div)
-            file_html.write(mpdfitentropycorr_div)
+            #print("generating test.html:1")
+            ##file_html.write(mpdfitvarcorr_div)
+            #file_html.write(mpdfitentropycorr_div)
             file_html.write('</div>')
 
-            file_html.write('''<div style="width: 50%; height: 300; display: inline-block;">''')
+            file_html.write('''<div style="width: 50%; height: 600; display: inline-block;">''')
             file_html.write(mpdfd_div)
+            #print("generating test.html:2")
             file_html.write(mpdfit_div)
+            #print("generating test.html:3")
             file_html.write('</div>')
             file_html.write('</div>')
             # another row
             file_html.write('</html>')
             file_html.close()
             import webbrowser
-            webbrowser.open('file:///Users/mike/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
+            webbrowser.open('file:///Volumes/HD-PATU3/work/PyCharmProjects/PonyGE2/src/test.html',new=0)
             time.sleep(1)
+            #print("generating test.html:4")
+
 
         if (params['JUPYTER']):
             fig4 = tools.make_subplots(rows=2, specs=[[{'is_3d': True}], [{'is_3d': False}]])

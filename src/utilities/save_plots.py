@@ -4,7 +4,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 plt.rc('font', family='Times New Roman')
-
+from copy import copy
 
 def save_best_fitness_plot():
     """
@@ -118,7 +118,8 @@ def save_3Dgenotype_movie():
     def make_frame(t):
         """ returns an image of the frame at time t """
         # ... create the frame with any library
-        __genotype = genotype_list[int(t)]
+        #print("[                      t: ",t,"                       ]")
+        __genotype = copy(genotype_list[int(t)])
         #print("__genotype:", __genotype)
         #print("__genotype[1]:", __genotype[1],type(__genotype[1]))
         #print("__genotype[1][0]:", __genotype[1][0],type(__genotype[1][0]))
@@ -138,12 +139,14 @@ def save_3Dgenotype_movie():
         for i in range(params['POPULATION_SIZE']):
             icolor.append('b')
             nextx, nexty, nextz = [], [], []
-            #print("__genotype[i+1][0]:", __genotype[i+1][0], type(__genotype[i+1][0]))
-            #            print("__genotype[i+1][0][1]:", __genotype[i+1][1][0], type(__genotype[i+1][1][0]))
-            #            print("__genotype[i+1][0][2]:", __genotype[i+1][2][0], type(__genotype[i+1][2][0]))
-            nextx.append(float(__genotype[i+1][0]))
-            nexty.append(float(__genotype[i+1][1]))
-            nextz.append(float(__genotype[i+1][2]))
+            #print("__genotype[i]: ",__genotype[i])
+            #print("__genotype[i][0]:", __genotype[i][0], type(__genotype[i][0]))
+            #print("__genotype[i][1]:", __genotype[i][1], type(__genotype[i][1]))
+            #print("__genotype[i][2]:", __genotype[i][2], type(__genotype[i][2]))
+
+            nextx.append(float(__genotype[i][0]))
+            nexty.append(float(__genotype[i][1]))
+            nextz.append(float(__genotype[i][2]))
             xs, ys, zs = xs + nextx, ys + nexty, zs + nextz
 
         c = ['r'] + icolor
@@ -168,7 +171,7 @@ def save_3Dgenotype_movie():
 
     filename = params['FILE_PATH'] + str(params['TIME_STAMP']) + '/3Dgenotypes'
     fps = 1
-    duration = params['GENERATIONS']+1
+    duration = params['GENERATIONS']
     animation = VideoClip(make_frame, duration=duration)
     #animation.resize(width=1280,height=720)
     animation.write_videofile(filename+".mp4", fps=fps)  # export as video

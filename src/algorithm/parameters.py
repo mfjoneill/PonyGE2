@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 200,
+        'GENERATIONS': 1000,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -93,9 +93,9 @@ params = {
         'MPV_VISION_ENABLED': False,
 
         # generate movies for dyanmic problems
-        'MOVIE': False,
+        'MOVIE': True,
         # generate plot.ly charts/dashboard for dynamic problems
-        'PLOTLY': False,
+        'PLOTLY': True,
         # generate plot.ly charts/dashboard for dynamic problems
         # when in a Jupyter Notebook environment
         'JUPYTER': False,
@@ -108,12 +108,13 @@ params = {
         'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
         #Baseline steps
-        'BASELINE_STEPS': True,
+        'BASELINE_STEPS': False,
 
     # Set max sizes of individuals
         'MAX_TREE_DEPTH': 17,
         'CODON_SIZE': 100000,
-        'GENOME_LENGTH': 500,
+        'GENOME_LENGTH': 13,
+        #'GENOME_LENGTH': 500,
 
         #for grid init
         'GRID_SIZE': 64,
@@ -127,7 +128,7 @@ params = {
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
-        'GENOME_INIT': False,
+        'GENOME_INIT': True,
         # If True, initialises individuals by generating random genomes (i.e.
         # doesn't use trees to initialise individuals).
 
@@ -143,8 +144,8 @@ params = {
         # Allow for selection of invalid individuals during selection process.
 
         # CROSSOVER
-        'CROSSOVER': "operators.crossover.onepoint",
-        # 'CROSSOVER': "operators.crossover.fixedlength_onepoint",
+        #'CROSSOVER': "operators.crossover.onepoint",
+        'CROSSOVER': "operators.crossover.fixedlength_onepoint",
         # "operators.crossover.onepoint",
         # "operators.crossover.subtree",
         'CROSSOVER_PROBABILITY': 0.75,
