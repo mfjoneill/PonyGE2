@@ -137,6 +137,69 @@ def generate_sequence_with_fixed_amplitude(name, max_p=10000, interval=None,
     f.close()
     g.close()
 
+def generate_sequence_with_fixed_occilation(name, max_p=10000, interval=None,
+                                   seed=None, amplitude=4999):
+    points = []
+    dists = []
+    amp = amplitude
+    if seed is None:
+        random.seed(12345)
+    else:
+        random.seed(seed)
+    prev_point = (5000-amp, 5000-amp, 5000-amp)
+    points.append(prev_point)
+    dists.append(0)
+    while len(points) < max_p:
+        if interval is None:
+            gard = max_p - len(points)
+            seq_len = random.randrange(1, 20)
+            new_point = (5000-amp, 5000-amp, 5000-amp)
+            amp = amp*-1
+            print(new_point)
+            if seq_len > gard:
+                for i in range(gard):
+                    points.append(new_point)
+                    dists.append(distance.euclidean(prev_point, new_point))
+                    prev_point = new_point
+            else:
+                for i in range(seq_len):
+                    points.append(new_point)
+                    dists.append(distance.euclidean(prev_point, new_point))
+                    prev_point = new_point
+        elif interval > 1:
+            gard = max_p - len(points)
+            new_point = (5000 - amp, 5000 - amp, 5000 - amp)
+            amp = amp * -1
+            if interval > gard:
+                for i in range(gard):
+                    points.append(new_point)
+                    dists.append(distance.euclidean(prev_point, new_point))
+                    prev_point = new_point
+            else:
+                for i in range(interval):
+                    points.append(new_point)
+                    dists.append(distance.euclidean(prev_point, new_point))
+                    prev_point = new_point
+        elif interval == 1:
+            new_point = (5000 - amp, 5000 - amp, 5000 - amp)
+            amp = amp * -1
+            points.append(new_point)
+            dists.append(distance.euclidean(prev_point, new_point))
+            prev_point = new_point
+        else:
+            print("Specify an interval greater than 0 "
+                  "or else provide no interval for random interval")
+            exit()
+
+    f = open(name + '.csv', 'w')
+    g = open(name + '_dists.csv', 'w')
+    for i in range(len(points)):
+        f.write("%d,%d,%d\n" % points[i])
+        g.write("%d\n" % dists[i])
+    f.close()
+    g.close()
+
+
 def read_target_points(filename):
     points = []
     f = open(filename, 'r')
@@ -154,15 +217,88 @@ if __name__ == "__main__":
     #generate_sequence('1_step',interval=1)
 
     max_distance = distance.euclidean((0,0,0),(10000,10000,10000))
-    print("First")
-    generate_sequence_with_fixed_amplitude('random_10', amplitude = max_distance*0.1)
-    print("Second")
-    generate_sequence_with_fixed_amplitude('random_30',
-                                           amplitude= max_distance * 0.3)
-    print("Third")
-    generate_sequence_with_fixed_amplitude('random_50',
-                                           amplitude= max_distance * 0.5)
-    print("Fourth")
-    generate_sequence_with_fixed_amplitude('random_70',
-                                           amplitude=max_distance * 0.7)
+#    print("First")
+#    generate_sequence_with_fixed_amplitude('random_10', amplitude =  max_distance*0.1)
+#    print("Second")
+#    generate_sequence_with_fixed_amplitude('random_30',
+#                                           amplitude= max_distance * 0.3)
+#    print("Third")
+#    generate_sequence_with_fixed_amplitude('random_50',
+#                                           amplitude= max_distance * 0.5)
+#    print("Fourth")
+#    generate_sequence_with_fixed_amplitude('random_70',
+#                                           amplitude=max_distance * 0.7)
+
+
+    generate_sequence_with_fixed_occilation('osc_fixed_1_500', amplitude=499,
+                                            interval=1)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_10_500',
+                                            amplitude=499,
+                                            interval=10)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_20_500',
+                                            amplitude=499,
+                                            interval=20)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_40_500',
+                                            amplitude=499,
+                                            interval=40)
+
+    generate_sequence_with_fixed_occilation('osc_random_500', amplitude=499)
+
+
+    generate_sequence_with_fixed_occilation('osc_fixed_1_1250', amplitude=1249,
+                                            interval=1)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_10_1250',
+                                            amplitude=1249,
+                                            interval=10)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_20_1250',
+                                            amplitude=1249,
+                                            interval=20)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_40_1250',
+                                            amplitude=1249,
+                                            interval=40)
+
+    generate_sequence_with_fixed_occilation('osc_random_1250', amplitude=1249)
+
+
+    generate_sequence_with_fixed_occilation('osc_fixed_1_2500', amplitude=2499,
+                                            interval=1)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_10_2500',
+                                            amplitude=2499,
+                                            interval=10)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_20_2500',
+                                            amplitude=2499,
+                                            interval=20)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_40_2500',
+                                            amplitude=2499,
+                                            interval=40)
+
+    generate_sequence_with_fixed_occilation('osc_random_2500', amplitude=2499)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_1_5000', amplitude=4999,
+                                            interval=1)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_10_5000',
+                                            amplitude=4999,
+                                            interval=10)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_20_5000',
+                                            amplitude=4999,
+                                            interval=20)
+
+    generate_sequence_with_fixed_occilation('osc_fixed_40_5000',
+                                            amplitude=4999,
+                                            interval=40)
+
+    generate_sequence_with_fixed_occilation('osc_random_5000', amplitude=4999)
+
+
     #read_target_points('1_step.csv')
