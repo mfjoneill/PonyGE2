@@ -27,6 +27,41 @@ def int_flip(ind):
 
     return new_ind
 
+def int_flip_constrained(ind):
+    """Mutate the individual by randomly choosing a new int with probability
+    p_mut. Works per-codon, hence no need for "within_used" option."""
+    leading_zeros = ['','0','00','000','0000','00000']
+
+    if params['MUTATION_PROBABILITY']:
+        p_mut = params['MUTATION_PROBABILITY']
+    else:
+        p_mut = params['MUTATION_EVENTS']/len(ind.genome)
+
+    gaurd = str(0) + leading_zeros[params['MP_X_LIM_zeros']] + str(params['MP_X_LIM']) \
+            + leading_zeros[params['MP_X_LIM_zeros']] + str(params['MP_Y_LIM']) \
+            + leading_zeros[params['MP_X_LIM_zeros']] + str(params['MP_Z_LIM'])
+
+    print(gaurd)
+    for i in range(len(ind.genome)):
+        if random() < p_mut:
+            #Need to put guard in to make sure we don't exceed max values.
+            a = False
+            while not a:
+                new_codon = randint(0, params['CODON_SIZE'])
+                if(int(gaurd[i]) == 0):
+                    #mutate to another zero
+                    a = True
+                    ind.genome[i] = 0
+                elif(new_codon%10 < int(gaurd[i])):
+                    a = True
+                    ind.genome[i] = new_codon
+                else:
+                    a = False
+
+    new_ind = individual.Individual(ind.genome, None)
+
+    return new_ind
+
 
 def subtree(ind):
     """Mutate the individual by replacing a randomly selected subtree with a

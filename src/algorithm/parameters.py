@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 1000,
+        'GENERATIONS': 10,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -68,6 +68,12 @@ params = {
         'MP_X_LIM_MAX': 10000,
         'MP_Y_LIM_MAX': 10000,
         'MP_Z_LIM_MAX': 10000,
+        'MP_X_LIM': 500,
+        'MP_Y_LIM': 500,
+        'MP_Z_LIM': 500,
+        'MP_X_LIM_zeros': 1,
+        'MP_Y_LIM_zeros': 1,
+        'MP_Z_LIM_zeros': 1,
         'MP_X_LIM_MIN': 0,
         'MP_Y_LIM_MIN': 0,
         'MP_Z_LIM_MIN': 0,
@@ -95,7 +101,7 @@ params = {
         # generate movies for dyanmic problems
         'MOVIE': True,
         # generate plot.ly charts/dashboard for dynamic problems
-        'PLOTLY': True,
+        'PLOTLY': False,
         # generate plot.ly charts/dashboard for dynamic problems
         # when in a Jupyter Notebook environment
         'JUPYTER': False,
@@ -124,7 +130,7 @@ params = {
         #'INITIALISATION': "operators.initialisation.grid_init",
         #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
-        'INITIALISATION': "operators.initialisation.random_init",
+        'INITIALISATION': "operators.initialisation.test_init",
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
@@ -151,7 +157,7 @@ params = {
         'CROSSOVER_PROBABILITY': 0.75,
 
         # MUTATION
-        'MUTATION': "operators.mutation.int_flip",
+        'MUTATION': "operators.mutation.int_flip_constrained",
         # "operators.mutation.subtree",
         # "operators.mutation.int_flip",
         'MUTATION_PROBABILITY': None,

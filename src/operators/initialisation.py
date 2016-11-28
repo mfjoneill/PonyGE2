@@ -172,6 +172,21 @@ def grid_init(size):
                     [0, (index[x] + 10), 0, 0, 0, (index[y] + 10), 0, 0, 0,(index[z] + 10), 0, 0, 0], None))
     return population
 
+def test_init(size):
+    """
+    Initialise to a grid of points where points are int values
+    :return:
+    """
+    population = []
+    for i in range(size):
+        #The first zero is for a unit production!!!!!!!
+        population.append(individual.Individual([0,0, 0, randint(0, 19), randint(0, 19),
+                                                 0, 0, randint(0, 19),
+                                                 randint(0, 19),
+                                                 0, 0, randint(0, 19), randint(0, 19)], None))
+
+    return population
+
 def random_plus_grid_init(size):
     """
     Initialise to a grid of points where points are int values
