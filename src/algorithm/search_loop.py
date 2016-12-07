@@ -178,7 +178,6 @@ def search_dynamic_reload_loop():
         stats['gen'] = generation
 
         # New generation
-        individuals = step.step_reload(individuals,reload_initial_pop)
 
         # Do we change the fitness environment?
         if generation%params['DYNAMIC_ENVIRONMENT_PERIOD'] == 0:
@@ -205,10 +204,10 @@ def search_dynamic_reload_loop():
 
             # Re-evaluate the entire population with this new fitness target
             individuals = evaluate_fitness.evaluate_fitness(individuals)
-            reload_initial_pop = evaluate_fitness.evaluate_fitness(reload_initial_pop)
             # Reset the population level statistics
             #get_stats(individuals) # this also generates an additional entry/gen in the reports e.g.,stats.csv
 
+        individuals = step.step_reload(individuals, reload_initial_pop)
         # Generate statistics for run so far
         get_stats(individuals, reset=params['RELOAD_PERFORMED'])
 
