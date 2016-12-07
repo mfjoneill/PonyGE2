@@ -43,13 +43,18 @@ def step_reload(individuals,initial_population):
 
     # Evaluate the fitness of the new population
     new_pop = evaluation(new_pop)
-    initial_population = evaluation(initial_population)
-    individuals = replacement(new_pop, individuals)
-
-    initial_population.sort(reverse=True)
-    individuals.sort(reverse=True)
-    if individuals[0].fitness > initial_population[0].fitness:
+    new_pop.sort(reverse=True)
+    if new_pop[0].fitness > params['RESET_FITNESS']:
         print("RESETTING POP")
+        initial_population = evaluation(initial_population)
+        initial_population.sort(reverse=True)
+        params['RESET_FITNESS'] = initial_population[0].fitness
+        print("Reload Threshold now: "+ str(params['RESET_FITNESS']))
+        params['RELOAD_PERFORMED'] = 1
         individuals = deepcopy(initial_population)
+    else:
+        individuals = replacement(new_pop, individuals)
+        individuals.sort(reverse=True)
+        params['RELOAD_PERFORMED'] = 0
 
     return individuals

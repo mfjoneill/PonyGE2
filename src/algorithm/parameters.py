@@ -13,7 +13,7 @@ machine_name = hostname[0]
 params = {
         # Evolutionary Parameters
         'POPULATION_SIZE': 500,
-        'GENERATIONS': 10,
+        'GENERATIONS': 100,
 
         # Set optional experiment name
         'EXPERIMENT_NAME': None,
@@ -45,7 +45,7 @@ params = {
 
         # Flag to run dynamic environment loop which changes the target fitness function
         'DYNAMIC_ENVIRONMENT': True,
-        'DYNAMIC_ENVIRONMENT_RELOAD': False,
+        'DYNAMIC_ENVIRONMENT_RELOAD': True,
         # N.B.
         # as well as writing the dynamic fitness function,
         # the user must also specify the move_target function in fitness.move_target.py
@@ -113,6 +113,9 @@ params = {
         'CIRCLE_GROW_SPEED': 10,
         'DYNAMIC_ENVIRONMENT_TARGET_SPIRAL': (5000.0,5000.0,0.0),
 
+
+        'RESET_FITNESS' : 1000000000,
+        'RELOAD_PERFORMED' : 0,
         #Baseline steps
         'BASELINE_STEPS': False,
 
@@ -126,11 +129,15 @@ params = {
         'GRID_SIZE': 64,
         #or 64, 125
         # INITIALISATION
-        #'INITIALISATION': "operators.initialisation.rhh",
+        'INITIALISATION': "operators.initialisation.rhh",
         #'INITIALISATION': "operators.initialisation.grid_init",
         #'INITIALISATION': "operators.initialisation.random_plus_grid_init",
         #Grid needs a pop of 125
-        'INITIALISATION': "operators.initialisation.test_init",
+
+        #
+        #ST intialiser
+        #'INITIALISATION': "operators.initialisation.test_init",
+        #
         # "operators.initialisation.rhh"
         'MAX_INIT_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
@@ -157,9 +164,11 @@ params = {
         'CROSSOVER_PROBABILITY': 0.75,
 
         # MUTATION
-        'MUTATION': "operators.mutation.int_flip_constrained",
+        #ST Mutation
+        #'MUTATION': "operators.mutation.int_flip_constrained",
+        #
         # "operators.mutation.subtree",
-        # "operators.mutation.int_flip",
+        'MUTATION': "operators.mutation.int_flip",
         'MUTATION_PROBABILITY': None,
         'MUTATION_EVENTS': 1,
 

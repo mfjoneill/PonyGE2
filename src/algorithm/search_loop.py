@@ -153,6 +153,9 @@ def search_dynamic_reload_loop():
 
     # Evaluate initial population
     individuals = evaluate_fitness.evaluate_fitness(individuals)
+    #Set the intial limit for resetting!!!
+    individuals.sort(reverse=True)
+    params['RESET_FITNESS'] = individuals[0].fitness
     reload_initial_pop = deepcopy(individuals)
 
     # Generate statistics for run so far
@@ -207,7 +210,7 @@ def search_dynamic_reload_loop():
             #get_stats(individuals) # this also generates an additional entry/gen in the reports e.g.,stats.csv
 
         # Generate statistics for run so far
-        get_stats(individuals)
+        get_stats(individuals, reset=params['RELOAD_PERFORMED'])
 
         # if 'PROBLEM' == "moving_point"
         # display the population & the target

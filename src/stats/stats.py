@@ -41,11 +41,12 @@ stats = {
         "fitness_std": 0,
         "convexhullvolume": 0,
         "accuracy": 0,
-        "stability": 0
+        "stability": 0,
+        "reload":0
 }
 
 
-def get_stats(individuals, end=False):
+def get_stats(individuals, end=False, reset=0):
     """Generate the statistics for an evolutionary run"""
 
     if end or params['VERBOSE'] or not params['DEBUG']:
@@ -117,6 +118,7 @@ def get_stats(individuals, end=False):
         __stability = abs(__acc-trackers.accuracy_list[stats['gen']-1])
         #print("__stability: ", __stability)
         stats['stability'] = __stability
+        stats["reload"] = reset
 
         # Convex Hull Volume (3D Dynamic Environment)
         if (params['PROBLEM'] in ['moving_point', 'moving_point_spiral', 'moving_point_vision','moving_point_step']):
