@@ -199,6 +199,23 @@ def generate_sequence_with_fixed_occilation(name, max_p=10000, interval=None,
     f.close()
     g.close()
 
+def generate_sequence_for_spring(name, max_p=10000, initial_point=500, amplitude=0.5):
+    points = []
+    dists = []
+    amp = amplitude
+    prev_point = (5000-amp, 5000-amp, 5000-amp)
+    points.append(prev_point)
+    dists.append(0)
+    temp_a=[(initial_point, initial_point, initial_point)]*max_p
+    temp_b=[(initial_point+(initial_point*amplitude), initial_point+(initial_point*amplitude), initial_point+(initial_point*amplitude))]*max_p
+
+    points = temp_a+temp_b
+
+    f = open(name + '.csv', 'w')
+    for i in range(len(points)):
+        f.write("%d,%d,%d\n" % points[i])
+    f.close()
+
 
 def read_target_points(filename):
     points = []
@@ -230,75 +247,102 @@ if __name__ == "__main__":
 #                                           amplitude=max_distance * 0.7)
 
 
-    generate_sequence_with_fixed_occilation('osc_fixed_1_500', amplitude=499,
-                                            interval=1)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_10_500',
-                                            amplitude=499,
-                                            interval=10)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_20_500',
-                                            amplitude=499,
-                                            interval=20)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_40_500',
-                                            amplitude=499,
-                                            interval=40)
-
-    generate_sequence_with_fixed_occilation('osc_random_500', amplitude=499)
-
-
-    generate_sequence_with_fixed_occilation('osc_fixed_1_1250', amplitude=1249,
-                                            interval=1)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_10_1250',
-                                            amplitude=1249,
-                                            interval=10)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_20_1250',
-                                            amplitude=1249,
-                                            interval=20)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_40_1250',
-                                            amplitude=1249,
-                                            interval=40)
-
-    generate_sequence_with_fixed_occilation('osc_random_1250', amplitude=1249)
+    generate_sequence_for_spring('spring_10_percent', max_p=200, initial_point=500, amplitude=0.1)
+    generate_sequence_for_spring('spring_25_percent', max_p=200, initial_point=500, amplitude=0.25)
+    generate_sequence_for_spring('spring_50_percent', max_p=200, initial_point=500, amplitude=0.5)
+    generate_sequence_for_spring('spring_75_percent', max_p=200, initial_point=500, amplitude=0.75)
+    generate_sequence_for_spring('spring_100_percent', max_p=200, initial_point=500, amplitude=1)
+    generate_sequence_for_spring('spring_105_percent', max_p=200, initial_point=500, amplitude=1.05)
+    generate_sequence_for_spring('spring_110_percent', max_p=200, initial_point=500, amplitude=1.10)
+    generate_sequence_for_spring('spring_125_percent', max_p=200, initial_point=500, amplitude=1.25)
+    generate_sequence_for_spring('spring_150_percent', max_p=200, initial_point=500, amplitude=1.50)
+    generate_sequence_for_spring('spring_175_percent', max_p=200, initial_point=500, amplitude=1.75)
+    generate_sequence_for_spring('spring_200_percent', max_p=200, initial_point=500, amplitude=2)
+    generate_sequence_for_spring('spring_300_percent', max_p=200, initial_point=500, amplitude=3)
+    generate_sequence_for_spring('spring_400_percent', max_p=200, initial_point=500, amplitude=4)
+    generate_sequence_for_spring('spring_500_percent', max_p=200, initial_point=500, amplitude=5)
+    generate_sequence_for_spring('spring_600_percent', max_p=200, initial_point=500, amplitude=6)
+    generate_sequence_for_spring('spring_700_percent', max_p=200, initial_point=500, amplitude=7)
+    generate_sequence_for_spring('spring_800_percent', max_p=200, initial_point=500, amplitude=8)
+    generate_sequence_for_spring('spring_900_percent', max_p=200, initial_point=500, amplitude=9)
+    generate_sequence_for_spring('spring_1000_percent', max_p=200, initial_point=500, amplitude=10)
+    generate_sequence_for_spring('spring_1100_percent', max_p=200, initial_point=500, amplitude=11)
+    generate_sequence_for_spring('spring_1200_percent', max_p=200, initial_point=500, amplitude=12)
+    generate_sequence_for_spring('spring_1300_percent', max_p=200, initial_point=500, amplitude=13)
+    generate_sequence_for_spring('spring_1400_percent', max_p=200, initial_point=500, amplitude=14)
+    generate_sequence_for_spring('spring_1500_percent', max_p=200, initial_point=500, amplitude=15)
 
 
-    generate_sequence_with_fixed_occilation('osc_fixed_1_2500', amplitude=2499,
-                                            interval=1)
 
-    generate_sequence_with_fixed_occilation('osc_fixed_10_2500',
-                                            amplitude=2499,
-                                            interval=10)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_20_2500',
-                                            amplitude=2499,
-                                            interval=20)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_40_2500',
-                                            amplitude=2499,
-                                            interval=40)
-
-    generate_sequence_with_fixed_occilation('osc_random_2500', amplitude=2499)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_1_5000', amplitude=4999,
-                                            interval=1)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_10_5000',
-                                            amplitude=4999,
-                                            interval=10)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_20_5000',
-                                            amplitude=4999,
-                                            interval=20)
-
-    generate_sequence_with_fixed_occilation('osc_fixed_40_5000',
-                                            amplitude=4999,
-                                            interval=40)
-
-    generate_sequence_with_fixed_occilation('osc_random_5000', amplitude=4999)
+    # generate_sequence_with_fixed_occilation('osc_fixed_1_500', amplitude=499,
+    #                                         interval=1)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_10_500',
+    #                                         amplitude=499,
+    #                                         interval=10)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_20_500',
+    #                                         amplitude=499,
+    #                                         interval=20)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_40_500',
+    #                                         amplitude=499,
+    #                                         interval=40)
+    #
+    # generate_sequence_with_fixed_occilation('osc_random_500', amplitude=499)
+    #
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_1_1250', amplitude=1249,
+    #                                         interval=1)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_10_1250',
+    #                                         amplitude=1249,
+    #                                         interval=10)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_20_1250',
+    #                                         amplitude=1249,
+    #                                         interval=20)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_40_1250',
+    #                                         amplitude=1249,
+    #                                         interval=40)
+    #
+    # generate_sequence_with_fixed_occilation('osc_random_1250', amplitude=1249)
+    #
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_1_2500', amplitude=2499,
+    #                                         interval=1)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_10_2500',
+    #                                         amplitude=2499,
+    #                                         interval=10)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_20_2500',
+    #                                         amplitude=2499,
+    #                                         interval=20)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_40_2500',
+    #                                         amplitude=2499,
+    #                                         interval=40)
+    #
+    # generate_sequence_with_fixed_occilation('osc_random_2500', amplitude=2499)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_1_5000', amplitude=4999,
+    #                                         interval=1)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_10_5000',
+    #                                         amplitude=4999,
+    #                                         interval=10)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_20_5000',
+    #                                         amplitude=4999,
+    #                                         interval=20)
+    #
+    # generate_sequence_with_fixed_occilation('osc_fixed_40_5000',
+    #                                         amplitude=4999,
+    #                                         interval=40)
+    #
+    # generate_sequence_with_fixed_occilation('osc_random_5000', amplitude=4999)
 
 
     #read_target_points('1_step.csv')
