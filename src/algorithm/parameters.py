@@ -45,7 +45,10 @@ params = {
 
         # Flag to run dynamic environment loop which changes the target fitness function
         'DYNAMIC_ENVIRONMENT': True,
+        #Need to add these to command line args
         'DYNAMIC_ENVIRONMENT_RELOAD': True,
+        'DYNAMIC_ENVIRONMENT_RELOAD_PERCENTAGE': True,
+        'DYNAMIC_ENVIRONMENT_RELOAD_PERCENTAGE_VALUE': 0.5,
         # N.B.
         # as well as writing the dynamic fitness function,
         # the user must also specify the move_target function in fitness.move_target.py
